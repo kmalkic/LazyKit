@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		49C435DF1C4836090070728B /* LazyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C435DE1C4836090070728B /* LazyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436071C4836BA0070728B /* LazyBaseViewController.swift */; };
+		49C4360B1C4836BA0070728B /* LazyBaseProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436081C4836BA0070728B /* LazyBaseProtocols.swift */; };
+		49C4360C1C4836BA0070728B /* LazyUIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436091C4836BA0070728B /* LazyUIFactory.swift */; };
+		49C436211C483F5D0070728B /* ElementOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436201C483F5D0070728B /* ElementOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		49C435DB1C4836090070728B /* LazyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LazyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C435DE1C4836090070728B /* LazyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyKit.h; sourceTree = "<group>"; };
 		49C435E01C4836090070728B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49C436071C4836BA0070728B /* LazyBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseViewController.swift; sourceTree = "<group>"; };
+		49C436081C4836BA0070728B /* LazyBaseProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseProtocols.swift; sourceTree = "<group>"; };
+		49C436091C4836BA0070728B /* LazyUIFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyUIFactory.swift; sourceTree = "<group>"; };
+		49C436201C483F5D0070728B /* ElementOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,9 +55,21 @@
 			isa = PBXGroup;
 			children = (
 				49C435DE1C4836090070728B /* LazyKit.h */,
+				49C436061C4836B00070728B /* Classes */,
 				49C435E01C4836090070728B /* Info.plist */,
 			);
 			path = LazyKit;
+			sourceTree = "<group>";
+		};
+		49C436061C4836B00070728B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				49C436071C4836BA0070728B /* LazyBaseViewController.swift */,
+				49C436081C4836BA0070728B /* LazyBaseProtocols.swift */,
+				49C436091C4836BA0070728B /* LazyUIFactory.swift */,
+				49C436201C483F5D0070728B /* ElementOptions.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C4360B1C4836BA0070728B /* LazyBaseProtocols.swift in Sources */,
+				49C436211C483F5D0070728B /* ElementOptions.swift in Sources */,
+				49C4360C1C4836BA0070728B /* LazyUIFactory.swift in Sources */,
+				49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,26 +252,33 @@
 		49C435E41C4836090070728B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CONFIGURATION_BUILD_DIR = LazyKit/Frameworks;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = LazyKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kevinmalkic.LazyKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		49C435E51C4836090070728B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CONFIGURATION_BUILD_DIR = LazyKit/Frameworks;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = LazyKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -276,6 +307,7 @@
 				49C435E51C4836090070728B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -12,7 +12,7 @@ internal class LazyUIFactory {
 
     internal class func label(option: LabelOptions) -> UILabel {
 		
-		let label = UILabel(frame: CGRectZero)
+		let label = option.classType.init(frame: CGRectZero)
         label.backgroundColor = option.viewOptions.backgroundColor
 		label.textAlignment = option.textOptions.textAlignment
 		label.numberOfLines = option.textOptions.numberOfLines
@@ -27,7 +27,7 @@ internal class LazyUIFactory {
     
     internal class func button(option: ButtonOptions) -> UIButton {
         
-        let button = UIButton(type: option.type)
+        let button = option.classType.init(type: option.type)
         button.backgroundColor = option.viewOptions.backgroundColor
         
         if let titleLabel = button.titleLabel, textOptions = option.textOptionsForType?[.Normal] {

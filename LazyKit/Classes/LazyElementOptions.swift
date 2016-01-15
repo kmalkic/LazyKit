@@ -53,36 +53,40 @@ public protocol ElementOptions {
 
 public struct LabelOptions : ElementOptions {
     
+    public var classType = UILabel.self
     public var viewOptions: ViewBaseOptions
     public let textOptions: TextBaseOptions
     
-    public init(viewOptions: ViewBaseOptions, textOptions: TextBaseOptions) {
+    public init(classType: UILabel.Type? = nil, viewOptions: ViewBaseOptions, textOptions: TextBaseOptions) {
         
         self.viewOptions = viewOptions
         self.textOptions = textOptions
-    }
-}
-
-extension UIControlState: Hashable {
-    
-    public var hashValue: Int {
         
-        return Int(rawValue)
+        if classType != nil {
+            
+            self.classType = classType!
+        }
     }
 }
 
 public struct ButtonOptions : ElementOptions {
     
+    public var classType = UIButton.self
     public var viewOptions: ViewBaseOptions
     public let textOptionsForType: [UIControlState: TextBaseOptions]?
     
     public let type: UIButtonType
     
-    public init(type: UIButtonType = .Custom, viewOptions: ViewBaseOptions, textOptionsForType: [UIControlState: TextBaseOptions]? = nil) {
+    public init(classType: UIButton.Type? = nil, type: UIButtonType = .Custom, viewOptions: ViewBaseOptions, textOptionsForType: [UIControlState: TextBaseOptions]? = nil) {
         
         self.viewOptions = viewOptions
         self.textOptionsForType = textOptionsForType
         self.type = type
+        
+        if classType != nil {
+            
+            self.classType = classType!
+        }
     }
 }
 

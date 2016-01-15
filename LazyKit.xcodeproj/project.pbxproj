@@ -12,6 +12,7 @@
 		49C4360B1C4836BA0070728B /* LazyBaseProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436081C4836BA0070728B /* LazyBaseProtocols.swift */; };
 		49C4360C1C4836BA0070728B /* LazyUIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436091C4836BA0070728B /* LazyUIFactory.swift */; };
 		49C436211C483F5D0070728B /* LazyElementOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436201C483F5D0070728B /* LazyElementOptions.swift */; };
+		49C436231C489C1C0070728B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436221C489C1C0070728B /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		49C436081C4836BA0070728B /* LazyBaseProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseProtocols.swift; sourceTree = "<group>"; };
 		49C436091C4836BA0070728B /* LazyUIFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyUIFactory.swift; sourceTree = "<group>"; };
 		49C436201C483F5D0070728B /* LazyElementOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyElementOptions.swift; sourceTree = "<group>"; };
+		49C436221C489C1C0070728B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				49C436081C4836BA0070728B /* LazyBaseProtocols.swift */,
 				49C436091C4836BA0070728B /* LazyUIFactory.swift */,
 				49C436201C483F5D0070728B /* LazyElementOptions.swift */,
+				49C436221C489C1C0070728B /* Extensions.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C436231C489C1C0070728B /* Extensions.swift in Sources */,
 				49C4360B1C4836BA0070728B /* LazyBaseProtocols.swift in Sources */,
 				49C436211C483F5D0070728B /* LazyElementOptions.swift in Sources */,
 				49C4360C1C4836BA0070728B /* LazyUIFactory.swift in Sources */,

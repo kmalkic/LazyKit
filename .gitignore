@@ -57,3 +57,4 @@ Carthage/Build
 
 fastlane/report.xml
 fastlane/screenshots
+LazyKit/Frameworks/LazyKit.framework

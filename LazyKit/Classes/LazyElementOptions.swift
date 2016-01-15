@@ -63,23 +63,25 @@ public struct LabelOptions : ElementOptions {
     }
 }
 
+extension UIControlState: Hashable {
+    
+    public var hashValue: Int {
+        
+        return Int(rawValue)
+    }
+}
+
 public struct ButtonOptions : ElementOptions {
     
     public var viewOptions: ViewBaseOptions
-    public let normalTextOptions: TextBaseOptions?
-    public let highlightTextOptions: TextBaseOptions?
-    public let selectedTextOptions: TextBaseOptions?
-    public let disabledTextOptions: TextBaseOptions?
+    public let textOptionsForType: [UIControlState: TextBaseOptions]?
     
     public let type: UIButtonType
     
-    public init(type: UIButtonType = .Custom,viewOptions: ViewBaseOptions, normalTextOptions: TextBaseOptions? = nil, highlightTextOptions: TextBaseOptions? = nil, selectedTextOptions: TextBaseOptions? = nil, disabledTextOptions: TextBaseOptions? = nil) {
+    public init(type: UIButtonType = .Custom, viewOptions: ViewBaseOptions, textOptionsForType: [UIControlState: TextBaseOptions]? = nil) {
         
         self.viewOptions = viewOptions
-        self.normalTextOptions = normalTextOptions
-        self.highlightTextOptions = highlightTextOptions
-        self.selectedTextOptions = selectedTextOptions
-        self.disabledTextOptions = disabledTextOptions
+        self.textOptionsForType = textOptionsForType
         self.type = type
     }
 }

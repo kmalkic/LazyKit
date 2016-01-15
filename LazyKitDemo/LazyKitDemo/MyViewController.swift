@@ -16,7 +16,7 @@ class MyConf: LazyViewConfigurations {
 		return [
 			LabelOptions(viewOptions: ViewBaseOptions(identifier: "title", backgroundColor: .blueColor()), textOptions: TextBaseOptions(text: "hello", textAlignment: .Center)),
 			LabelOptions(viewOptions: ViewBaseOptions(identifier: "subtitle", backgroundColor: .greenColor()), textOptions: TextBaseOptions(text: "hello", textAlignment: .Center)),
-            ButtonOptions(viewOptions: ViewBaseOptions(identifier: "button", backgroundColor: .redColor()), normalTextOptions: TextBaseOptions(text: "button", textAlignment: .Center))
+            ButtonOptions(viewOptions: ViewBaseOptions(identifier: "button", backgroundColor: .redColor()), textOptionsForType: [.Normal: TextBaseOptions(text: "button"), .Highlighted: TextBaseOptions(text: "highlighted")] )
 		]
 	}
 	

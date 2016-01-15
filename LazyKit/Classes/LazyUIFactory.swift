@@ -30,25 +30,34 @@ internal class LazyUIFactory {
         let button = UIButton(type: option.type)
         button.backgroundColor = option.viewOptions.backgroundColor
         
-        if let titleLabel = button.titleLabel, normalTextOptions = option.normalTextOptions {
+        if let titleLabel = button.titleLabel, textOptions = option.textOptionsForType?[.Normal] {
             
-            titleLabel.textAlignment = normalTextOptions.textAlignment
-            titleLabel.numberOfLines = normalTextOptions.numberOfLines
-            titleLabel.font = normalTextOptions.font
-            titleLabel.adjustsFontSizeToFitWidth =  normalTextOptions.adjustsFontSizeToFitWidth
+            titleLabel.textAlignment = textOptions.textAlignment
+            titleLabel.numberOfLines = textOptions.numberOfLines
+            titleLabel.font = textOptions.font
+            titleLabel.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth
+            
+            button.setTitle(textOptions.text, forState: .Normal)
+            button.setTitleColor(textOptions.textColor, forState: .Normal)
         }
         
-        button.setTitle(option.normalTextOptions?.text, forState: .Normal)
-        button.setTitleColor(option.normalTextOptions?.textColor, forState: .Normal)
-
-        button.setTitle(option.highlightTextOptions?.text, forState: .Highlighted)
-        button.setTitleColor(option.highlightTextOptions?.textColor, forState: .Highlighted)
+        if let textOptions = option.textOptionsForType?[.Highlighted] {
+            
+            button.setTitle(textOptions.text, forState: .Highlighted)
+            button.setTitleColor(textOptions.textColor, forState: .Highlighted)
+        }
         
-        button.setTitle(option.selectedTextOptions?.text, forState: .Selected)
-        button.setTitleColor(option.selectedTextOptions?.textColor, forState: .Selected)
+        if let textOptions = option.textOptionsForType?[.Selected] {
+            
+            button.setTitle(textOptions.text, forState: .Selected)
+            button.setTitleColor(textOptions.textColor, forState: .Selected)
+        }
         
-        button.setTitle(option.disabledTextOptions?.text, forState: .Disabled)
-        button.setTitleColor(option.disabledTextOptions?.textColor, forState: .Disabled)
+        if let textOptions = option.textOptionsForType?[.Disabled] {
+            
+            button.setTitle(textOptions.text, forState: .Disabled)
+            button.setTitleColor(textOptions.textColor, forState: .Disabled)
+        }
         
         button.translatesAutoresizingMaskIntoConstraints = false
         

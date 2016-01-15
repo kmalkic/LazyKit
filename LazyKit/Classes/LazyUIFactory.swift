@@ -36,27 +36,15 @@ internal class LazyUIFactory {
             titleLabel.numberOfLines = textOptions.numberOfLines
             titleLabel.font = textOptions.font
             titleLabel.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth
-            
-            button.setTitle(textOptions.text, forState: .Normal)
-            button.setTitleColor(textOptions.textColor, forState: .Normal)
         }
         
-        if let textOptions = option.textOptionsForType?[.Highlighted] {
+        if let textOptionsForType = option.textOptionsForType {
             
-            button.setTitle(textOptions.text, forState: .Highlighted)
-            button.setTitleColor(textOptions.textColor, forState: .Highlighted)
-        }
-        
-        if let textOptions = option.textOptionsForType?[.Selected] {
-            
-            button.setTitle(textOptions.text, forState: .Selected)
-            button.setTitleColor(textOptions.textColor, forState: .Selected)
-        }
-        
-        if let textOptions = option.textOptionsForType?[.Disabled] {
-            
-            button.setTitle(textOptions.text, forState: .Disabled)
-            button.setTitleColor(textOptions.textColor, forState: .Disabled)
+            for (state, textOptions) in textOptionsForType {
+                
+                button.setTitle(textOptions.text, forState: state)
+                button.setTitleColor(textOptions.textColor, forState: state)
+            }
         }
         
         button.translatesAutoresizingMaskIntoConstraints = false

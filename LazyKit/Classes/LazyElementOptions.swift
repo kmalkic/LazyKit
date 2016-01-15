@@ -12,15 +12,17 @@ import UIKit
 
 public struct ViewBaseOptions {
     
-    public let identifier: String?
     public let accessibilityIdentifier: String?
     public let backgroundColor: UIColor
+    public let tintColor: UIColor?
+    public let contentMode: UIViewContentMode
     
-    public init(identifier: String? = nil, accessibilityIdentifier: String? = nil, backgroundColor: UIColor = .clearColor()) {
+    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor = .clearColor(), tintColor: UIColor? = nil, contentMode: UIViewContentMode = .ScaleAspectFit) {
         
-        self.identifier = identifier
         self.accessibilityIdentifier = accessibilityIdentifier
         self.backgroundColor = backgroundColor
+        self.tintColor = tintColor
+        self.contentMode = contentMode
     }
 }
 
@@ -48,45 +50,72 @@ public struct TextBaseOptions {
 
 public protocol ElementOptions {
     
-    var viewOptions: ViewBaseOptions { get set }
+    var identifier: String? { get set }
+    var viewBaseOptions: ViewBaseOptions? { get set }
+}
+
+public struct ViewOptions : ElementOptions {
+    
+    public var identifier: String?
+    public var classType = UIView.self
+    public var viewBaseOptions: ViewBaseOptions?
+
+    public init(identifier: String? = nil, classType: UIView.Type = UIView.self, viewBaseOptions: ViewBaseOptions? = nil) {
+        
+        self.identifier = identifier
+        self.viewBaseOptions = viewBaseOptions
+        self.classType = classType
+    }
 }
 
 public struct LabelOptions : ElementOptions {
     
+    public var identifier: String?
     public var classType = UILabel.self
-    public var viewOptions: ViewBaseOptions
-    public let textOptions: TextBaseOptions
+    public var viewBaseOptions: ViewBaseOptions?
+    public let textOptions: TextBaseOptions?
     
-    public init(classType: UILabel.Type? = nil, viewOptions: ViewBaseOptions, textOptions: TextBaseOptions) {
+    public init(identifier: String? = nil, classType: UILabel.Type = UILabel.self, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil) {
         
-        self.viewOptions = viewOptions
+        self.identifier = identifier
+        self.viewBaseOptions = viewBaseOptions
         self.textOptions = textOptions
-        
-        if classType != nil {
-            
-            self.classType = classType!
-        }
+        self.classType = classType
     }
 }
 
 public struct ButtonOptions : ElementOptions {
     
+    public var identifier: String?
     public var classType = UIButton.self
-    public var viewOptions: ViewBaseOptions
+    public var viewBaseOptions: ViewBaseOptions?
     public let textOptionsForType: [UIControlState: TextBaseOptions]?
     
     public let type: UIButtonType
     
-    public init(classType: UIButton.Type? = nil, type: UIButtonType = .Custom, viewOptions: ViewBaseOptions, textOptionsForType: [UIControlState: TextBaseOptions]? = nil) {
+    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [UIControlState: TextBaseOptions]? = nil) {
         
-        self.viewOptions = viewOptions
+        self.identifier = identifier
+        self.viewBaseOptions = viewBaseOptions
         self.textOptionsForType = textOptionsForType
         self.type = type
+        self.classType = classType
+    }
+}
+
+public struct ImageOptions : ElementOptions {
+    
+    public var identifier: String?
+    public var classType = UIImageView.self
+    public var viewBaseOptions: ViewBaseOptions?
+    public let imageNamed: String?
+    
+    public init(identifier: String? = nil, classType: UIImageView.Type = UIImageView.self, viewBaseOptions: ViewBaseOptions? = nil, imageNamed: String? = nil) {
         
-        if classType != nil {
-            
-            self.classType = classType!
-        }
+        self.identifier = identifier
+        self.viewBaseOptions = viewBaseOptions
+        self.classType = classType
+        self.imageNamed = imageNamed
     }
 }
 

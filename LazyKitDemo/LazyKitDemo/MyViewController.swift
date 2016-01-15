@@ -17,12 +17,21 @@ class CustomLabel: UILabel {
 class MyConf: LazyViewConfigurations {
 
 	static func elementsOptions() -> [ElementOptions]? {
-	
-		return [
-            LabelOptions(classType: CustomLabel.self, viewOptions: ViewBaseOptions(identifier: "title", backgroundColor: .blueColor()), textOptions: TextBaseOptions(text: "hello", textAlignment: .Center)),
-			LabelOptions(viewOptions: ViewBaseOptions(identifier: "subtitle", backgroundColor: .greenColor()), textOptions: TextBaseOptions(text: "hello", textAlignment: .Center)),
-            ButtonOptions(viewOptions: ViewBaseOptions(identifier: "button", backgroundColor: .redColor()), textOptionsForType: [.Normal: TextBaseOptions(text: "button"), .Highlighted: TextBaseOptions(text: "highlighted")] )
-		]
+        
+        return [
+            LabelOptions(identifier: "title",
+                classType: CustomLabel.self,
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .blueColor()),
+                textOptions: TextBaseOptions(text: "hello", textAlignment: .Center)),
+            
+            LabelOptions(identifier: "subtitle",
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .greenColor()),
+                textOptions: TextBaseOptions(text: "hey", textAlignment: .Center)),
+            
+            ButtonOptions(identifier: "button",
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .redColor()),
+                textOptionsForType: [.Normal: TextBaseOptions(text: "button"), .Highlighted: TextBaseOptions(text: "highlighted")] )
+        ]
 	}
 	
 	static func visualFormatConstraintOptions() -> [VisualFormatConstraintOptions]? {

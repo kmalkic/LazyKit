@@ -12,7 +12,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 	
 	public typealias ViewConfigurations = T
 	
-	private var elements = [String: UIView]()
+	private var storedElements = [String: UIView]()
 	private var visualContraints = [String: [NSLayoutConstraint]]()
 	private var contraints = [String: NSLayoutConstraint]()
     
@@ -23,7 +23,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 	
     public func element<T: UIView>(identifier: String) -> T? {
 		
-		return elements[identifier] as? T
+		return storedElements[identifier] as? T
 	}
     
     public func layoutConstaints(identifier: String) -> [NSLayoutConstraint]? {
@@ -44,17 +44,17 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 						
 			for elementOptions in elementsOptions {
 			
-                if let identifier = elementOptions.viewOptions.identifier {
+                if let identifier = elementOptions.identifier {
                     
                     if let view = LazyUIFactory.element(elementOptions) {
                     
-                        elements[identifier] = view
+                        storedElements[identifier] = view
                     }
                 }
 			}
 		}
 		
-		for (_, element) in elements {
+		for (_, element) in storedElements {
 			
 			view.addSubview(element)
 		}
@@ -65,7 +65,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 			
 			for visualFormatConstraintOption in visualFormatConstraintOptions {
 				
-				let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualFormatConstraintOption.string, options: visualFormatConstraintOption.options, metrics: metrics, views: elements)
+				let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualFormatConstraintOption.string, options: visualFormatConstraintOption.options, metrics: metrics, views: storedElements)
 				
 				if let identifier = visualFormatConstraintOption.identifier {
 					

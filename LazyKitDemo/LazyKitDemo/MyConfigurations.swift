@@ -9,7 +9,7 @@
 import UIKit
 import LazyKit
 
-class MyConfigurations: LazyViewConfigurations {
+struct MyConfigurations: LazyViewConfigurations {
     
     static func elementsOptions() -> [ElementOptions]? {
         

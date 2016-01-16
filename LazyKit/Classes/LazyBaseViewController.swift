@@ -25,7 +25,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
         
         if let _ = view as? LazyBaseView<T> {
         
-            NSException(name: "Multiple use of LazyViewConfigurations", reason: "self.view connot be also using a LazyViewConfigurations", userInfo: nil).raise()
+            NSException(name: "Multiple use of LazyViewConfigurations", reason: "self.view cannot be also using a LazyViewConfigurations", userInfo: nil).raise()
         }
         
         viewManager = LazyViewManager(view: view)

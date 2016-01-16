@@ -27,6 +27,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     private func initialize() {
         
         if let view = view {
+            
             if let elementsOptions = ViewConfigurations.elementsOptions() {
                 
                 for elementOptions in elementsOptions {

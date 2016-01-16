@@ -35,12 +35,13 @@ $ gem install cocoapods
 
 To integrate LazyKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
+> **COMING UP (Not working yet!)**
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'LazyKit', '~> 3.0'
+pod 'LazyKit', '~> 1.0'
 ```
 
 Then, run the following command:

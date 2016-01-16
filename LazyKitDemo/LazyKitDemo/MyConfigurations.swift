@@ -1,22 +1,17 @@
 //
-//  MyViewController.swift
+//  MyConfigurations.swift
 //  LazyKitDemo
 //
-//  Created by Kevin Malkic on 14/01/2016.
+//  Created by Kevin Malkic on 16/01/2016.
 //  Copyright © 2016 Kevin Malkic. All rights reserved.
 //
 
 import UIKit
 import LazyKit
 
-class CustomLabel: UILabel {
+class MyConfigurations: LazyViewConfigurations {
     
-    
-}
-
-class MyConf: LazyViewConfigurations {
-
-	static func elementsOptions() -> [ElementOptions]? {
+    static func elementsOptions() -> [ElementOptions]? {
         
         return [
             LabelOptions(identifier: "title",
@@ -39,49 +34,29 @@ class MyConf: LazyViewConfigurations {
                 viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor()),
                 imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .ScaleAspectFill))
         ]
-	}
-	
-	static func visualFormatConstraintOptions() -> [VisualFormatConstraintOptions]? {
-	
-		return [
-			VisualFormatConstraintOptions(string: "H:|-[photo(==photoW)]-[title]-|"),
-			VisualFormatConstraintOptions(string: "H:[subtitle(==title)]"),
+    }
+    
+    static func visualFormatConstraintOptions() -> [VisualFormatConstraintOptions]? {
+        
+        return [
+            VisualFormatConstraintOptions(string: "H:|-[photo(==photoW)]-[title]-|"),
+            VisualFormatConstraintOptions(string: "H:[subtitle(==title)]"),
             VisualFormatConstraintOptions(string: "H:|-buttonLeft-[button]-buttonRight-|"),
             VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]", options: .AlignAllLeft),
             VisualFormatConstraintOptions(string: "V:|-top-[photo(==photoH)]"),
             VisualFormatConstraintOptions(string: "V:[button(==buttonH)]-8-|")
-		]
-	}
-	
-	static func visualFormatMetrics() -> [String: AnyObject]? {
-	
-        return ["top" : 30, "buttonH" : 44, "buttonLeft" : 100, "buttonRight" : 100, "photoW" : 100, "photoH" : 60]
-	}
-	
-    static func layoutConstraints() -> [ConstraintOptions]? {
+        ]
+    }
     
+    static func visualFormatMetrics() -> [String: AnyObject]? {
+        
+        return ["top" : 30, "buttonH" : 44, "buttonLeft" : 100, "buttonRight" : 100, "photoW" : 100, "photoH" : 60]
+    }
+    
+    static func layoutConstraints() -> [ConstraintOptions]? {
+        
         return [
             ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .Height, relatedBy: .Equal, toItemIdentifier: nil, attribute: .Height, multiplier: 1, constant: 40)
         ]
     }
 }
-
-
-class MyViewController: LazyBaseViewController <MyConf> {
-
-	override func viewDidLoad() {
-		
-		super.viewDidLoad()
-		
-		view.backgroundColor = .whiteColor()
-        
-        updateElement("title", baseOptions: TextBaseOptions(text: "Bonjour"))
-        
-        updateElementForStates("button", baseOptions: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")])
-        
-        changeConstantOfLayoutConstaint("titleHeight", constant: 60)
-	}
-}
-
-
-

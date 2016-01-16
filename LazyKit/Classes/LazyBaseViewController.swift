@@ -26,16 +26,106 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 		return storedElements[identifier] as? T
 	}
     
-    public func layoutConstaints(identifier: String) -> [NSLayoutConstraint]? {
+    public func updateElementForStates(identifier: String, baseOptions: [UIControlState: BaseOptions]) -> Bool {
+    
+        guard let element = storedElements[identifier] else {
+            
+            return false
+        }
+  
+        guard let button = element as? UIButton else {
+            
+            return false
+        }
+        
+        guard let textOptionsForType = baseOptions as? [UIControlState: TextBaseOptions] else {
+        
+            return false
+        }
+        
+        LazyUIFactory.updateButton(button, textOptionsForType: textOptionsForType)
+
+        return true
+    }
+    
+    public func updateElement<T: BaseOptions>(identifier: String, baseOptions: T) -> Bool {
+    
+        guard let element = storedElements[identifier] else {
+            
+            return false
+        }
+        
+        switch baseOptions {
+            
+        case let baseOptions as ViewBaseOptions:
+            
+            LazyUIFactory.updateView(element, baseOptions: baseOptions)
+            
+            break
+            
+        case let baseOptions as TextBaseOptions:
+            
+            guard let label = element as? UILabel else {
+                
+                return false
+            }
+            
+            LazyUIFactory.updateLabel(label, textOptions: baseOptions)
+            
+            break
+            
+        case let baseOptions as [UIControlState: TextBaseOptions]:
+            
+            guard let button = element as? UIButton else {
+                
+                return false
+            }
+            
+            LazyUIFactory.updateButton(button, textOptionsForType: baseOptions)
+            
+            break
+            
+        case let baseOptions as ImageBaseOptions:
+            
+            guard let imageView = element as? UIImageView else {
+                
+               return false
+            }
+            
+            LazyUIFactory.updateImage(imageView, imageOptions: baseOptions)
+            
+            break
+            
+        default:
+            
+            return false
+        }
+        
+        return true
+    }
+    
+    public func layoutConstraints(identifier: String) -> [NSLayoutConstraint]? {
         
         return visualContraints[identifier]
     }
     
-    public func layoutConstaint(identifier: String) -> NSLayoutConstraint? {
+    public func layoutConstraint(identifier: String) -> NSLayoutConstraint? {
         
         return contraints[identifier]
     }
 	
+    public func changeConstantOfLayoutConstaint(identifier: String, constant: CGFloat) -> Bool {
+    
+        guard let layoutConstraint = contraints[identifier] else {
+        
+            return false
+        }
+        
+        layoutConstraint.constant = constant
+        
+        return true
+    }
+    
 	public override func viewDidLoad() {
 		
 		super.viewDidLoad()

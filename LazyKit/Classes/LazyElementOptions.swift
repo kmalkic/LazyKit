@@ -10,32 +10,34 @@ import UIKit
 
 //MARK: Base options
 
-public struct ViewBaseOptions {
+public protocol BaseOptions {
+    
+}
+
+public struct ViewBaseOptions: BaseOptions {
     
     public let accessibilityIdentifier: String?
-    public let backgroundColor: UIColor
+    public let backgroundColor: UIColor?
     public let tintColor: UIColor?
-    public let contentMode: UIViewContentMode
     
-    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor = .clearColor(), tintColor: UIColor? = nil, contentMode: UIViewContentMode = .ScaleAspectFit) {
+    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor? = nil, tintColor: UIColor? = nil) {
         
         self.accessibilityIdentifier = accessibilityIdentifier
         self.backgroundColor = backgroundColor
         self.tintColor = tintColor
-        self.contentMode = contentMode
     }
 }
 
-public struct TextBaseOptions {
+public struct TextBaseOptions: BaseOptions {
     
     public let text: String?
-    public let font: UIFont
-    public let textColor: UIColor
-    public let textAlignment: NSTextAlignment
-    public let numberOfLines: Int
-    public let adjustsFontSizeToFitWidth: Bool
+    public let font: UIFont?
+    public let textColor: UIColor?
+    public let textAlignment: NSTextAlignment?
+    public let numberOfLines: Int?
+    public let adjustsFontSizeToFitWidth: Bool?
     
-    public init(text: String? = nil, font: UIFont = .systemFontOfSize(12), textColor: UIColor = .blackColor(), textAlignment: NSTextAlignment = .Left, numberOfLines: Int = 1, adjustsFontSizeToFitWidth: Bool = false) {
+    public init(text: String? = nil, font: UIFont? = nil, textColor: UIColor? = nil, textAlignment: NSTextAlignment? = nil, numberOfLines: Int? = nil, adjustsFontSizeToFitWidth: Bool? = nil) {
         
         self.text = text
         self.font = font
@@ -43,6 +45,20 @@ public struct TextBaseOptions {
         self.textAlignment = textAlignment
         self.numberOfLines = numberOfLines
         self.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+    }
+}
+
+public struct ImageBaseOptions: BaseOptions {
+
+    public let contentMode: UIViewContentMode?
+    public let tintColor: UIColor?
+    public let imageNamed: String?
+    
+    public init(imageNamed: String? = nil, contentMode: UIViewContentMode? = nil, tintColor: UIColor? = nil) {
+    
+        self.tintColor = tintColor
+        self.contentMode = contentMode
+        self.imageNamed = imageNamed
     }
 }
 
@@ -108,14 +124,14 @@ public struct ImageOptions : ElementOptions {
     public var identifier: String?
     public var classType = UIImageView.self
     public var viewBaseOptions: ViewBaseOptions?
-    public let imageNamed: String?
+    public let imageBaseOptions: ImageBaseOptions?
     
-    public init(identifier: String? = nil, classType: UIImageView.Type = UIImageView.self, viewBaseOptions: ViewBaseOptions? = nil, imageNamed: String? = nil) {
+    public init(identifier: String? = nil, classType: UIImageView.Type = UIImageView.self, viewBaseOptions: ViewBaseOptions? = nil, imageBaseOptions: ImageBaseOptions? = nil) {
         
         self.identifier = identifier
-        self.viewBaseOptions = viewBaseOptions
         self.classType = classType
-        self.imageNamed = imageNamed
+        self.viewBaseOptions = viewBaseOptions
+        self.imageBaseOptions = imageBaseOptions
     }
 }
 

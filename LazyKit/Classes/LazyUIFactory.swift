@@ -10,26 +10,64 @@ import UIKit
 
 internal class LazyUIFactory {
 
-    internal class func styleView(view: UIView, viewBaseOptions: ViewBaseOptions?) {
+    //MARK: Mapping base options
         
-        if let viewBaseOptions = viewBaseOptions {
+    internal class func updateView(view: UIView, baseOptions: ViewBaseOptions?) {
+        
+        if let viewBaseOptions = baseOptions {
             
-            view.backgroundColor = viewBaseOptions.backgroundColor
+            view.backgroundColor = viewBaseOptions.backgroundColor ?? view.backgroundColor
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.contentMode = viewBaseOptions.contentMode
+            view.tintColor = viewBaseOptions.tintColor ?? view.tintColor
+        }
+    }
+    
+    internal class func updateLabel(label: UILabel, textOptions: TextBaseOptions?) {
+        
+        if let textOptions = textOptions {
             
-            if let tintColor = viewBaseOptions.tintColor {
+            label.textAlignment = textOptions.textAlignment ?? label.textAlignment
+            label.numberOfLines = textOptions.numberOfLines ?? label.numberOfLines
+            label.font = textOptions.font ?? label.font
+            label.textColor = textOptions.textColor ?? label.textColor
+            label.text = textOptions.text ?? label.text
+            label.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth ?? label.adjustsFontSizeToFitWidth
+        }
+    }
+    
+    internal class func updateButton(button: UIButton, textOptionsForType: [UIControlState: TextBaseOptions]?) {
+        
+        if let textOptionsForType = textOptionsForType {
+            
+            for (state, textOptions) in textOptionsForType {
                 
-                view.tintColor = tintColor
+                button.setTitle(textOptions.text ?? button.titleForState(state), forState: state)
+                button.setTitleColor(textOptions.textColor ?? button.titleColorForState(state), forState: state)
             }
         }
     }
+    
+    internal class func updateImage(imageView: UIImageView, imageOptions: ImageBaseOptions?) {
+        
+        if let imageOptions = imageOptions {
+        
+            imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
+            imageView.tintColor = imageOptions.tintColor ?? imageView.tintColor
+            
+            if let imageNamed = imageOptions.imageNamed {
+                
+                imageView.image = UIImage(named: imageNamed)
+            }
+        }
+    }
+    
+    //MARK: Factory
     
     internal class func view(option: ViewOptions) -> UIView {
         
         let view = option.classType.init(frame: CGRectZero)
         
-        styleView(view, viewBaseOptions: option.viewBaseOptions)
+        updateView(view, baseOptions: option.viewBaseOptions)
         
         return view
     }
@@ -38,18 +76,10 @@ internal class LazyUIFactory {
 		
 		let label = option.classType.init(frame: CGRectZero)
         
-        styleView(label, viewBaseOptions: option.viewBaseOptions)
+        updateView(label, baseOptions: option.viewBaseOptions)
         
-        if let textOptions = option.textOptions {
-            
-            label.textAlignment = textOptions.textAlignment
-            label.numberOfLines = textOptions.numberOfLines
-            label.font = textOptions.font
-            label.textColor = textOptions.textColor
-            label.text = textOptions.text
-            
-            label.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth
-        }
+        updateLabel(label, textOptions: option.textOptions)
+        
 		return label
 	}
     
@@ -57,26 +87,14 @@ internal class LazyUIFactory {
         
         let button = option.classType.init(type: option.type)
        
-        styleView(button, viewBaseOptions: option.viewBaseOptions)
+        updateView(button, baseOptions: option.viewBaseOptions)
         
         if let titleLabel = button.titleLabel, textOptions = option.textOptionsForType?[.Normal] {
             
-            titleLabel.textAlignment = textOptions.textAlignment
-            titleLabel.numberOfLines = textOptions.numberOfLines
-            titleLabel.font = textOptions.font
-            titleLabel.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth
+            updateLabel(titleLabel, textOptions: textOptions)
         }
         
-        if let textOptionsForType = option.textOptionsForType {
-            
-            for (state, textOptions) in textOptionsForType {
-                
-                button.setTitle(textOptions.text, forState: state)
-                button.setTitleColor(textOptions.textColor, forState: state)
-            }
-        }
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
+        updateButton(button, textOptionsForType: option.textOptionsForType)
         
         return button
     }
@@ -85,12 +103,9 @@ internal class LazyUIFactory {
         
         let imageView = option.classType.init(frame: CGRectZero)
         
-        styleView(imageView, viewBaseOptions: option.viewBaseOptions)
+        updateView(imageView, baseOptions: option.viewBaseOptions)
         
-        if let imageNamed = option.imageNamed {
-            
-            imageView.image = UIImage(named: imageNamed)
-        }
+        updateImage(imageView, imageOptions: option.imageBaseOptions)
         
         return imageView
     }

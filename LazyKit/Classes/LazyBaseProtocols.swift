@@ -21,8 +21,8 @@ public protocol LazyBaseViewControllerProtocol {
 	typealias ViewConfigurations: LazyViewConfigurations
 	
     func element<T: UIView>(identifier: String) -> T?
-    func layoutConstaints(identifier: String) -> [NSLayoutConstraint]?
-    func layoutConstaint(identifier: String) -> NSLayoutConstraint?
+    func layoutConstraints(identifier: String) -> [NSLayoutConstraint]?
+    func layoutConstraint(identifier: String) -> NSLayoutConstraint?
 }
 
 

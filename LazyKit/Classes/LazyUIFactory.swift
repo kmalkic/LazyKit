@@ -9,9 +9,9 @@
 import UIKit
 
 internal class LazyUIFactory {
-
+    
     //MARK: Mapping base options
-        
+    
     internal class func updateView(view: UIView, baseOptions: ViewBaseOptions?) {
         
         if let viewBaseOptions = baseOptions {
@@ -50,7 +50,7 @@ internal class LazyUIFactory {
     internal class func updateImage(imageView: UIImageView, imageOptions: ImageBaseOptions?) {
         
         if let imageOptions = imageOptions {
-        
+            
             imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
             imageView.tintColor = imageOptions.tintColor ?? imageView.tintColor
             
@@ -73,20 +73,20 @@ internal class LazyUIFactory {
     }
     
     internal class func label(option: LabelOptions) -> UILabel {
-		
-		let label = option.classType.init(frame: CGRectZero)
+        
+        let label = option.classType.init(frame: CGRectZero)
         
         updateView(label, baseOptions: option.viewBaseOptions)
         
         updateLabel(label, textOptions: option.textOptions)
         
-		return label
-	}
+        return label
+    }
     
     internal class func button(option: ButtonOptions) -> UIButton {
         
         let button = option.classType.init(type: option.type)
-       
+        
         updateView(button, baseOptions: option.viewBaseOptions)
         
         if let titleLabel = button.titleLabel, textOptions = option.textOptionsForType?[.Normal] {
@@ -109,7 +109,7 @@ internal class LazyUIFactory {
         
         return imageView
     }
-	
+    
     internal class func element<T>(option: T) -> UIView? {
         
         var v: UIView?
@@ -117,12 +117,12 @@ internal class LazyUIFactory {
         if let elementOptions = option as? ElementOptions {
             
             switch elementOptions {
-            
+                
             case let elementOptions as LabelOptions:
                 
                 v = label(elementOptions)
                 break
-               
+                
             case let elementOptions as ButtonOptions:
                 
                 v = button(elementOptions)
@@ -143,13 +143,13 @@ internal class LazyUIFactory {
             }
             
             if let accessibilityIdentifier = elementOptions.viewBaseOptions?.accessibilityIdentifier, v = v {
-            
+                
                 v.accessibilityIdentifier = accessibilityIdentifier
                 v.isAccessibilityElement = true
             }
             
             if let tintColor = elementOptions.viewBaseOptions?.tintColor, v = v {
-            
+                
                 v.tintColor = tintColor
             }
         }

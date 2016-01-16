@@ -9,47 +9,47 @@
 import UIKit
 
 public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController, LazyBaseViewControllerProtocol {
-	
-	public typealias ViewConfigurations = T
-	
-	private var storedElements = [String: UIView]()
-	private var visualContraints = [String: [NSLayoutConstraint]]()
-	private var contraints = [String: NSLayoutConstraint]()
     
-	public init() {
-		
-		super.init(nibName: nil, bundle: nil)
-	}
-	
+    public typealias ViewConfigurations = T
+    
+    private var storedElements = [String: UIView]()
+    private var visualContraints = [String: [NSLayoutConstraint]]()
+    private var contraints = [String: NSLayoutConstraint]()
+    
+    public init() {
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     public func element<T: UIView>(identifier: String) -> T? {
-		
-		return storedElements[identifier] as? T
-	}
+        
+        return storedElements[identifier] as? T
+    }
     
     public func updateElementForStates(identifier: String, baseOptions: [UIControlState: BaseOptions]) -> Bool {
-    
+        
         guard let element = storedElements[identifier] else {
             
             return false
         }
-  
+        
         guard let button = element as? UIButton else {
             
             return false
         }
         
         guard let textOptionsForType = baseOptions as? [UIControlState: TextBaseOptions] else {
-        
+            
             return false
         }
         
         LazyUIFactory.updateButton(button, textOptionsForType: textOptionsForType)
-
+        
         return true
     }
     
     public func updateElement<T: BaseOptions>(identifier: String, baseOptions: T) -> Bool {
-    
+        
         guard let element = storedElements[identifier] else {
             
             return false
@@ -89,7 +89,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
             
             guard let imageView = element as? UIImageView else {
                 
-               return false
+                return false
             }
             
             LazyUIFactory.updateImage(imageView, imageOptions: baseOptions)
@@ -113,11 +113,11 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
         
         return contraints[identifier]
     }
-	
-    public func changeConstantOfLayoutConstaint(identifier: String, constant: CGFloat) -> Bool {
     
-        guard let layoutConstraint = contraints[identifier] else {
+    public func changeConstantOfLayoutConstaint(identifier: String, constant: CGFloat) -> Bool {
         
+        guard let layoutConstraint = contraints[identifier] else {
+            
             return false
         }
         
@@ -126,45 +126,45 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
         return true
     }
     
-	public override func viewDidLoad() {
-		
-		super.viewDidLoad()
-		
-		if let elementsOptions = ViewConfigurations.elementsOptions() {
-						
-			for elementOptions in elementsOptions {
-			
+    public override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        if let elementsOptions = ViewConfigurations.elementsOptions() {
+            
+            for elementOptions in elementsOptions {
+                
                 if let identifier = elementOptions.identifier {
                     
                     if let view = LazyUIFactory.element(elementOptions) {
-                    
+                        
                         storedElements[identifier] = view
                     }
                 }
-			}
-		}
-		
-		for (_, element) in storedElements {
-			
-			view.addSubview(element)
-		}
-		
-		if let visualFormatConstraintOptions = ViewConfigurations.visualFormatConstraintOptions() {
-			
-			let metrics = ViewConfigurations.visualFormatMetrics()
-			
-			for visualFormatConstraintOption in visualFormatConstraintOptions {
-				
-				let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualFormatConstraintOption.string, options: visualFormatConstraintOption.options, metrics: metrics, views: storedElements)
-				
-				if let identifier = visualFormatConstraintOption.identifier {
-					
-					visualContraints[identifier] = constraints
-				}
-				
-				view.addConstraints(constraints)
-			}
-		}
+            }
+        }
+        
+        for (_, element) in storedElements {
+            
+            view.addSubview(element)
+        }
+        
+        if let visualFormatConstraintOptions = ViewConfigurations.visualFormatConstraintOptions() {
+            
+            let metrics = ViewConfigurations.visualFormatMetrics()
+            
+            for visualFormatConstraintOption in visualFormatConstraintOptions {
+                
+                let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualFormatConstraintOption.string, options: visualFormatConstraintOption.options, metrics: metrics, views: storedElements)
+                
+                if let identifier = visualFormatConstraintOption.identifier {
+                    
+                    visualContraints[identifier] = constraints
+                }
+                
+                view.addConstraints(constraints)
+            }
+        }
         
         if let layoutConstraints = ViewConfigurations.layoutConstraints() {
             
@@ -178,7 +178,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
                 var item2: UIView?
                 
                 if let identifier2 = layoutConstraint.identifier2 {
-                
+                    
                     item2 = element(identifier2)
                 }
                 
@@ -192,5 +192,5 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
                 view.addConstraint(constraint)
             }
         }
-	}
+    }
 }

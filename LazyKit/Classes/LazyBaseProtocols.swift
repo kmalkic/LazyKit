@@ -9,21 +9,18 @@
 import UIKit
 
 public protocol LazyViewConfigurations {
-	
-	static func elementsOptions() -> [ElementOptions]?
-	static func visualFormatConstraintOptions() -> [VisualFormatConstraintOptions]?
-	static func visualFormatMetrics() -> [String: AnyObject]?
+    
+    static func elementsOptions() -> [ElementOptions]?
+    static func visualFormatConstraintOptions() -> [VisualFormatConstraintOptions]?
+    static func visualFormatMetrics() -> [String: AnyObject]?
     static func layoutConstraints() -> [ConstraintOptions]?
 }
 
 public protocol LazyBaseViewControllerProtocol {
-	
-	typealias ViewConfigurations: LazyViewConfigurations
-	
+    
+    typealias ViewConfigurations: LazyViewConfigurations
+    
     func element<T: UIView>(identifier: String) -> T?
     func layoutConstraints(identifier: String) -> [NSLayoutConstraint]?
     func layoutConstraint(identifier: String) -> NSLayoutConstraint?
 }
-
-
-

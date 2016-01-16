@@ -49,13 +49,13 @@ public struct TextBaseOptions: BaseOptions {
 }
 
 public struct ImageBaseOptions: BaseOptions {
-
+    
     public let contentMode: UIViewContentMode?
     public let tintColor: UIColor?
     public let imageNamed: String?
     
     public init(imageNamed: String? = nil, contentMode: UIViewContentMode? = nil, tintColor: UIColor? = nil) {
-    
+        
         self.tintColor = tintColor
         self.contentMode = contentMode
         self.imageNamed = imageNamed
@@ -75,7 +75,7 @@ public struct ViewOptions : ElementOptions {
     public var identifier: String?
     public var classType = UIView.self
     public var viewBaseOptions: ViewBaseOptions?
-
+    
     public init(identifier: String? = nil, classType: UIView.Type = UIView.self, viewBaseOptions: ViewBaseOptions? = nil) {
         
         self.identifier = identifier

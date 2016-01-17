@@ -5,12 +5,11 @@ Constructing a view can be long, boring and repetitive, especialy after the n vi
 
 ## Features
 
-- Maps most common UIKit properties
-- Can map UIView / UILabel / UIButton / UIImageView
+- Maps UIView / UILabel / UIButton / UIImageView / UITextField / UITextView
 - Base classes for UIViewController / UIView
 
 ## Features coming up
-- Map for UITextField / UITextView / UITableView / UICollectionView
+- Map for UITableView / UICollectionView
 - Base classes for UITableViewCell / UICollectionViewCell
 - CSS parser / mapper (You'll be even more lazy after that)
 

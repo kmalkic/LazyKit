@@ -48,7 +48,7 @@ struct MyConfigurations: LazyViewConfigurations {
             
             TextViewOptions(identifier: "textview",
                 viewBaseOptions: ViewBaseOptions(backgroundColor: UIColor.cyanColor()),
-                textOptions: TextBaseOptions(font: .systemFontOfSize(14), textAlignment: .Left),
+                textOptions: TextBaseOptions(text: "TextView", font: .systemFontOfSize(14), textAlignment: .Left),
                 textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .EmailAddress, keyboardAppearance: .Dark, returnKeyType: .Done, enablesReturnKeyAutomatically: true, secureTextEntry: false)
             )
         ]
@@ -60,11 +60,12 @@ struct MyConfigurations: LazyViewConfigurations {
             VisualFormatConstraintOptions(string: "H:|-[photo(==photoW)]-[title]-|"),
             VisualFormatConstraintOptions(string: "H:[subtitle(==title)]"),
             VisualFormatConstraintOptions(string: "H:[textfield(==title)]"),
+            VisualFormatConstraintOptions(string: "H:|-40-[line]-40-|"),
             VisualFormatConstraintOptions(string: "H:|-[textview]-|"),
             VisualFormatConstraintOptions(string: "H:|-buttonLeft-[button]-buttonRight-|"),
             VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]-[textfield]", options: .AlignAllLeft),
             VisualFormatConstraintOptions(string: "V:|-top-[photo(==photoH)]"),
-            VisualFormatConstraintOptions(string: "V:[textview(==200)]-200-[button(==buttonH)]-8-|")
+            VisualFormatConstraintOptions(string: "V:[line(==1)]-[textview(==200)]-200-[button(==buttonH)]-8-|")
         ]
     }
     

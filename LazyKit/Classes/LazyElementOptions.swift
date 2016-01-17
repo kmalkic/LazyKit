@@ -37,7 +37,12 @@ public struct TextBaseOptions: BaseOptions {
     public let numberOfLines: Int?
     public let adjustsFontSizeToFitWidth: Bool?
     
-    public init(text: String? = nil, font: UIFont? = nil, textColor: UIColor? = nil, textAlignment: NSTextAlignment? = nil, numberOfLines: Int? = nil, adjustsFontSizeToFitWidth: Bool? = nil) {
+    public let lineSpacing: CGFloat?
+    public let paragraphSpacing: CGFloat?
+    public let headIndent: CGFloat?
+    public let lineBreakMode: NSLineBreakMode?
+    
+    public init(text: String? = nil, font: UIFont? = nil, textColor: UIColor? = nil, textAlignment: NSTextAlignment? = nil, numberOfLines: Int? = nil, adjustsFontSizeToFitWidth: Bool? = nil, lineSpacing: CGFloat? = nil, paragraphSpacing: CGFloat? = nil, headIndent: CGFloat? = nil, lineBreakMode: NSLineBreakMode? = nil) {
         
         self.text = text
         self.font = font
@@ -45,6 +50,10 @@ public struct TextBaseOptions: BaseOptions {
         self.textAlignment = textAlignment
         self.numberOfLines = numberOfLines
         self.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+        self.lineSpacing = lineSpacing
+        self.paragraphSpacing = paragraphSpacing
+        self.headIndent = headIndent
+        self.lineBreakMode = lineBreakMode
     }
 }
 
@@ -132,6 +141,27 @@ public struct ImageOptions : ElementOptions {
         self.classType = classType
         self.viewBaseOptions = viewBaseOptions
         self.imageBaseOptions = imageBaseOptions
+    }
+}
+
+public struct TextFieldOptions : ElementOptions {
+    
+    public var identifier: String?
+    public var classType = UITextField.self
+    public var viewBaseOptions: ViewBaseOptions?
+    public let textOptions: TextBaseOptions?
+    public let placeholderOptions: TextBaseOptions?
+    
+    public let borderStyle: UITextBorderStyle?
+    
+    public init(identifier: String? = nil, classType: UITextField.Type = UITextField.self, borderStyle: UITextBorderStyle? = nil, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil, placeholderOptions: TextBaseOptions? = nil) {
+        
+        self.identifier = identifier
+        self.viewBaseOptions = viewBaseOptions
+        self.textOptions = textOptions
+        self.classType = classType
+        self.borderStyle = borderStyle
+        self.placeholderOptions = placeholderOptions
     }
 }
 

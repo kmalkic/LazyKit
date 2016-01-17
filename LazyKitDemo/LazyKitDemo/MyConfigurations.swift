@@ -32,7 +32,12 @@ struct MyConfigurations: LazyViewConfigurations {
             
             ImageOptions(identifier: "photo",
                 viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor()),
-                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .ScaleAspectFill))
+                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .ScaleAspectFill)),
+            
+            TextFieldOptions(identifier: "textfield",
+                viewBaseOptions: ViewBaseOptions(backgroundColor: UIColor.orangeColor()),
+                textOptions: TextBaseOptions(font: .systemFontOfSize(16), textAlignment: .Center),
+                placeholderOptions: TextBaseOptions(text: "placeholder", font: .systemFontOfSize(16), textColor: .redColor(), textAlignment: .Center))
         ]
     }
     
@@ -41,8 +46,9 @@ struct MyConfigurations: LazyViewConfigurations {
         return [
             VisualFormatConstraintOptions(string: "H:|-[photo(==photoW)]-[title]-|"),
             VisualFormatConstraintOptions(string: "H:[subtitle(==title)]"),
+            VisualFormatConstraintOptions(string: "H:[textfield(==title)]"),
             VisualFormatConstraintOptions(string: "H:|-buttonLeft-[button]-buttonRight-|"),
-            VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]", options: .AlignAllLeft),
+            VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]-[textfield]", options: .AlignAllLeft),
             VisualFormatConstraintOptions(string: "V:|-top-[photo(==photoH)]"),
             VisualFormatConstraintOptions(string: "V:[button(==buttonH)]-8-|")
         ]

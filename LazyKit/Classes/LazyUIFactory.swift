@@ -10,6 +10,48 @@ import UIKit
 
 internal class LazyUIFactory {
     
+    internal class func attributedString(textOptions: TextBaseOptions?) -> NSAttributedString? {
+        
+        if let textOptions = textOptions {
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = textOptions.textAlignment ?? paragraphStyle.alignment
+            paragraphStyle.paragraphSpacing = textOptions.paragraphSpacing ?? paragraphStyle.paragraphSpacing
+            paragraphStyle.headIndent = textOptions.headIndent ?? paragraphStyle.headIndent
+            paragraphStyle.lineSpacing = textOptions.lineSpacing ?? paragraphStyle.lineSpacing
+            paragraphStyle.lineBreakMode = textOptions.lineBreakMode ?? paragraphStyle.lineBreakMode
+            
+            var attr: [String : AnyObject] = [NSParagraphStyleAttributeName: paragraphStyle]
+            
+            if let font = textOptions.font {
+                
+                attr.updateValue(font, forKey: NSFontAttributeName)
+            }
+            
+            if let textColor = textOptions.textColor {
+                
+                attr.updateValue(textColor, forKey: NSForegroundColorAttributeName)
+            }
+            
+            if let text = textOptions.text {
+                
+                return NSAttributedString(string: text, attributes: attr)
+            }
+        }
+        
+        return nil
+    }
+    
+    internal class func needAttributedString(textOptions: TextBaseOptions?) -> Bool {
+        
+        if let textOptions = textOptions {
+            
+            return textOptions.lineSpacing != nil || textOptions.headIndent != nil || textOptions.paragraphSpacing != nil || textOptions.lineBreakMode != nil
+        }
+        
+        return false
+    }
+    
     //MARK: Mapping base options
     
     internal class func updateView(view: UIView, baseOptions: ViewBaseOptions?) {
@@ -58,6 +100,30 @@ internal class LazyUIFactory {
                 
                 imageView.image = UIImage(named: imageNamed)
             }
+        }
+    }
+    
+    internal class func updateTextField(textField: UITextField, textOptions: TextBaseOptions?, placeholderOptions: TextBaseOptions?) {
+        
+        if let textOptions = textOptions {
+            
+            if needAttributedString(textOptions) {
+                
+                textField.attributedText = attributedString(textOptions)
+                
+            } else {
+                
+                textField.textAlignment = textOptions.textAlignment ?? textField.textAlignment
+                textField.font = textOptions.font ?? textField.font
+                textField.textColor = textOptions.textColor ?? textField.textColor
+                textField.text = textOptions.text ?? textField.text
+                textField.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth ?? textField.adjustsFontSizeToFitWidth
+            }
+        }
+        
+        if let textOptions = placeholderOptions {
+            
+            textField.attributedPlaceholder = attributedString(textOptions)
         }
     }
     
@@ -110,6 +176,19 @@ internal class LazyUIFactory {
         return imageView
     }
     
+    internal class func textField(option: TextFieldOptions) -> UITextField {
+        
+        let textField = option.classType.init(frame: CGRectZero)
+        
+        textField.borderStyle = option.borderStyle ?? textField.borderStyle
+        
+        updateView(textField, baseOptions: option.viewBaseOptions)
+        
+        updateTextField(textField, textOptions: option.textOptions, placeholderOptions: option.placeholderOptions)
+        
+        return textField
+    }
+    
     internal class func element<T>(option: T) -> UIView? {
         
         var v: UIView?
@@ -136,6 +215,11 @@ internal class LazyUIFactory {
             case let elementOptions as ImageOptions:
                 
                 v = image(elementOptions)
+                break
+                
+            case let elementOptions as TextFieldOptions:
+                
+                v = textField(elementOptions)
                 break
                 
             default:

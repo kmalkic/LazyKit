@@ -22,12 +22,12 @@ class MyViewControllerTest1: LazyBaseViewController <MyConfigurations> {
 		
 		view.backgroundColor = .whiteColor()
 
-        viewManager!.updateElement("title", baseOptions: TextBaseOptions(text: "Bonjour"))
+        viewManager.updateElement("title", baseOptions: TextBaseOptions(text: "Bonjour"))
         
-        viewManager!.updateElementForStates("button", baseOptions: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")])
+        viewManager.updateElementForStates("button", baseOptions: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")])
         
-        viewManager!.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
+        viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
         
-        viewManager!.updateElement("textfield", baseOptions: TextBaseOptions(text: "Done", textColor: .greenColor()), secondaryBaseOptions: TextBaseOptions(text: "new placeholder"))
+        viewManager.updateElement("textfield", baseOptions: TextBaseOptions(text: "Done", textColor: .greenColor()), secondaryBaseOptions: TextBaseOptions(text: "new placeholder"))
 	}
 }

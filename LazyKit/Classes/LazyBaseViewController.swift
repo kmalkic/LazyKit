@@ -12,7 +12,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
     
     public typealias ViewConfigurations = T
     
-    public private(set) var viewManager: LazyViewManager<T>?
+    public private(set) var viewManager: LazyViewManager<T>!
     
     public init() {
         

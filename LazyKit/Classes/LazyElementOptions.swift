@@ -121,3 +121,19 @@ public struct TextViewOptions : ElementOptions {
         self.textInputOptions = textInputOptions
     }
 }
+
+public struct TableViewOptions : ElementOptions {
+    
+    public var identifier: String?
+    public var classType = UITableView.self
+    public var viewBaseOptions: ViewBaseOptions?
+    public var style: UITableViewStyle = .Plain
+    
+    public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .Plain, viewBaseOptions: ViewBaseOptions? = nil) {
+        
+        self.identifier = identifier
+        self.viewBaseOptions = viewBaseOptions
+        self.classType = classType
+        self.style = style
+    }
+}

@@ -14,6 +14,10 @@
 		49C4361F1C483E0A0070728B /* LazyKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49C4361C1C483E040070728B /* LazyKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		49C436291C4A739D0070728B /* MyViewControllerTest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436281C4A739D0070728B /* MyViewControllerTest2.swift */; };
 		49C4362B1C4A73C00070728B /* MyConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4362A1C4A73C00070728B /* MyConfigurations.swift */; };
+		49C436351C4C39E40070728B /* MyViewControllerTableViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436341C4C39E40070728B /* MyViewControllerTableViewTest.swift */; };
+		49C436391C4C3B080070728B /* MyCellConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436381C4C3B080070728B /* MyCellConfigurations.swift */; };
+		49C4363B1C4C3CD10070728B /* MyTableConf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4363A1C4C3CD10070728B /* MyTableConf.swift */; };
+		49C4363D1C4C41860070728B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C4363C1C4C41860070728B /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +43,10 @@
 		49C4361C1C483E040070728B /* LazyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LazyKit.framework; path = ../LazyKit/Frameworks/LazyKit.framework; sourceTree = "<group>"; };
 		49C436281C4A739D0070728B /* MyViewControllerTest2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewControllerTest2.swift; sourceTree = "<group>"; };
 		49C4362A1C4A73C00070728B /* MyConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyConfigurations.swift; sourceTree = "<group>"; };
+		49C436341C4C39E40070728B /* MyViewControllerTableViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewControllerTableViewTest.swift; sourceTree = "<group>"; };
+		49C436381C4C3B080070728B /* MyCellConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCellConfigurations.swift; sourceTree = "<group>"; };
+		49C4363A1C4C3CD10070728B /* MyTableConf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTableConf.swift; sourceTree = "<group>"; };
+		49C4363C1C4C41860070728B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +85,12 @@
 				49C4362A1C4A73C00070728B /* MyConfigurations.swift */,
 				49C436041C4836810070728B /* MyViewControllerTest1.swift */,
 				49C436281C4A739D0070728B /* MyViewControllerTest2.swift */,
+				49C436341C4C39E40070728B /* MyViewControllerTableViewTest.swift */,
+				49C4363A1C4C3CD10070728B /* MyTableConf.swift */,
+				49C436381C4C3B080070728B /* MyCellConfigurations.swift */,
 				49C435FB1C4836460070728B /* LaunchScreen.storyboard */,
 				49C435FE1C4836460070728B /* Info.plist */,
+				49C4363C1C4C41860070728B /* Media.xcassets */,
 			);
 			path = LazyKitDemo;
 			sourceTree = "<group>";
@@ -142,6 +154,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C4363D1C4C41860070728B /* Media.xcassets in Resources */,
 				49C435FD1C4836460070728B /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,8 +166,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C4363B1C4C3CD10070728B /* MyTableConf.swift in Sources */,
 				49C436051C4836810070728B /* MyViewControllerTest1.swift in Sources */,
 				49C4362B1C4A73C00070728B /* MyConfigurations.swift in Sources */,
+				49C436351C4C39E40070728B /* MyViewControllerTableViewTest.swift in Sources */,
+				49C436391C4C3B080070728B /* MyCellConfigurations.swift in Sources */,
 				49C435F31C4836460070728B /* AppDelegate.swift in Sources */,
 				49C436291C4A739D0070728B /* MyViewControllerTest2.swift in Sources */,
 			);

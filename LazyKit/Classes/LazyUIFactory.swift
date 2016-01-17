@@ -79,7 +79,6 @@ internal class LazyUIFactory {
         if let viewBaseOptions = baseOptions {
             
             view.backgroundColor = viewBaseOptions.backgroundColor ?? view.backgroundColor
-            view.translatesAutoresizingMaskIntoConstraints = false
             view.tintColor = viewBaseOptions.tintColor ?? view.tintColor
         }
     }
@@ -127,6 +126,7 @@ internal class LazyUIFactory {
         
         if let imageOptions = imageOptions {
             
+            imageView.clipsToBounds = true
             imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
             imageView.tintColor = imageOptions.tintColor ?? imageView.tintColor
             
@@ -230,7 +230,7 @@ internal class LazyUIFactory {
     
     internal class func view(option: ViewOptions) -> UIView {
         
-        let view = option.classType.init(frame: CGRectZero)
+        let view = option.classType.init(frame: .zero)
         
         updateView(view, baseOptions: option.viewBaseOptions)
         
@@ -239,7 +239,7 @@ internal class LazyUIFactory {
     
     internal class func label(option: LabelOptions) -> UILabel {
         
-        let label = option.classType.init(frame: CGRectZero)
+        let label = option.classType.init(frame: .zero)
         
         updateView(label, baseOptions: option.viewBaseOptions)
         
@@ -266,7 +266,7 @@ internal class LazyUIFactory {
     
     internal class func image(option: ImageOptions) -> UIImageView {
         
-        let imageView = option.classType.init(frame: CGRectZero)
+        let imageView = option.classType.init(frame: .zero)
         
         updateView(imageView, baseOptions: option.viewBaseOptions)
         
@@ -277,7 +277,7 @@ internal class LazyUIFactory {
     
     internal class func textField(option: TextFieldOptions) -> UITextField {
         
-        let textField = option.classType.init(frame: CGRectZero)
+        let textField = option.classType.init(frame: .zero)
         
         textField.borderStyle = option.borderStyle ?? textField.borderStyle
         
@@ -290,13 +290,22 @@ internal class LazyUIFactory {
     
     internal class func textView(option: TextViewOptions) -> UITextView {
         
-        let textView = option.classType.init(frame: CGRectZero)
+        let textView = option.classType.init(frame: .zero)
         
         updateView(textView, baseOptions: option.viewBaseOptions)
         
         updateTextView(textView, textOptions: option.textOptions, textInputOptions: option.textInputOptions)
         
         return textView
+    }
+    
+    internal class func tableView(option: TableViewOptions) -> UITableView {
+        
+        let tableView = option.classType.init(frame: .zero, style: option.style)
+        
+        updateView(tableView, baseOptions: option.viewBaseOptions)
+        
+        return tableView
     }
     
     internal class func element<T>(option: T) -> UIView? {
@@ -337,6 +346,11 @@ internal class LazyUIFactory {
                 v = textView(elementOptions)
                 break
                 
+            case let elementOptions as TableViewOptions:
+                
+                v = tableView(elementOptions)
+                break
+                
             default:
                 break
             }
@@ -350,6 +364,11 @@ internal class LazyUIFactory {
             if let tintColor = elementOptions.viewBaseOptions?.tintColor, v = v {
                 
                 v.tintColor = tintColor
+            }
+            
+            if let v = v {
+                
+                v.translatesAutoresizingMaskIntoConstraints = false
             }
         }
         

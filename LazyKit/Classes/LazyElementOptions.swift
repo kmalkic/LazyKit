@@ -103,3 +103,21 @@ public struct TextFieldOptions : ElementOptions {
         self.textInputOptions = textInputOptions
     }
 }
+
+public struct TextViewOptions : ElementOptions {
+    
+    public var identifier: String?
+    public var classType = UITextView.self
+    public var viewBaseOptions: ViewBaseOptions?
+    public let textOptions: TextBaseOptions?
+    public let textInputOptions: TextInputBaseOptions?
+    
+    public init(identifier: String? = nil, classType: UITextView.Type = UITextView.self, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+        
+        self.identifier = identifier
+        self.viewBaseOptions = viewBaseOptions
+        self.textOptions = textOptions
+        self.classType = classType
+        self.textInputOptions = textInputOptions
+    }
+}

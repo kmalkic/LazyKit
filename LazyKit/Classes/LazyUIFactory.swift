@@ -88,12 +88,26 @@ internal class LazyUIFactory {
         
         if let textOptions = textOptions {
             
-            label.textAlignment = textOptions.textAlignment ?? label.textAlignment
-            label.numberOfLines = textOptions.numberOfLines ?? label.numberOfLines
-            label.font = textOptions.font ?? label.font
-            label.textColor = textOptions.textColor ?? label.textColor
-            label.text = textOptions.text ?? label.text
-            label.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth ?? label.adjustsFontSizeToFitWidth
+            if needAttributedString(textOptions) {
+                
+                var existingAttributes: [String: AnyObject]?
+                
+                if let attributedText = label.attributedText {
+                    
+                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                }
+                
+                label.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
+                
+            } else {
+                
+                label.textAlignment = textOptions.textAlignment ?? label.textAlignment
+                label.numberOfLines = textOptions.numberOfLines ?? label.numberOfLines
+                label.font = textOptions.font ?? label.font
+                label.textColor = textOptions.textColor ?? label.textColor
+                label.text = textOptions.text ?? label.text
+                label.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth ?? label.adjustsFontSizeToFitWidth
+            }
         }
     }
     
@@ -174,6 +188,44 @@ internal class LazyUIFactory {
         }
     }
     
+    internal class func updateTextView(textView: UITextView, textOptions: TextBaseOptions?, textInputOptions: TextInputBaseOptions? = nil) {
+        
+        if let textOptions = textOptions {
+            
+            if needAttributedString(textOptions) {
+                
+                var existingAttributes: [String: AnyObject]?
+                
+                if let attributedText = textView.attributedText {
+                    
+                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                }
+                
+                textView.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
+                
+            } else {
+                
+                textView.attributedText = nil
+                textView.textAlignment = textOptions.textAlignment ?? textView.textAlignment
+                textView.font = textOptions.font ?? textView.font
+                textView.textColor = textOptions.textColor ?? textView.textColor
+                textView.text = textOptions.text ?? textView.text
+            }
+        }
+        
+        if let textInputOptions = textInputOptions {
+            
+            textView.autocapitalizationType = textInputOptions.autocapitalizationType ?? textView.autocapitalizationType
+            textView.autocorrectionType = textInputOptions.autocorrectionType ?? textView.autocorrectionType
+            textView.spellCheckingType = textInputOptions.spellCheckingType ?? textView.spellCheckingType
+            textView.keyboardType = textInputOptions.keyboardType ?? textView.keyboardType
+            textView.keyboardAppearance = textInputOptions.keyboardAppearance ?? textView.keyboardAppearance
+            textView.returnKeyType = textInputOptions.returnKeyType ?? textView.returnKeyType
+            textView.enablesReturnKeyAutomatically = textInputOptions.enablesReturnKeyAutomatically ?? textView.enablesReturnKeyAutomatically
+            textView.secureTextEntry = textInputOptions.secureTextEntry ?? textView.secureTextEntry
+        }
+    }
+    
     //MARK: Factory
     
     internal class func view(option: ViewOptions) -> UIView {
@@ -236,6 +288,17 @@ internal class LazyUIFactory {
         return textField
     }
     
+    internal class func textView(option: TextViewOptions) -> UITextView {
+        
+        let textView = option.classType.init(frame: CGRectZero)
+        
+        updateView(textView, baseOptions: option.viewBaseOptions)
+        
+        updateTextView(textView, textOptions: option.textOptions, textInputOptions: option.textInputOptions)
+        
+        return textView
+    }
+    
     internal class func element<T>(option: T) -> UIView? {
         
         var v: UIView?
@@ -267,6 +330,11 @@ internal class LazyUIFactory {
             case let elementOptions as TextFieldOptions:
                 
                 v = textField(elementOptions)
+                break
+                
+            case let elementOptions as TextViewOptions:
+                
+                v = textView(elementOptions)
                 break
                 
             default:

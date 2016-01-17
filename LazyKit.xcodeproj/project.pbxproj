@@ -19,6 +19,28 @@
 		49C4362F1C4BD4D40070728B /* LazyConstraintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4362E1C4BD4D40070728B /* LazyConstraintOptions.swift */; };
 		49C436311C4C37E50070728B /* LazyBaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436301C4C37E50070728B /* LazyBaseTableViewCell.swift */; };
 		49C436331C4C38740070728B /* LazyBaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436321C4C38740070728B /* LazyBaseCollectionViewCell.swift */; };
+		49C4368A1C4C4E340070728B /* LazyBasicSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436521C4C4E340070728B /* LazyBasicSet.swift */; };
+		49C4368B1C4C4E340070728B /* LazyBoxSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436531C4C4E340070728B /* LazyBoxSet.swift */; };
+		49C4368C1C4C4E340070728B /* LazyDecorationSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436541C4C4E340070728B /* LazyDecorationSet.swift */; };
+		49C4368D1C4C4E340070728B /* LazyOptionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436551C4C4E340070728B /* LazyOptionSet.swift */; };
+		49C4368E1C4C4E340070728B /* LazyStyleSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436561C4C4E340070728B /* LazyStyleSet.swift */; };
+		49C4368F1C4C4E340070728B /* LazyTextSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436571C4C4E340070728B /* LazyTextSet.swift */; };
+		49C436901C4C4E340070728B /* LazyBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436591C4C4E340070728B /* LazyBorder.swift */; };
+		49C436911C4C4E340070728B /* LazyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4365A1C4C4E340070728B /* LazyColor.swift */; };
+		49C436921C4C4E340070728B /* LazyEdges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4365B1C4C4E340070728B /* LazyEdges.swift */; };
+		49C436931C4C4E340070728B /* LazyFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4365C1C4C4E340070728B /* LazyFont.swift */; };
+		49C436941C4C4E340070728B /* LazyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4365D1C4C4E340070728B /* LazyImage.swift */; };
+		49C436951C4C4E340070728B /* LazyMeasureUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4365E1C4C4E340070728B /* LazyMeasureUnit.swift */; };
+		49C436961C4C4E340070728B /* LazyParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4365F1C4C4E340070728B /* LazyParagraph.swift */; };
+		49C436971C4C4E340070728B /* LazyTextalignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436601C4C4E340070728B /* LazyTextalignment.swift */; };
+		49C436981C4C4E340070728B /* LazyTextDecoration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436611C4C4E340070728B /* LazyTextDecoration.swift */; };
+		49C436991C4C4E340070728B /* LazyTextStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436621C4C4E340070728B /* LazyTextStroke.swift */; };
+		49C436A41C4C4E340070728B /* LazyStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4366F1C4C4E340070728B /* LazyStyleSheet.swift */; };
+		49C436A51C4C4E340070728B /* LazyStyleSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436701C4C4E340070728B /* LazyStyleSheetManager.swift */; };
+		49C436A81C4C4E340070728B /* UIColor+LazyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436741C4C4E340070728B /* UIColor+LazyKit.swift */; };
+		49C436AB1C4C4E340070728B /* LazyStyleSheetCSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436781C4C4E340070728B /* LazyStyleSheetCSSParser.swift */; };
+		49C436AC1C4C4E340070728B /* LazyStyleSheetParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436791C4C4E340070728B /* LazyStyleSheetParser.swift */; };
+		49C436AD1C4C4E340070728B /* Operands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4367A1C4C4E340070728B /* Operands.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +58,28 @@
 		49C4362E1C4BD4D40070728B /* LazyConstraintOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyConstraintOptions.swift; sourceTree = "<group>"; };
 		49C436301C4C37E50070728B /* LazyBaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseTableViewCell.swift; sourceTree = "<group>"; };
 		49C436321C4C38740070728B /* LazyBaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		49C436521C4C4E340070728B /* LazyBasicSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBasicSet.swift; sourceTree = "<group>"; };
+		49C436531C4C4E340070728B /* LazyBoxSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBoxSet.swift; sourceTree = "<group>"; };
+		49C436541C4C4E340070728B /* LazyDecorationSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyDecorationSet.swift; sourceTree = "<group>"; };
+		49C436551C4C4E340070728B /* LazyOptionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyOptionSet.swift; sourceTree = "<group>"; };
+		49C436561C4C4E340070728B /* LazyStyleSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSet.swift; sourceTree = "<group>"; };
+		49C436571C4C4E340070728B /* LazyTextSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTextSet.swift; sourceTree = "<group>"; };
+		49C436591C4C4E340070728B /* LazyBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBorder.swift; sourceTree = "<group>"; };
+		49C4365A1C4C4E340070728B /* LazyColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyColor.swift; sourceTree = "<group>"; };
+		49C4365B1C4C4E340070728B /* LazyEdges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyEdges.swift; sourceTree = "<group>"; };
+		49C4365C1C4C4E340070728B /* LazyFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyFont.swift; sourceTree = "<group>"; };
+		49C4365D1C4C4E340070728B /* LazyImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyImage.swift; sourceTree = "<group>"; };
+		49C4365E1C4C4E340070728B /* LazyMeasureUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyMeasureUnit.swift; sourceTree = "<group>"; };
+		49C4365F1C4C4E340070728B /* LazyParagraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyParagraph.swift; sourceTree = "<group>"; };
+		49C436601C4C4E340070728B /* LazyTextalignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTextalignment.swift; sourceTree = "<group>"; };
+		49C436611C4C4E340070728B /* LazyTextDecoration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTextDecoration.swift; sourceTree = "<group>"; };
+		49C436621C4C4E340070728B /* LazyTextStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTextStroke.swift; sourceTree = "<group>"; };
+		49C4366F1C4C4E340070728B /* LazyStyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheet.swift; sourceTree = "<group>"; };
+		49C436701C4C4E340070728B /* LazyStyleSheetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheetManager.swift; sourceTree = "<group>"; };
+		49C436741C4C4E340070728B /* UIColor+LazyKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+LazyKit.swift"; sourceTree = "<group>"; };
+		49C436781C4C4E340070728B /* LazyStyleSheetCSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheetCSSParser.swift; sourceTree = "<group>"; };
+		49C436791C4C4E340070728B /* LazyStyleSheetParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheetParser.swift; sourceTree = "<group>"; };
+		49C4367A1C4C4E340070728B /* Operands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,8 +133,78 @@
 				49C436201C483F5D0070728B /* LazyElementOptions.swift */,
 				49C4362E1C4BD4D40070728B /* LazyConstraintOptions.swift */,
 				49C436221C489C1C0070728B /* Extensions.swift */,
+				49C4363E1C4C4E120070728B /* Theming */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		49C4363E1C4C4E120070728B /* Theming */ = {
+			isa = PBXGroup;
+			children = (
+				49C436511C4C4E340070728B /* Sets */,
+				49C4366E1C4C4E340070728B /* Main */,
+				49C436711C4C4E340070728B /* Extensions */,
+				49C436771C4C4E340070728B /* Parsers */,
+				49C4367A1C4C4E340070728B /* Operands.swift */,
+			);
+			path = Theming;
+			sourceTree = "<group>";
+		};
+		49C436511C4C4E340070728B /* Sets */ = {
+			isa = PBXGroup;
+			children = (
+				49C436521C4C4E340070728B /* LazyBasicSet.swift */,
+				49C436531C4C4E340070728B /* LazyBoxSet.swift */,
+				49C436541C4C4E340070728B /* LazyDecorationSet.swift */,
+				49C436551C4C4E340070728B /* LazyOptionSet.swift */,
+				49C436561C4C4E340070728B /* LazyStyleSet.swift */,
+				49C436571C4C4E340070728B /* LazyTextSet.swift */,
+				49C436581C4C4E340070728B /* Models */,
+			);
+			path = Sets;
+			sourceTree = "<group>";
+		};
+		49C436581C4C4E340070728B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49C436591C4C4E340070728B /* LazyBorder.swift */,
+				49C4365A1C4C4E340070728B /* LazyColor.swift */,
+				49C4365B1C4C4E340070728B /* LazyEdges.swift */,
+				49C4365C1C4C4E340070728B /* LazyFont.swift */,
+				49C4365D1C4C4E340070728B /* LazyImage.swift */,
+				49C4365E1C4C4E340070728B /* LazyMeasureUnit.swift */,
+				49C4365F1C4C4E340070728B /* LazyParagraph.swift */,
+				49C436601C4C4E340070728B /* LazyTextalignment.swift */,
+				49C436611C4C4E340070728B /* LazyTextDecoration.swift */,
+				49C436621C4C4E340070728B /* LazyTextStroke.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		49C4366E1C4C4E340070728B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				49C4366F1C4C4E340070728B /* LazyStyleSheet.swift */,
+				49C436701C4C4E340070728B /* LazyStyleSheetManager.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		49C436711C4C4E340070728B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				49C436741C4C4E340070728B /* UIColor+LazyKit.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		49C436771C4C4E340070728B /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				49C436781C4C4E340070728B /* LazyStyleSheetCSSParser.swift */,
+				49C436791C4C4E340070728B /* LazyStyleSheetParser.swift */,
+			);
+			path = Parsers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,16 +286,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C436231C489C1C0070728B /* Extensions.swift in Sources */,
+				49C436961C4C4E340070728B /* LazyParagraph.swift in Sources */,
 				49C4362F1C4BD4D40070728B /* LazyConstraintOptions.swift in Sources */,
+				49C4368F1C4C4E340070728B /* LazyTextSet.swift in Sources */,
 				49C4360B1C4836BA0070728B /* LazyViewConfigurations.swift in Sources */,
+				49C436901C4C4E340070728B /* LazyBorder.swift in Sources */,
+				49C436981C4C4E340070728B /* LazyTextDecoration.swift in Sources */,
+				49C436A41C4C4E340070728B /* LazyStyleSheet.swift in Sources */,
+				49C4368D1C4C4E340070728B /* LazyOptionSet.swift in Sources */,
+				49C436951C4C4E340070728B /* LazyMeasureUnit.swift in Sources */,
+				49C436A51C4C4E340070728B /* LazyStyleSheetManager.swift in Sources */,
+				49C436A81C4C4E340070728B /* UIColor+LazyKit.swift in Sources */,
+				49C4368C1C4C4E340070728B /* LazyDecorationSet.swift in Sources */,
 				49C436251C4A6EC40070728B /* LazyViewManager.swift in Sources */,
+				49C4368A1C4C4E340070728B /* LazyBasicSet.swift in Sources */,
 				49C436331C4C38740070728B /* LazyBaseCollectionViewCell.swift in Sources */,
+				49C4368E1C4C4E340070728B /* LazyStyleSet.swift in Sources */,
+				49C436971C4C4E340070728B /* LazyTextalignment.swift in Sources */,
 				49C436211C483F5D0070728B /* LazyElementOptions.swift in Sources */,
+				49C4368B1C4C4E340070728B /* LazyBoxSet.swift in Sources */,
+				49C436AB1C4C4E340070728B /* LazyStyleSheetCSSParser.swift in Sources */,
+				49C436921C4C4E340070728B /* LazyEdges.swift in Sources */,
 				49C436271C4A6F5B0070728B /* LazyBaseView.swift in Sources */,
+				49C436AD1C4C4E340070728B /* Operands.swift in Sources */,
+				49C436991C4C4E340070728B /* LazyTextStroke.swift in Sources */,
+				49C436911C4C4E340070728B /* LazyColor.swift in Sources */,
 				49C4360C1C4836BA0070728B /* LazyUIFactory.swift in Sources */,
+				49C436AC1C4C4E340070728B /* LazyStyleSheetParser.swift in Sources */,
 				49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */,
 				49C436311C4C37E50070728B /* LazyBaseTableViewCell.swift in Sources */,
 				49C4362D1C4BD4B40070728B /* LazyBaseOptions.swift in Sources */,
+				49C436931C4C4E340070728B /* LazyFont.swift in Sources */,
+				49C436941C4C4E340070728B /* LazyImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -120,7 +120,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         return true
     }
     
-    public func updateElement<T: BaseOptions>(identifier: String, baseOptions: T) -> Bool {
+    public func updateElement<T: BaseOptions>(identifier: String, baseOptions: T, secondaryBaseOptions: T? = nil) -> Bool {
         
         guard let element = storedElements[identifier] else {
             
@@ -137,23 +137,19 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             
         case let baseOptions as TextBaseOptions:
             
-            guard let label = element as? UILabel else {
+            if let label = element as? UILabel {
                 
-                return false
+                LazyUIFactory.updateLabel(label, textOptions: baseOptions)
+                
+                return true
             }
             
-            LazyUIFactory.updateLabel(label, textOptions: baseOptions)
-            
-            break
-            
-        case let baseOptions as [UIControlState: TextBaseOptions]:
-            
-            guard let button = element as? UIButton else {
+            if let textField = element as? UITextField {
                 
-                return false
+                LazyUIFactory.updateTextField(textField, textOptions: baseOptions, placeholderOptions: secondaryBaseOptions as? TextBaseOptions)
+                
+                return true
             }
-            
-            LazyUIFactory.updateButton(button, textOptionsForType: baseOptions)
             
             break
             

@@ -10,18 +10,38 @@ import UIKit
 
 internal class LazyUIFactory {
     
-    internal class func attributedString(textOptions: TextBaseOptions?) -> NSAttributedString? {
+    internal class func attributedString(textOptions: TextBaseOptions?, existingAttributes: [String: AnyObject]? = nil) -> NSAttributedString? {
         
         if let textOptions = textOptions {
             
             let paragraphStyle = NSMutableParagraphStyle()
+            
+            if let existingParagraphStyle = existingAttributes?[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+                
+                paragraphStyle.alignment = existingParagraphStyle.alignment ?? paragraphStyle.alignment
+                paragraphStyle.paragraphSpacing = existingParagraphStyle.paragraphSpacing ?? paragraphStyle.paragraphSpacing
+                paragraphStyle.headIndent = existingParagraphStyle.headIndent ?? paragraphStyle.headIndent
+                paragraphStyle.lineSpacing = existingParagraphStyle.lineSpacing ?? paragraphStyle.lineSpacing
+                paragraphStyle.lineBreakMode = existingParagraphStyle.lineBreakMode ?? paragraphStyle.lineBreakMode
+            }
+            
             paragraphStyle.alignment = textOptions.textAlignment ?? paragraphStyle.alignment
             paragraphStyle.paragraphSpacing = textOptions.paragraphSpacing ?? paragraphStyle.paragraphSpacing
             paragraphStyle.headIndent = textOptions.headIndent ?? paragraphStyle.headIndent
             paragraphStyle.lineSpacing = textOptions.lineSpacing ?? paragraphStyle.lineSpacing
             paragraphStyle.lineBreakMode = textOptions.lineBreakMode ?? paragraphStyle.lineBreakMode
-            
+
             var attr: [String : AnyObject] = [NSParagraphStyleAttributeName: paragraphStyle]
+            
+            if let existingAttribute = existingAttributes?[NSFontAttributeName] as? UIFont {
+                
+                attr.updateValue(existingAttribute, forKey: NSFontAttributeName)
+            }
+            
+            if let existingAttribute = existingAttributes?[NSForegroundColorAttributeName] as? UIColor {
+                
+                attr.updateValue(existingAttribute, forKey: NSForegroundColorAttributeName)
+            }
             
             if let font = textOptions.font {
                 
@@ -103,16 +123,24 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateTextField(textField: UITextField, textOptions: TextBaseOptions?, placeholderOptions: TextBaseOptions?) {
+    internal class func updateTextField(textField: UITextField, textOptions: TextBaseOptions?, placeholderOptions: TextBaseOptions? = nil, textInputOptions: TextInputBaseOptions? = nil) {
         
         if let textOptions = textOptions {
             
             if needAttributedString(textOptions) {
                 
-                textField.attributedText = attributedString(textOptions)
+                var existingAttributes: [String: AnyObject]?
+                
+                if let attributedText = textField.attributedText {
+                    
+                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                }
+                
+                textField.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
                 
             } else {
                 
+                textField.attributedText = nil
                 textField.textAlignment = textOptions.textAlignment ?? textField.textAlignment
                 textField.font = textOptions.font ?? textField.font
                 textField.textColor = textOptions.textColor ?? textField.textColor
@@ -123,7 +151,26 @@ internal class LazyUIFactory {
         
         if let textOptions = placeholderOptions {
             
-            textField.attributedPlaceholder = attributedString(textOptions)
+            var existingAttributes: [String: AnyObject]?
+            
+            if let attributedPlaceholder = textField.attributedPlaceholder {
+                
+                existingAttributes = attributedPlaceholder.attributesAtIndex(0, effectiveRange: nil)
+            }
+            
+            textField.attributedPlaceholder = attributedString(textOptions, existingAttributes: existingAttributes)
+        }
+        
+        if let textInputOptions = textInputOptions {
+            
+            textField.autocapitalizationType = textInputOptions.autocapitalizationType ?? textField.autocapitalizationType
+            textField.autocorrectionType = textInputOptions.autocorrectionType ?? textField.autocorrectionType
+            textField.spellCheckingType = textInputOptions.spellCheckingType ?? textField.spellCheckingType
+            textField.keyboardType = textInputOptions.keyboardType ?? textField.keyboardType
+            textField.keyboardAppearance = textInputOptions.keyboardAppearance ?? textField.keyboardAppearance
+            textField.returnKeyType = textInputOptions.returnKeyType ?? textField.returnKeyType
+            textField.enablesReturnKeyAutomatically = textInputOptions.enablesReturnKeyAutomatically ?? textField.enablesReturnKeyAutomatically
+            textField.secureTextEntry = textInputOptions.secureTextEntry ?? textField.secureTextEntry
         }
     }
     
@@ -184,7 +231,7 @@ internal class LazyUIFactory {
         
         updateView(textField, baseOptions: option.viewBaseOptions)
         
-        updateTextField(textField, textOptions: option.textOptions, placeholderOptions: option.placeholderOptions)
+        updateTextField(textField, textOptions: option.textOptions, placeholderOptions: option.placeholderOptions, textInputOptions: option.textInputOptions)
         
         return textField
     }

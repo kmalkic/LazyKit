@@ -15,6 +15,8 @@
 		49C436231C489C1C0070728B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436221C489C1C0070728B /* Extensions.swift */; };
 		49C436251C4A6EC40070728B /* LazyViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436241C4A6EC40070728B /* LazyViewManager.swift */; };
 		49C436271C4A6F5B0070728B /* LazyBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436261C4A6F5B0070728B /* LazyBaseView.swift */; };
+		49C4362D1C4BD4B40070728B /* LazyBaseOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4362C1C4BD4B40070728B /* LazyBaseOptions.swift */; };
+		49C4362F1C4BD4D40070728B /* LazyConstraintOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4362E1C4BD4D40070728B /* LazyConstraintOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		49C436221C489C1C0070728B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		49C436241C4A6EC40070728B /* LazyViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyViewManager.swift; sourceTree = "<group>"; };
 		49C436261C4A6F5B0070728B /* LazyBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseView.swift; sourceTree = "<group>"; };
+		49C4362C1C4BD4B40070728B /* LazyBaseOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseOptions.swift; sourceTree = "<group>"; };
+		49C4362E1C4BD4D40070728B /* LazyConstraintOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyConstraintOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 				49C436081C4836BA0070728B /* LazyViewConfigurations.swift */,
 				49C436091C4836BA0070728B /* LazyUIFactory.swift */,
 				49C436201C483F5D0070728B /* LazyElementOptions.swift */,
+				49C4362C1C4BD4B40070728B /* LazyBaseOptions.swift */,
+				49C4362E1C4BD4D40070728B /* LazyConstraintOptions.swift */,
 				49C436221C489C1C0070728B /* Extensions.swift */,
 			);
 			path = Classes;
@@ -160,12 +166,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C436231C489C1C0070728B /* Extensions.swift in Sources */,
+				49C4362F1C4BD4D40070728B /* LazyConstraintOptions.swift in Sources */,
 				49C4360B1C4836BA0070728B /* LazyViewConfigurations.swift in Sources */,
 				49C436251C4A6EC40070728B /* LazyViewManager.swift in Sources */,
 				49C436211C483F5D0070728B /* LazyElementOptions.swift in Sources */,
 				49C436271C4A6F5B0070728B /* LazyBaseView.swift in Sources */,
 				49C4360C1C4836BA0070728B /* LazyUIFactory.swift in Sources */,
 				49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */,
+				49C4362D1C4BD4B40070728B /* LazyBaseOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

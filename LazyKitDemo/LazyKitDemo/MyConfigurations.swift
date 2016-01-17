@@ -17,27 +17,34 @@ struct MyConfigurations: LazyViewConfigurations {
             LabelOptions(identifier: "title",
                 classType: CustomLabel.self,
                 viewBaseOptions: ViewBaseOptions(backgroundColor: .blueColor()),
-                textOptions: TextBaseOptions(text: "hello", font: .systemFontOfSize(20), textAlignment: .Center)),
+                textOptions: TextBaseOptions(text: "hello", font: .systemFontOfSize(20), textAlignment: .Center)
+            ),
             
             LabelOptions(identifier: "subtitle",
                 viewBaseOptions: ViewBaseOptions(backgroundColor: .greenColor()),
-                textOptions: TextBaseOptions(text: "hey", textAlignment: .Center)),
+                textOptions: TextBaseOptions(text: "hey", textAlignment: .Center)
+            ),
             
             ButtonOptions(identifier: "button",
                 viewBaseOptions: ViewBaseOptions(backgroundColor: .redColor()),
-                textOptionsForType: [.Normal: TextBaseOptions(text: "button"), .Highlighted: TextBaseOptions(text: "highlighted")] ),
+                textOptionsForType: [.Normal: TextBaseOptions(text: "button"), .Highlighted: TextBaseOptions(text: "highlighted")]
+            ),
             
             ViewOptions(identifier: "line",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor())),
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor())
+            ),
             
             ImageOptions(identifier: "photo",
                 viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor()),
-                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .ScaleAspectFill)),
+                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .ScaleAspectFill)
+            ),
             
             TextFieldOptions(identifier: "textfield",
                 viewBaseOptions: ViewBaseOptions(backgroundColor: UIColor.orangeColor()),
                 textOptions: TextBaseOptions(font: .systemFontOfSize(16), textAlignment: .Center),
-                placeholderOptions: TextBaseOptions(text: "placeholder", font: .systemFontOfSize(16), textColor: .redColor(), textAlignment: .Center))
+                placeholderOptions: TextBaseOptions(text: "placeholder", font: .systemFontOfSize(16), textColor: .redColor(), textAlignment: .Center),
+                textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .NumbersAndPunctuation, keyboardAppearance: .Dark, returnKeyType: .Done, enablesReturnKeyAutomatically: true, secureTextEntry: false)
+            )
         ]
     }
     

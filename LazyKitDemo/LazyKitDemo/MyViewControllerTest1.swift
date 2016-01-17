@@ -27,5 +27,7 @@ class MyViewControllerTest1: LazyBaseViewController <MyConfigurations> {
         viewManager!.updateElementForStates("button", baseOptions: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")])
         
         viewManager!.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
+        
+        viewManager!.updateElement("textfield", baseOptions: TextBaseOptions(text: "Done", textColor: .greenColor()), secondaryBaseOptions: TextBaseOptions(text: "new placeholder"))
 	}
 }

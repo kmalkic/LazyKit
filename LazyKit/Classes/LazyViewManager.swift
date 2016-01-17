@@ -93,10 +93,44 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
+    //MARK: Getters
+    
     public func element<T: UIView>(identifier: String) -> T? {
         
         return storedElements[identifier] as? T
     }
+    
+    public func label<T: UILabel>(identifier: String) -> T? {
+        
+        return element(identifier) as? T
+    }
+    
+    public func button<T: UIButton>(identifier: String) -> T? {
+        
+        return element(identifier) as? T
+    }
+    
+    public func imageView<T: UIImageView>(identifier: String) -> T? {
+        
+        return element(identifier) as? T
+    }
+    
+    public func tableView<T: UITableView>(identifier: String) -> T? {
+        
+        return element(identifier) as? T
+    }
+    
+    public func textField<T: UITextField>(identifier: String) -> T? {
+        
+        return element(identifier) as? T
+    }
+    
+    public func textView<T: UITextView>(identifier: String) -> T? {
+        
+        return element(identifier) as? T
+    }
+    
+    //MARK: Updates
     
     public func updateElementForStates(identifier: String, baseOptions: [UIControlState: BaseOptions]) -> Bool {
         

@@ -48,6 +48,8 @@ class MyViewControllerTableViewTest: LazyBaseViewController<MyTableConfiguration
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! LazyBaseTableViewCell<Cell>
         
+        cell.viewManager.label("title")?.text = "something"
+        
         if let title: UILabel = cell.viewManager.element("title") {
         
             title.text = "new title"

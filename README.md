@@ -5,12 +5,11 @@ Constructing a view can be long, boring and repetitive, especialy after the n vi
 
 ## Features
 
-- Maps UIView / UILabel / UIButton / UIImageView / UITextField / UITextView
-- Base classes for UIViewController / UIView
+- Maps UIView / UILabel / UIButton / UIImageView / UITextField / UITextView / UITableView
+- Base classes for UIViewController / UIView / UITableViewCell / UICollectionViewCell
 
 ## Features coming up
-- Map for UITableView / UICollectionView
-- Base classes for UITableViewCell / UICollectionViewCell
+- Map for UICollectionView
 - CSS parser / mapper (You'll be even more lazy after that)
 
 ## Requirements
@@ -227,9 +226,49 @@ struct MyConfigurations: LazyViewConfigurations {
     }
 }
 ```
+**Here the result with no extra work to do :), but ugly colors.**
 
-#### **Here the result with no extra work to do. :)**
 ![Advanced view configurations](https://raw.github.com/kmalkic/LazyKit/master/Readme_Assets/AdvanceViewConf.png)
+
+
+
+### Access an element
+```swift
+//viewManager.element(...) return an optional 
+if let title: UILabel = viewManager.element("title") {
+    ...
+}
+//or you can call 
+if let title = viewManager.label("title") {
+    ...
+}
+```
+
+### Update an element
+You can update the element with any of the base options.
+```swift
+viewManager.updateElement("title", baseOptions: TextBaseOptions(text: "something", textColor: .greenColor()))
+```
+
+### Update an element with states, such as UIButton
+```swift
+viewManager.updateElementForStates("button", baseOptions: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")])
+```
+
+### Update a contraints constant
+For this particular change, it is recommended to not use Visual format constraints because it does create an array of NSLayoutConstraints.
+Best is to create a constraint using this function:
+```swift
+static func layoutConstraints() -> [ConstraintOptions]? {
+    return [
+            ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .Height, relatedBy: .Equal, toItemIdentifier: nil, attribute: .Height, multiplier: 1, constant: 40)
+        ]
+```
+Now you will be able to target the specific constraint you want to change.
+```swift
+//This will make your title height to change from 40 to 120. Usefull if you want to expand/collapse an element.
+viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 120)
+```
 
 
 ## FAQ

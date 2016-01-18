@@ -101,7 +101,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
-    private func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
+    internal func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
     
         var textBaseOptions: TextBaseOptions?
         var placeholderBaseOptions: TextBaseOptions?

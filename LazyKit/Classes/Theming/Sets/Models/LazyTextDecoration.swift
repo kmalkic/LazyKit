@@ -31,17 +31,4 @@ class LazyTextDecoration {
 }
 
 
-func + (left:LazyTextDecoration?, right:LazyTextDecoration? ) -> LazyTextDecoration? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyTextDecoration()
-    
-    object.underline = left?.underline + right?.underline
-    
-    object.strikethrough = left?.strikethrough + right?.strikethrough
-    
-    object.color = left?.color + right?.color
-    
-    return object
-}
+

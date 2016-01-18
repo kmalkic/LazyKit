@@ -17,12 +17,18 @@ let kLineSpacingKey         = "line-height"
 let kParagraphSpacingKey    = "paragraph-spacing"
 let kHeadIndentKey          = "text-indent"
 let kWordWrapKey            = "word-wrap"
-let kNumberOfLinesKey      = "text-maxline"
+let kNumberOfLinesKey       = "text-maxline"
 
 let kTextStrokeWidthKey     = "text-stroke-width"
 let kTextStrokeColorKey     = "text-stroke-color"
 let kTextDecorationKey      = "text-decoration"
 let kTextDecorationColorKey = "text-decoration-color"
+
+enum TextSearchMode: String {
+
+    case Normal = ""
+    case Placeholder = "placeholder-"
+}
 
 class LazyTextSet {
  
@@ -108,11 +114,14 @@ class LazyTextSet {
         return textAttributes
     }
     
-    init?(content: [String]!, variables: [String: String]?) {
+    init?(content: [String]!, variables: [String: String]?, textSearchMode: TextSearchMode = .Normal) {
+        
+        let prefix = textSearchMode.rawValue
         
         for property in content {
             
             let components = property.componentsSeparatedByString(":")
+            
             if components.count != 2 {
                 print("Invalid property should be 'key: value'\n")
                 print(components)
@@ -133,43 +142,43 @@ class LazyTextSet {
             
             switch key {
     
-            case kTextColorKey:
+            case prefix + kTextColorKey:
                 textColor = LazyColor(anyString: value)
                 
-            case kFontNameKey:
+            case prefix + kFontNameKey:
                 fetchFont().fontName = fetchFont().parseFontNames(value)
                 
-            case kFontSizeKey:
+            case prefix + kFontSizeKey:
                 fetchFont().fontSize = LazyMeasure(string: value)
                 
-            case kAlignmentSizeKey:
+            case prefix + kAlignmentSizeKey:
                 textAlignment = LazyTextAlignment(string: value)
                 
-            case kLineSpacingKey:
+            case prefix + kLineSpacingKey:
                 fetchParagraph().lineSpacing = LazyMeasure(string: value)
                 
-            case kParagraphSpacingKey:
+            case prefix + kParagraphSpacingKey:
                 fetchParagraph().paragraphSpacing = LazyMeasure(string: value)
                 
-            case kHeadIndentKey:
+            case prefix + kHeadIndentKey:
                 fetchParagraph().headIndent = LazyMeasure(string: value)
                 
-            case kWordWrapKey:
+            case prefix + kWordWrapKey:
                 fetchParagraph().lineBreakMode = fetchParagraph().convertWordWrap(value)
 
-            case kTextStrokeWidthKey:
+            case prefix + kTextStrokeWidthKey:
                 fetchTextStroke().width = LazyMeasure(string: value)
                 
-            case kTextStrokeColorKey:
+            case prefix + kTextStrokeColorKey:
                 fetchTextStroke().color = LazyColor(anyString: value)
                 
-            case kTextDecorationKey:
+            case prefix + kTextDecorationKey:
                 fetchTextDecoration().setup(value)
                 
-            case kTextDecorationColorKey:
+            case prefix + kTextDecorationColorKey:
                 fetchTextDecoration().color = LazyColor(anyString: value)
             
-            case kNumberOfLinesKey:
+            case prefix + kNumberOfLinesKey:
                 numberOfLines = (value as NSString).integerValue
                 
             default:
@@ -178,6 +187,7 @@ class LazyTextSet {
         }
         
         if isPropertiesNil() {
+            
             return nil
         }
     }
@@ -186,27 +196,4 @@ class LazyTextSet {
         
         return fontObj == nil && textColor == nil && textAlignment == nil && paragraph == nil && textStroke == nil && textDecoration == nil && numberOfLines == nil
     }
-}
-
-func + (left:LazyTextSet?, right:LazyTextSet? ) -> LazyTextSet? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyTextSet()
-    
-    object.fontObj = left?.fontObj + right?.fontObj
-    
-    object.textAlignment = left?.textAlignment + right?.textAlignment
-    
-    object.textColor = left?.textColor + right?.textColor
-    
-    object.paragraph = left?.paragraph + right?.paragraph
-    
-    object.textStroke = left?.textStroke + right?.textStroke
-    
-    object.textDecoration = left?.textDecoration + right?.textDecoration
-    
-    object.numberOfLines = left?.numberOfLines + right?.numberOfLines
-    
-    return object
 }

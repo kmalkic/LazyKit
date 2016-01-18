@@ -75,28 +75,3 @@ class LazyMeasure {
         return convertString.floatValue
     }
 }
-
-
-func + (left:LazyMeasure?, right:LazyMeasure? ) -> LazyMeasure? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyMeasure()
-    
-    object.value = left?.value + right?.value
-    
-    object.unit = left?.unit + right?.unit
-    
-    return object
-}
-
-func + (left:MeasureUnit?, right:MeasureUnit? ) -> MeasureUnit? {
-    
-    if left == nil && right == nil { return nil }
-    
-    var object:MeasureUnit?
-    
-    if right != nil { object = right } else { object = left }
-    
-    return object
-}

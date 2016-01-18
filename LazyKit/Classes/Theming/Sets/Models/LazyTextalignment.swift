@@ -38,17 +38,3 @@ class LazyTextAlignment {
         }
     }
 }
-
-
-func + (left:LazyTextAlignment?, right:LazyTextAlignment? ) -> LazyTextAlignment? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyTextAlignment()
-    
-    object.alignment = left?.alignment + right?.alignment
-    
-    if right?.contentHorizontalAlignment != nil { object.contentHorizontalAlignment = right?.contentHorizontalAlignment } else { object.contentHorizontalAlignment = left?.contentHorizontalAlignment }
-    
-    return object
-}

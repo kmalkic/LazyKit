@@ -14,8 +14,10 @@ struct MyCellConfigurations: LazyViewConfigurations {
     static func elementsOptions() -> [ElementOptions]? {
         
         return [
-            LabelOptions(identifier: "title", classType: CustomLabel.self, styleId: "titlecell"),
-                        
+            LabelOptions(identifier: "title",
+                textOptions: TextBaseOptions(text: "title", font: .systemFontOfSize(16), textAlignment: .Left)
+            ),
+            
             LabelOptions(identifier: "subtitle",
                 textOptions: TextBaseOptions(text: "subtitle", font: .systemFontOfSize(12), textAlignment: .Left)
             ),

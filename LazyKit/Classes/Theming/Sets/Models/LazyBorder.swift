@@ -276,14 +276,3 @@ class LazyBorders {
         return result.first!!
     }
 }
-
-func + (left:LazyBorders?, right:LazyBorders? ) -> LazyBorders? {
-    
-    if left == nil && right == nil { return nil }
-    
-    var object:LazyBorders?
-    
-    if right != nil { object = right } else { object = left }
-    
-    return object
-}

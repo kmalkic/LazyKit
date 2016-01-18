@@ -34,17 +34,3 @@ class LazyFont {
     }
 
 }
-
-
-func + (left:LazyFont?, right:LazyFont? ) -> LazyFont? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyFont()
-    
-    object.fontName = left?.fontName + right?.fontName
-    
-    object.fontSize = left?.fontSize + right?.fontSize
-    
-    return object
-}

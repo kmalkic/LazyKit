@@ -38,9 +38,10 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                             
                             if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: elementOptions.styleId, styleClass: elementOptions.styleClass) {
                                 
-                                let newElementOptions = convertStyleSetToBaseOptions(styleSet)
+                                if let newElementOptions = convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
                                 
-//                                LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+                                    LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+                                }
                             }
                         }
                         
@@ -100,23 +101,97 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
-    private func convertStyleSetToBaseOptions(styleSet: LazyStyleSet) -> [BaseOptions] {
+    private func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
     
-        var options = [BaseOptions]()
+        var textBaseOptions: TextBaseOptions?
+        var placeholderBaseOptions: TextBaseOptions?
+        var viewBaseOptions: ViewBaseOptions?
+        var imageBaseOptions: ImageBaseOptions?
         
         if let basicSet = styleSet.basicSet {
-        
-            let viewBaseOptions = ViewBaseOptions(backgroundColor: basicSet.backgroundColor?.color(), tintColor: basicSet.tintColor?.color())
-            options.append(viewBaseOptions)
+            
+            viewBaseOptions = ViewBaseOptions(backgroundColor: basicSet.backgroundColor?.color(), tintColor: basicSet.tintColor?.color())
+            
+            if let image = basicSet.image {
+            
+                imageBaseOptions = ImageBaseOptions(imageNamed: image.imageName, contentMode: image.contentMode, tintColor: image.tintColor?.color())
+            }
         }
         
         if let textSet = styleSet.textSet {
             
-            let textBaseOptions = TextBaseOptions(font: textSet.fontObj?.font(), textColor: textSet.textColor?.color(), textAlignment: textSet.textAlignment?.alignment, numberOfLines: textSet.numberOfLines, adjustsFontSizeToFitWidth: false, lineSpacing: textSet.paragraph?.lineSpacing?.value, paragraphSpacing: textSet.paragraph?.paragraphSpacing?.value, headIndent: textSet.paragraph?.headIndent?.value, lineBreakMode: textSet.paragraph?.lineBreakMode)
-            options.append(textBaseOptions)
+            textBaseOptions = TextBaseOptions(font: textSet.fontObj?.font(), textColor: textSet.textColor?.color(), textAlignment: textSet.textAlignment?.alignment, numberOfLines: textSet.numberOfLines, adjustsFontSizeToFitWidth: false, lineSpacing: textSet.paragraph?.lineSpacing?.value, paragraphSpacing: textSet.paragraph?.paragraphSpacing?.value, headIndent: textSet.paragraph?.headIndent?.value, lineBreakMode: textSet.paragraph?.lineBreakMode)
         }
         
-        return options
+        if let textSet = styleSet.placeholderSet {
+            
+            placeholderBaseOptions = TextBaseOptions(font: textSet.fontObj?.font(), textColor: textSet.textColor?.color(), textAlignment: textSet.textAlignment?.alignment, numberOfLines: textSet.numberOfLines, adjustsFontSizeToFitWidth: false, lineSpacing: textSet.paragraph?.lineSpacing?.value, paragraphSpacing: textSet.paragraph?.paragraphSpacing?.value, headIndent: textSet.paragraph?.headIndent?.value, lineBreakMode: textSet.paragraph?.lineBreakMode)
+        }
+        
+        switch options {
+            
+        case var elementOptions as LabelOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptions = elementOptions.textOptions + textBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as ButtonOptions:
+            
+            var textOptionsForType: [UIControlState: TextBaseOptions]?
+            
+            if textBaseOptions != nil {
+            
+                textOptionsForType = [UIControlState: TextBaseOptions]()
+                
+                textOptionsForType![.Normal] = textBaseOptions!
+            }
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptionsForType = elementOptions.textOptionsForType + textOptionsForType
+            
+            return elementOptions
+            
+        case var elementOptions as TextFieldOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptions = elementOptions.textOptions + textBaseOptions
+            elementOptions.placeholderOptions = elementOptions.placeholderOptions + placeholderBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as TextViewOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptions = elementOptions.textOptions + textBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as ImageOptions:
+        
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.imageBaseOptions = elementOptions.imageBaseOptions + imageBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as TableViewOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as ViewOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            
+            return elementOptions
+            
+        default:
+            break
+        }
+
+        return nil
     }
     
     //MARK: Getters

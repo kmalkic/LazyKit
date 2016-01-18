@@ -160,8 +160,12 @@ internal class LazyUIFactory {
             imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
             imageView.tintColor = imageOptions.tintColor ?? imageView.tintColor
             
-            if let imageNamed = imageOptions.imageNamed {
+            if let imageNamed = imageOptions.imageNamed, _ = imageOptions.tintColor {
                 
+                imageView.image = UIImage(named: imageNamed)?.imageWithRenderingMode(.AlwaysTemplate)
+            
+            } else if let imageNamed = imageOptions.imageNamed {
+            
                 imageView.image = UIImage(named: imageNamed)
             }
         }
@@ -381,49 +385,52 @@ internal class LazyUIFactory {
         return v
     }
     
-    internal class func updateElement<U: UIView, T: ElementOptions>(view: U, elementOptions: T) {
+    internal class func updateElement<U: UIView, T>(view: U, elementOptions: T) {
 
-        updateView(view, viewBaseOptions: elementOptions.viewBaseOptions)
-        
-        switch elementOptions {
+        if let elementOptions = elementOptions as? ElementOptions {
             
-        case let elementOptions as LabelOptions where view is UILabel:
+            updateView(view, viewBaseOptions: elementOptions.viewBaseOptions)
             
-            updateLabel(view as! UILabel, options: elementOptions)
-            break
+            switch elementOptions {
+                
+            case let elementOptions as LabelOptions where view is UILabel:
+                
+                updateLabel(view as! UILabel, options: elementOptions)
+                break
+                
+            case let elementOptions as ButtonOptions where view is UIButton:
+                
+                updateButton(view as! UIButton, options: elementOptions)
+                break
+                
+            case let elementOptions as ImageOptions where view is UIImageView:
+                
+                updateImage(view as! UIImageView, options: elementOptions)
+                break
+                
+            case let elementOptions as TextFieldOptions where view is UITextField:
+                
+                let textField = view as! UITextField
+                
+                textField.borderStyle = elementOptions.borderStyle ?? textField.borderStyle
+                
+                updateTextField(textField, options: elementOptions)
+                break
+                
+            case let elementOptions as TextViewOptions where view is UITextView:
+                
+                updateTextView(view as! UITextView, options: elementOptions)
+                break
+                
+            default:
+                break
+            }
             
-        case let elementOptions as ButtonOptions where view is UIButton:
-            
-            updateButton(view as! UIButton, options: elementOptions)
-            break
-
-        case let elementOptions as ImageOptions where view is UIImageView:
-            
-            updateImage(view as! UIImageView, options: elementOptions)
-            break
-            
-        case let elementOptions as TextFieldOptions where view is UITextField:
-            
-            let textField = view as! UITextField
-            
-            textField.borderStyle = elementOptions.borderStyle ?? textField.borderStyle
-            
-            updateTextField(textField, options: elementOptions)
-            break
-            
-        case let elementOptions as TextViewOptions where view is UITextView:
-            
-            updateTextView(view as! UITextView, options: elementOptions)
-            break
-            
-        default:
-            break
-        }
-        
-        if let accessibilityIdentifier = elementOptions.viewBaseOptions?.accessibilityIdentifier {
-            
-            view.accessibilityIdentifier = accessibilityIdentifier
-            view.isAccessibilityElement = true
+            if let accessibilityIdentifier = elementOptions.viewBaseOptions?.accessibilityIdentifier {
+                
+                view.accessibilityIdentifier = accessibilityIdentifier
+                view.isAccessibilityElement = true
+            }
         }
     }
 }

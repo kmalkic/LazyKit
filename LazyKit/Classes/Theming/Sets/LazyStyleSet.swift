@@ -14,9 +14,9 @@ class LazyStyleSet : NSObject {
     
     var basicSet: LazyBasicSet?
     var textSet: LazyTextSet?
+    var placeholderSet: LazyTextSet?
     var decorationSet: LazyDecorationSet?
     var optionSet: LazyOptionSet?
-    var boxSet: LazyBoxSet?
     
     override init() {
         
@@ -33,28 +33,8 @@ class LazyStyleSet : NSObject {
         
         basicSet        = LazyBasicSet(content: content, variables: variables)
         textSet         = LazyTextSet(content: content, variables: variables)
+        placeholderSet  = LazyTextSet(content: content, variables: variables, textSearchMode: .Placeholder)
         decorationSet   = LazyDecorationSet(content: content, variables: variables)
         optionSet       = LazyOptionSet(content: content, variables: variables)
-        boxSet          = LazyBoxSet(content: content, variables: variables)
     }
-}
-
-
-func + (left:LazyStyleSet?, right:LazyStyleSet? ) -> LazyStyleSet? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyStyleSet()
-    
-    object.basicSet         = left?.basicSet + right?.basicSet
-    
-    object.decorationSet    = left?.decorationSet + right?.decorationSet
-    
-    object.optionSet        = left?.optionSet + right?.optionSet
-    
-    object.textSet          = left?.textSet + right?.textSet
-    
-    object.boxSet           = left?.boxSet + right?.boxSet
-    
-    return object
 }

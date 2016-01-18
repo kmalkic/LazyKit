@@ -109,23 +109,3 @@ class LazyBasicSet {
     }
 
 }
-
-
-func + (left:LazyBasicSet?, right:LazyBasicSet? ) -> LazyBasicSet? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyBasicSet()
-    
-    object.backgroundColor  = left?.backgroundColor + right?.backgroundColor
-    
-    object.tintColor        = left?.tintColor + right?.tintColor
-    
-    object.barTintColor     = left?.barTintColor + right?.barTintColor
-    
-    object.image            = left?.image + right?.image
-    
-    return object
-}
-
-

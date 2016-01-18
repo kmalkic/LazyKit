@@ -74,21 +74,3 @@ class LazyEdges {
         return UIEdgeInsetsMake(lTop, lLeft, lBottom, lRight)
     }
 }
-
-
-func + (left:LazyEdges?, right:LazyEdges? ) -> LazyEdges? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyEdges()
-    
-    object.top = left?.top + right?.top
-    
-    object.left = left?.left + right?.left
-    
-    object.bottom = left?.bottom + right?.bottom
-    
-    object.right = left?.right + right?.right
-    
-    return object
-}

@@ -110,7 +110,9 @@ class LazyStyleSheetCSSParser: LazyStyleSheetParser {
                 let elementProperties = matchesForRegexInText("([^\\s]*?):\\s*(.*?);", text: element)
                 
                 let styleSet = LazyStyleSet(elementName: elementName, content: elementProperties, variables: variablesDict)
-                if styleSet.basicSet != nil || styleSet.textSet != nil || styleSet.decorationSet != nil || styleSet.optionSet != nil || styleSet.boxSet != nil {
+                
+                if styleSet.basicSet != nil || styleSet.textSet != nil || styleSet.decorationSet != nil || styleSet.optionSet != nil {
+                    
                     styleSets.append(styleSet)
                 }
             }

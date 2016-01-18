@@ -129,16 +129,3 @@ struct LazyColor {
     
 }
 
-
-func + (left:LazyColor?, right:LazyColor? ) -> LazyColor? {
-    
-    if left == nil && right == nil { return nil }
-    
-    var object:LazyColor?
-    
-    if right != nil { object = right } else { object = left }
-    
-    return object
-}
-
-

@@ -80,15 +80,3 @@ class LazyDecorationSet {
         return borders == nil
     }
 }
-
-
-func + (left:LazyDecorationSet?, right:LazyDecorationSet? ) -> LazyDecorationSet? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyDecorationSet()
-    
-    object.borders  = left?.borders + right?.borders
-    
-    return object
-}

@@ -63,15 +63,3 @@ class LazyOptionSet {
         return translucent == nil
     }
 }
-
-
-func + (left:LazyOptionSet?, right:LazyOptionSet? ) -> LazyOptionSet? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyOptionSet()
-    
-    object.translucent = left?.translucent + right?.translucent
-    
-    return object
-}

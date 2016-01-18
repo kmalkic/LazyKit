@@ -15,17 +15,3 @@ class LazyTextStroke {
     var color: LazyColor?
 
 }
-
-
-func + (left:LazyTextStroke?, right:LazyTextStroke? ) -> LazyTextStroke? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyTextStroke()
-    
-    object.color = left?.color + right?.color
-    
-    object.width = left?.width + right?.width
-    
-    return object
-}

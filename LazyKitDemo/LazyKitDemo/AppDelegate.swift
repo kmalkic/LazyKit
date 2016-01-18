@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        LazyStyleSheetManager.shared.help()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window!.rootViewController = MyViewControllerTableViewTest()
+        window!.rootViewController = MyViewControllerCssTest()
         window!.makeKeyAndVisible()
         
         

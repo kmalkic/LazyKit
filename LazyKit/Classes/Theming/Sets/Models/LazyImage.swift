@@ -55,19 +55,3 @@ class LazyImage {
         }
     }
 }
-
-
-func + (left:LazyImage?, right:LazyImage? ) -> LazyImage? {
-    
-    if left == nil && right == nil { return nil }
-    
-    let object = LazyImage()
-    
-    object.contentMode = left?.contentMode + right?.contentMode
-    
-    object.imageName = left?.imageName + right?.imageName
-    
-    object.tintColor = left?.tintColor + right?.tintColor
-    
-    return object
-}

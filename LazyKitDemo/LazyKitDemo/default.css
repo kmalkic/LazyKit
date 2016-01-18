@@ -1,111 +1,55 @@
-@common_backgroundColor: #eeeeee;
-@global_regular_font_name: RobotoSlab-Bold;
-@global_light_font_name: RobotoSlab-Regular;
-@titleCellColor: #ff0000;
-@titleDetailColor: #fff;
-@titleDetailBackgroundColor: #00000044;
+@global_bold_font_name: RobotoSlab-Bold;
+@global_regular_font_name: RobotoSlab-Regular;
+@titleColor: #ff0000;
+@buttonColor: #fff000;
+@buttonBackgroundColor: #00000044;
 @tintColor: #3e8fdb;
 @bodyColor: #333333;
 
 body {
     color: @bodyColor;
+    font-family: @global_bold_font_name;
+    placeholder-font-family: @global_bold_font_name;
 }
 
-.common {
-    background-color: @common_backgroundColor;
-}
-
-#navBar {
-    bartint-color: @common_backgroundColor;
-    tint-color: @tintColor;
-    font-size: 22px;
-    font-family: @global_regular_font_name;
-    text-align:center;
-    translucent: false;
-}
-
-
-#titlecell {
+#title {
     font-size: 14px;
     text-align:left;
-    text-maxline: 1;
-    color: @titleCellColor;
-    width: auto;
-    height: 30px;
-    margin: 5px 5px 5px 0px;
-}
-
-#datecell {
-    font-size: 12px;
-    width: 75px;
-    height: 30px;
-    margin: 5px;
-}
-
-#storycell {
-    font-size: 10px;
-    text-indent: 5px;
-    width: auto;
-    height: 100px;
-    margin: 0px 5px;
-}
-
-#photocell {
-    border-radius: 10px;
-    background-image-tintColor: #ff0000;
-    background-image: cloud.png;
-    background-image-content: scaleToFit;
-    width: 50px;
-    height: 150px;
-    margin: 0px 5px 0px 0px;
-}
-
-
-#titledetail {
-    font-size: 24px;
-    text-align:center;
-    background-color: @titleDetailBackgroundColor;
     text-maxline: 2;
-    color: @titleDetailColor;
 }
 
-#datedetail {
-    font-size: 14px;
+#subtitle {
+    font-size: 12px;
+    text-align:left;
+    text-indent: 5px;
     text-decoration: underline;
     text-decoration-color: #000000;
 }
 
-#storydetail {
-    font-size: 12px;
+#button {
+    font-size: 24px;
+    text-align:center;
+    background-color: @buttonBackgroundColor;
+    text-maxline: 1;
+    color: @buttonColor;
 }
 
-#photodetail {
-    border-radius: 0px;
-    background-image: photo.jpg;
+#textfield {
+    font-size: 14px;
+    tint-color: @tintColor;
+    placeholder-color: #ff0000;
+    placeholder-font-size: 14px;
+}
+
+#textview {
+    font-size: 12px;
+    background-color: @buttonBackgroundColor;
+}
+
+#photo {
     background-image-content: scaleToFill;
 }
 
-
-.title {
-    font-family: @global_regular_font_name;
-    word-wrap: truncating-tail;
-}
-
-.date {
-    font-family: @global_light_font_name;
-    text-align:right;
-    text-maxline: 1;
-}
-
-.story {
-    font-family: @global_light_font_name;
-    text-align:left;
-    text-maxline: 0;
-}
-
 .photo {
-
+    background-image: image;
 }
-
-
-

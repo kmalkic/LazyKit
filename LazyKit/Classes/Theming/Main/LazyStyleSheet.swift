@@ -46,7 +46,7 @@ class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
     
     func styleThatMatchView(view: UIView, styleId: String?, styleClass: String?) -> LazyStyleSet? {
         
-        var newStyleSet = (bodyStyle != nil) ? bodyStyle : LazyStyleSet()
+        var newStyleSet: LazyStyleSet? = bodyStyle ?? LazyStyleSet()
         
         let possibilities = possibilityPatterns(view.dynamicType, styleClass: styleClass, styleId: styleId)
         

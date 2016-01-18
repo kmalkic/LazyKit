@@ -20,7 +20,6 @@
 		49C436311C4C37E50070728B /* LazyBaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436301C4C37E50070728B /* LazyBaseTableViewCell.swift */; };
 		49C436331C4C38740070728B /* LazyBaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436321C4C38740070728B /* LazyBaseCollectionViewCell.swift */; };
 		49C4368A1C4C4E340070728B /* LazyBasicSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436521C4C4E340070728B /* LazyBasicSet.swift */; };
-		49C4368B1C4C4E340070728B /* LazyBoxSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436531C4C4E340070728B /* LazyBoxSet.swift */; };
 		49C4368C1C4C4E340070728B /* LazyDecorationSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436541C4C4E340070728B /* LazyDecorationSet.swift */; };
 		49C4368D1C4C4E340070728B /* LazyOptionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436551C4C4E340070728B /* LazyOptionSet.swift */; };
 		49C4368E1C4C4E340070728B /* LazyStyleSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436561C4C4E340070728B /* LazyStyleSet.swift */; };
@@ -59,7 +58,6 @@
 		49C436301C4C37E50070728B /* LazyBaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseTableViewCell.swift; sourceTree = "<group>"; };
 		49C436321C4C38740070728B /* LazyBaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		49C436521C4C4E340070728B /* LazyBasicSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBasicSet.swift; sourceTree = "<group>"; };
-		49C436531C4C4E340070728B /* LazyBoxSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyBoxSet.swift; sourceTree = "<group>"; };
 		49C436541C4C4E340070728B /* LazyDecorationSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyDecorationSet.swift; sourceTree = "<group>"; };
 		49C436551C4C4E340070728B /* LazyOptionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyOptionSet.swift; sourceTree = "<group>"; };
 		49C436561C4C4E340070728B /* LazyStyleSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSet.swift; sourceTree = "<group>"; };
@@ -153,11 +151,10 @@
 		49C436511C4C4E340070728B /* Sets */ = {
 			isa = PBXGroup;
 			children = (
+				49C436561C4C4E340070728B /* LazyStyleSet.swift */,
 				49C436521C4C4E340070728B /* LazyBasicSet.swift */,
-				49C436531C4C4E340070728B /* LazyBoxSet.swift */,
 				49C436541C4C4E340070728B /* LazyDecorationSet.swift */,
 				49C436551C4C4E340070728B /* LazyOptionSet.swift */,
-				49C436561C4C4E340070728B /* LazyStyleSet.swift */,
 				49C436571C4C4E340070728B /* LazyTextSet.swift */,
 				49C436581C4C4E340070728B /* Models */,
 			);
@@ -304,7 +301,6 @@
 				49C4368E1C4C4E340070728B /* LazyStyleSet.swift in Sources */,
 				49C436971C4C4E340070728B /* LazyTextalignment.swift in Sources */,
 				49C436211C483F5D0070728B /* LazyElementOptions.swift in Sources */,
-				49C4368B1C4C4E340070728B /* LazyBoxSet.swift in Sources */,
 				49C436AB1C4C4E340070728B /* LazyStyleSheetCSSParser.swift in Sources */,
 				49C436921C4C4E340070728B /* LazyEdges.swift in Sources */,
 				49C436271C4A6F5B0070728B /* LazyBaseView.swift in Sources */,

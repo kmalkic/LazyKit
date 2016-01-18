@@ -12,7 +12,6 @@ typealias LazyBool = Bool
 typealias LazyInt = Int
 typealias LazyString = String
 typealias LazyFloat = CGFloat
-typealias LazyTextAlignment = NSTextAlignment
 typealias LazyLineBreakMode = NSLineBreakMode
 typealias LazyViewContentMode = UIViewContentMode
 
@@ -52,10 +51,10 @@ func + (left:LazyFloat?, right:LazyFloat? ) -> LazyFloat? {
 }
 
 
-func + (left:LazyTextAlignment?, right:LazyTextAlignment? ) -> LazyTextAlignment? {
+func + (left:NSTextAlignment?, right:NSTextAlignment? ) -> NSTextAlignment? {
     
     if left == nil && right == nil { return nil }
-    var object:LazyTextAlignment?
+    var object:NSTextAlignment?
     if right != nil { object = right } else { object = left }
     return object
 }

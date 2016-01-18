@@ -54,7 +54,7 @@ class LazyParagraph {
             paragraphStyle.firstLineHeadIndent = value
         }
         if let value = alignment {
-            paragraphStyle.alignment = value
+            paragraphStyle.alignment = value.alignment!
         } else {
             paragraphStyle.alignment = .Left
         }

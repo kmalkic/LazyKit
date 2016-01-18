@@ -74,18 +74,20 @@ internal class LazyUIFactory {
     
     //MARK: Mapping base options
     
-    internal class func updateView(view: UIView, baseOptions: ViewBaseOptions?) {
+    internal class func updateView(view: UIView, viewBaseOptions: ViewBaseOptions?) {
         
-        if let viewBaseOptions = baseOptions {
+        if let viewBaseOptions = viewBaseOptions {
             
             view.backgroundColor = viewBaseOptions.backgroundColor ?? view.backgroundColor
             view.tintColor = viewBaseOptions.tintColor ?? view.tintColor
         }
     }
     
-    internal class func updateLabel(label: UILabel, textOptions: TextBaseOptions?) {
+    internal class func updateLabel(label: UILabel, options: LabelOptions) {
         
-        if let textOptions = textOptions {
+        updateView(label, viewBaseOptions: options.viewBaseOptions)
+        
+        if let textOptions = options.textOptions {
             
             if needAttributedString(textOptions) {
                 
@@ -110,9 +112,35 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateButton(button: UIButton, textOptionsForType: [UIControlState: TextBaseOptions]?) {
+    internal class func updateButton(button: UIButton, options: ButtonOptions) {
         
-        if let textOptionsForType = textOptionsForType {
+        updateView(button, viewBaseOptions: options.viewBaseOptions)
+        
+        if let textOptions = options.textOptionsForType?[.Normal], titleLabel = button.titleLabel {
+            
+            if needAttributedString(textOptions) {
+                
+                var existingAttributes: [String: AnyObject]?
+                
+                if let attributedText = titleLabel.attributedText {
+                    
+                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                }
+                
+                titleLabel.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
+                
+            } else {
+                
+                titleLabel.textAlignment = textOptions.textAlignment ?? titleLabel.textAlignment
+                titleLabel.numberOfLines = textOptions.numberOfLines ?? titleLabel.numberOfLines
+                titleLabel.font = textOptions.font ?? titleLabel.font
+                titleLabel.textColor = textOptions.textColor ?? titleLabel.textColor
+                titleLabel.text = textOptions.text ?? titleLabel.text
+                titleLabel.adjustsFontSizeToFitWidth =  textOptions.adjustsFontSizeToFitWidth ?? titleLabel.adjustsFontSizeToFitWidth
+            }
+        }
+        
+        if let textOptionsForType = options.textOptionsForType {
             
             for (state, textOptions) in textOptionsForType {
                 
@@ -122,9 +150,11 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateImage(imageView: UIImageView, imageOptions: ImageBaseOptions?) {
+    internal class func updateImage(imageView: UIImageView, options: ImageOptions) {
         
-        if let imageOptions = imageOptions {
+        updateView(imageView, viewBaseOptions: options.viewBaseOptions)
+        
+        if let imageOptions = options.imageBaseOptions {
             
             imageView.clipsToBounds = true
             imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
@@ -137,9 +167,11 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateTextField(textField: UITextField, textOptions: TextBaseOptions?, placeholderOptions: TextBaseOptions? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+    internal class func updateTextField(textField: UITextField, options: TextFieldOptions) {
         
-        if let textOptions = textOptions {
+        updateView(textField, viewBaseOptions: options.viewBaseOptions)
+        
+        if let textOptions = options.textOptions {
             
             if needAttributedString(textOptions) {
                 
@@ -163,7 +195,7 @@ internal class LazyUIFactory {
             }
         }
         
-        if let textOptions = placeholderOptions {
+        if let textOptions = options.placeholderOptions {
             
             var existingAttributes: [String: AnyObject]?
             
@@ -175,7 +207,7 @@ internal class LazyUIFactory {
             textField.attributedPlaceholder = attributedString(textOptions, existingAttributes: existingAttributes)
         }
         
-        if let textInputOptions = textInputOptions {
+        if let textInputOptions = options.textInputOptions {
             
             textField.autocapitalizationType = textInputOptions.autocapitalizationType ?? textField.autocapitalizationType
             textField.autocorrectionType = textInputOptions.autocorrectionType ?? textField.autocorrectionType
@@ -188,9 +220,11 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateTextView(textView: UITextView, textOptions: TextBaseOptions?, textInputOptions: TextInputBaseOptions? = nil) {
+    internal class func updateTextView(textView: UITextView, options: TextViewOptions) {
         
-        if let textOptions = textOptions {
+        updateView(textView, viewBaseOptions: options.viewBaseOptions)
+        
+        if let textOptions = options.textOptions {
             
             if needAttributedString(textOptions) {
                 
@@ -213,7 +247,7 @@ internal class LazyUIFactory {
             }
         }
         
-        if let textInputOptions = textInputOptions {
+        if let textInputOptions = options.textInputOptions {
             
             textView.autocapitalizationType = textInputOptions.autocapitalizationType ?? textView.autocapitalizationType
             textView.autocorrectionType = textInputOptions.autocorrectionType ?? textView.autocorrectionType
@@ -232,7 +266,7 @@ internal class LazyUIFactory {
         
         let view = option.classType.init(frame: .zero)
         
-        updateView(view, baseOptions: option.viewBaseOptions)
+        updateElement(view, elementOptions: option)
         
         return view
     }
@@ -241,9 +275,7 @@ internal class LazyUIFactory {
         
         let label = option.classType.init(frame: .zero)
         
-        updateView(label, baseOptions: option.viewBaseOptions)
-        
-        updateLabel(label, textOptions: option.textOptions)
+        updateElement(label, elementOptions: option)
         
         return label
     }
@@ -252,14 +284,7 @@ internal class LazyUIFactory {
         
         let button = option.classType.init(type: option.type)
         
-        updateView(button, baseOptions: option.viewBaseOptions)
-        
-        if let titleLabel = button.titleLabel, textOptions = option.textOptionsForType?[.Normal] {
-            
-            updateLabel(titleLabel, textOptions: textOptions)
-        }
-        
-        updateButton(button, textOptionsForType: option.textOptionsForType)
+        updateElement(button, elementOptions: option)
         
         return button
     }
@@ -268,9 +293,7 @@ internal class LazyUIFactory {
         
         let imageView = option.classType.init(frame: .zero)
         
-        updateView(imageView, baseOptions: option.viewBaseOptions)
-        
-        updateImage(imageView, imageOptions: option.imageBaseOptions)
+        updateElement(imageView, elementOptions: option)
         
         return imageView
     }
@@ -279,11 +302,7 @@ internal class LazyUIFactory {
         
         let textField = option.classType.init(frame: .zero)
         
-        textField.borderStyle = option.borderStyle ?? textField.borderStyle
-        
-        updateView(textField, baseOptions: option.viewBaseOptions)
-        
-        updateTextField(textField, textOptions: option.textOptions, placeholderOptions: option.placeholderOptions, textInputOptions: option.textInputOptions)
+        updateElement(textField, elementOptions: option)
         
         return textField
     }
@@ -292,9 +311,7 @@ internal class LazyUIFactory {
         
         let textView = option.classType.init(frame: .zero)
         
-        updateView(textView, baseOptions: option.viewBaseOptions)
-        
-        updateTextView(textView, textOptions: option.textOptions, textInputOptions: option.textInputOptions)
+        updateElement(textView, elementOptions: option)
         
         return textView
     }
@@ -303,7 +320,7 @@ internal class LazyUIFactory {
         
         let tableView = option.classType.init(frame: .zero, style: option.style)
         
-        updateView(tableView, baseOptions: option.viewBaseOptions)
+        updateElement(tableView, elementOptions: option)
         
         return tableView
     }
@@ -355,17 +372,6 @@ internal class LazyUIFactory {
                 break
             }
             
-            if let accessibilityIdentifier = elementOptions.viewBaseOptions?.accessibilityIdentifier, v = v {
-                
-                v.accessibilityIdentifier = accessibilityIdentifier
-                v.isAccessibilityElement = true
-            }
-            
-            if let tintColor = elementOptions.viewBaseOptions?.tintColor, v = v {
-                
-                v.tintColor = tintColor
-            }
-            
             if let v = v {
                 
                 v.translatesAutoresizingMaskIntoConstraints = false
@@ -373,5 +379,51 @@ internal class LazyUIFactory {
         }
         
         return v
+    }
+    
+    internal class func updateElement<U: UIView, T: ElementOptions>(view: U, elementOptions: T) {
+
+        updateView(view, viewBaseOptions: elementOptions.viewBaseOptions)
+        
+        switch elementOptions {
+            
+        case let elementOptions as LabelOptions where view is UILabel:
+            
+            updateLabel(view as! UILabel, options: elementOptions)
+            break
+            
+        case let elementOptions as ButtonOptions where view is UIButton:
+            
+            updateButton(view as! UIButton, options: elementOptions)
+            break
+
+        case let elementOptions as ImageOptions where view is UIImageView:
+            
+            updateImage(view as! UIImageView, options: elementOptions)
+            break
+            
+        case let elementOptions as TextFieldOptions where view is UITextField:
+            
+            let textField = view as! UITextField
+            
+            textField.borderStyle = elementOptions.borderStyle ?? textField.borderStyle
+            
+            updateTextField(textField, options: elementOptions)
+            break
+            
+        case let elementOptions as TextViewOptions where view is UITextView:
+            
+            updateTextView(view as! UITextView, options: elementOptions)
+            break
+            
+        default:
+            break
+        }
+        
+        if let accessibilityIdentifier = elementOptions.viewBaseOptions?.accessibilityIdentifier {
+            
+            view.accessibilityIdentifier = accessibilityIdentifier
+            view.isAccessibilityElement = true
+        }
     }
 }

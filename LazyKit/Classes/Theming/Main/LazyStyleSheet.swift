@@ -26,19 +26,42 @@ class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
         let parser: LazyStyleSheetParser?
         
         switch parserType {
+            
         case .CSS:
             parser = LazyStyleSheetCSSParser()
+            
         default:
             parser = nil
         }
         
         if parser == nil {
+            
             return false
         }
         
         parser!.parseData(NSData(contentsOfURL: url), delegate: self)
         
         return true
+    }
+    
+    func styleThatMatchView(view: UIView, styleId: String?, styleClass: String?) -> LazyStyleSet? {
+        
+        var newStyleSet = (bodyStyle != nil) ? bodyStyle : LazyStyleSet()
+        
+        let possibilities = possibilityPatterns(view.dynamicType, styleClass: styleClass, styleId: styleId)
+        
+        let styleSetsTmp = styleSets
+        
+        for styleSet in styleSetsTmp {
+            
+            if testPatterns(patterns: styleSet.patterns, possibilities: possibilities) {
+                
+                newStyleSet = newStyleSet + styleSet
+                
+            }
+        }
+        
+        return newStyleSet
     }
     
     func possibilityPatterns(klass:AnyClass, styleClass: String?, styleId: String?) -> [String] {
@@ -59,19 +82,22 @@ class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
                 possibilities.append( String(format:".%@",klass) )
                 
                 if styleId != nil {
+                    
                     possibilities.append( klassName + String(format:"#%@",styleId!) )
                     possibilities.append( String(format:"#%@",styleId!) )
                 }
                 
                 if styleId != nil && styleClass != nil {
+                    
                     possibilities.append( klassName + String(format:"#%@.%@",styleId!,klass) )
                     possibilities.append( String(format:"#%@.%@",styleId!,klass) )
                 }
             }
-        }
-        else {
+            
+        } else {
             
             if styleId != nil {
+                
                 possibilities.append( klassName + String(format:"#%@",styleId!) )
                 possibilities.append( String(format:"#%@",styleId!) )
             }

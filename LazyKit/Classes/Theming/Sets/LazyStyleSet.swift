@@ -37,7 +37,6 @@ class LazyStyleSet : NSObject {
         optionSet       = LazyOptionSet(content: content, variables: variables)
         boxSet          = LazyBoxSet(content: content, variables: variables)
     }
-    
 }
 
 

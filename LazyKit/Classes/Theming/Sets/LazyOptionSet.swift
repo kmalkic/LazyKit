@@ -8,14 +8,11 @@
 
 import UIKit
 
-let kText_NumberOfLinesKey      = "text-maxline"
-
 let kBar_TranslucentKey         = "translucent"
 
 
 class LazyOptionSet {
-   
-    var numberOfLines: LazyInt?
+
     var translucent: LazyBool?
     
     init() {
@@ -46,10 +43,7 @@ class LazyOptionSet {
             }
             
             switch key {
-                
-            case kText_NumberOfLinesKey:
-                numberOfLines = (value as NSString).integerValue
-             
+                             
             case kBar_TranslucentKey:
                 translucent = (value as NSString).boolValue
                 
@@ -59,12 +53,14 @@ class LazyOptionSet {
         }
         
         if isPropertiesNil() {
+            
             return nil
         }
     }
     
     func isPropertiesNil() -> Bool {
-        return numberOfLines == nil && translucent == nil
+        
+        return translucent == nil
     }
 }
 
@@ -73,9 +69,7 @@ func + (left:LazyOptionSet?, right:LazyOptionSet? ) -> LazyOptionSet? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyOptionSet()
-    
-    object.numberOfLines = left?.numberOfLines + right?.numberOfLines
+    let object = LazyOptionSet()
     
     object.translucent = left?.translucent + right?.translucent
     

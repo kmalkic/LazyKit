@@ -122,13 +122,13 @@
 		49C436061C4836B00070728B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				49C436241C4A6EC40070728B /* LazyViewManager.swift */,
+				49C436081C4836BA0070728B /* LazyViewConfigurations.swift */,
+				49C436091C4836BA0070728B /* LazyUIFactory.swift */,
 				49C436071C4836BA0070728B /* LazyBaseViewController.swift */,
 				49C436261C4A6F5B0070728B /* LazyBaseView.swift */,
 				49C436301C4C37E50070728B /* LazyBaseTableViewCell.swift */,
 				49C436321C4C38740070728B /* LazyBaseCollectionViewCell.swift */,
-				49C436241C4A6EC40070728B /* LazyViewManager.swift */,
-				49C436081C4836BA0070728B /* LazyViewConfigurations.swift */,
-				49C436091C4836BA0070728B /* LazyUIFactory.swift */,
 				49C4362C1C4BD4B40070728B /* LazyBaseOptions.swift */,
 				49C436201C483F5D0070728B /* LazyElementOptions.swift */,
 				49C4362E1C4BD4D40070728B /* LazyConstraintOptions.swift */,

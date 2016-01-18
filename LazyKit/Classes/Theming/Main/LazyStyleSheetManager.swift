@@ -77,13 +77,16 @@ public class LazyStyleSheetManager: NSObject {
     
     //MARK: - internal
     
-    internal func applyStylingToObject(object: UIView, styleId: String?, styleClass: String?) -> LazyStyleSet? {
+    internal func stylingForView(view: UIView, styleId: String? = nil, styleClass: String? = nil) -> LazyStyleSet? {
         
-//        if let styleSet = getStylingToObject(object) {
-//            
-////            (object as NSObject).applyStyle(styleSet)
-//            return styleSet
-//        }
+        if let styleSheet = styleCollections[currentCollectionName] {
+            
+            if let styleSet = styleSheet.styleThatMatchView(view, styleId: styleId, styleClass: styleClass) {
+            
+                return styleSet
+            }
+        }
+        
         return nil
     }
     
@@ -236,6 +239,8 @@ public class LazyStyleSheetManager: NSObject {
         helpText += usageText() + "size in px\n"
         helpText += keyText(kAlignmentSizeKey)
         helpText += usageText() + "left | center | right | justify\n"
+        helpText += keyText(kNumberOfLinesKey)
+        helpText += usageText() + "number of lines max (integer)\n"
         helpText += keyText(kLineSpacingKey)
         helpText += usageText() + "height in px\n"
         helpText += keyText(kParagraphSpacingKey)
@@ -276,9 +281,6 @@ public class LazyStyleSheetManager: NSObject {
         helpText += "\n"
         
         helpText += "OPTIONS KEYS:\n"
-        helpText += keyText(kText_NumberOfLinesKey)
-        helpText += usageText() + "number of lines max (integer)\n"
-        
         helpText += keyText(kBar_TranslucentKey)
         helpText += usageText() + "true | false\n\n"
         

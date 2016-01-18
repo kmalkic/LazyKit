@@ -17,6 +17,7 @@ let kLineSpacingKey         = "line-height"
 let kParagraphSpacingKey    = "paragraph-spacing"
 let kHeadIndentKey          = "text-indent"
 let kWordWrapKey            = "word-wrap"
+let kNumberOfLinesKey      = "text-maxline"
 
 let kTextStrokeWidthKey     = "text-stroke-width"
 let kTextStrokeColorKey     = "text-stroke-color"
@@ -27,10 +28,11 @@ class LazyTextSet {
  
     var fontObj: LazyFont?
     var textColor: LazyColor?
-    var textalignment: LazyTextalignment?
+    var textAlignment: LazyTextAlignment?
     var paragraph: LazyParagraph?
     var textStroke: LazyTextStroke?
     var textDecoration: LazyTextDecoration?
+    var numberOfLines: LazyInt?
     
     init() {
         
@@ -65,7 +67,7 @@ class LazyTextSet {
     }
     
     func hasTextAttributes() -> Bool {
-        return textColor != nil || fontObj != nil || textalignment != nil
+        return textColor != nil || fontObj != nil || textAlignment != nil
     }
     
     func textAttributes() -> [String: AnyObject]! {
@@ -78,8 +80,8 @@ class LazyTextSet {
         if fontObj != nil {
             textAttributes[NSFontAttributeName] = fontObj!.font()
         }
-        if textalignment != nil {
-            fetchParagraph().alignment = textalignment!.alignment!
+        if textAlignment != nil {
+            fetchParagraph().alignment = textAlignment!
         }
         if paragraph != nil {
             textAttributes[NSParagraphStyleAttributeName] = paragraph!.paragraphStyle()
@@ -141,7 +143,7 @@ class LazyTextSet {
                 fetchFont().fontSize = LazyMeasure(string: value)
                 
             case kAlignmentSizeKey:
-                textalignment = LazyTextalignment(string: value)
+                textAlignment = LazyTextAlignment(string: value)
                 
             case kLineSpacingKey:
                 fetchParagraph().lineSpacing = LazyMeasure(string: value)
@@ -167,6 +169,9 @@ class LazyTextSet {
             case kTextDecorationColorKey:
                 fetchTextDecoration().color = LazyColor(anyString: value)
             
+            case kNumberOfLinesKey:
+                numberOfLines = (value as NSString).integerValue
+                
             default:
                 break
             }
@@ -178,7 +183,8 @@ class LazyTextSet {
     }
     
     func isPropertiesNil() -> Bool {
-        return fontObj == nil && textColor == nil && textalignment == nil && paragraph == nil && textStroke == nil && textDecoration == nil
+        
+        return fontObj == nil && textColor == nil && textAlignment == nil && paragraph == nil && textStroke == nil && textDecoration == nil && numberOfLines == nil
     }
 }
 
@@ -190,7 +196,7 @@ func + (left:LazyTextSet?, right:LazyTextSet? ) -> LazyTextSet? {
     
     object.fontObj = left?.fontObj + right?.fontObj
     
-    object.textalignment = left?.textalignment + right?.textalignment
+    object.textAlignment = left?.textAlignment + right?.textAlignment
     
     object.textColor = left?.textColor + right?.textColor
     
@@ -199,6 +205,8 @@ func + (left:LazyTextSet?, right:LazyTextSet? ) -> LazyTextSet? {
     object.textStroke = left?.textStroke + right?.textStroke
     
     object.textDecoration = left?.textDecoration + right?.textDecoration
+    
+    object.numberOfLines = left?.numberOfLines + right?.numberOfLines
     
     return object
 }

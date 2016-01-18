@@ -27,10 +27,12 @@ class LazyMeasure {
     }
     
     init(string: String) {
+        
         setup(string)
     }
     
     func setup(string: String) {
+        
         value = CGFloat(valueFromString(string))
         unit = unitFromString(string)
     }
@@ -55,15 +57,21 @@ class LazyMeasure {
     }
     
     func valueFromString(string:String) -> Float {
+        
         let convertString = string.stringByReplacingOccurrencesOfString(" ", withString:"") as NSString
         var range:NSRange
         let tests = ["px","pt","%"]
+        
         for test in tests {
+            
             range = convertString.rangeOfString(test)
+            
             if range.location != NSNotFound {
+                
                 return (convertString.substringToIndex(range.location) as NSString).floatValue
             }
         }
+        
         return convertString.floatValue
     }
 }

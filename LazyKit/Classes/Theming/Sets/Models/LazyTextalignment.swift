@@ -8,9 +8,9 @@
 
 import UIKit
 
-class LazyTextalignment {
+class LazyTextAlignment {
     
-    var alignment: LazyTextAlignment?
+    var alignment: NSTextAlignment?
     
     var contentHorizontalAlignment: UIControlContentHorizontalAlignment?
     
@@ -40,11 +40,11 @@ class LazyTextalignment {
 }
 
 
-func + (left:LazyTextalignment?, right:LazyTextalignment? ) -> LazyTextalignment? {
+func + (left:LazyTextAlignment?, right:LazyTextAlignment? ) -> LazyTextAlignment? {
     
     if left == nil && right == nil { return nil }
     
-    let object = LazyTextalignment()
+    let object = LazyTextAlignment()
     
     object.alignment = left?.alignment + right?.alignment
     

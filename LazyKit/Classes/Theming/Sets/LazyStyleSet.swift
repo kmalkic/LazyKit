@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LazyStyleSet : NSObject {
+internal class LazyStyleSet : NSObject {
    
     var patterns = [String]()
     

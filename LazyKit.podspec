@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/kmalkic/LazyKit'
   s.authors = { 'Kevin Malkic' => 'k_malkic@yahoo.fr' }
   s.source = { :git => 'https://github.com/kmalkic/LazyKit.git', :tag => s.version }
-  s.ios.deployment_target = '8.0'
+  s.platform = :ios, "8.0"
   s.source_files = 'LazyKit/Classes/*.swift'
   s.requires_arc = true
 end

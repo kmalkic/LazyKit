@@ -44,7 +44,7 @@ func + (left:LazyTextalignment?, right:LazyTextalignment? ) -> LazyTextalignment
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyTextalignment()
+    let object = LazyTextalignment()
     
     object.alignment = left?.alignment + right?.alignment
     

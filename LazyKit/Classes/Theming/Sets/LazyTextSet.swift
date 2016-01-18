@@ -186,7 +186,7 @@ func + (left:LazyTextSet?, right:LazyTextSet? ) -> LazyTextSet? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyTextSet()
+    let object = LazyTextSet()
     
     object.fontObj = left?.fontObj + right?.fontObj
     

@@ -73,7 +73,7 @@ func + (left:LazyMeasure?, right:LazyMeasure? ) -> LazyMeasure? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyMeasure()
+    let object = LazyMeasure()
     
     object.value = left?.value + right?.value
     

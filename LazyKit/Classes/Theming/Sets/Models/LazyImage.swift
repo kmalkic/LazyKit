@@ -61,7 +61,7 @@ func + (left:LazyImage?, right:LazyImage? ) -> LazyImage? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyImage()
+    let object = LazyImage()
     
     object.contentMode = left?.contentMode + right?.contentMode
     

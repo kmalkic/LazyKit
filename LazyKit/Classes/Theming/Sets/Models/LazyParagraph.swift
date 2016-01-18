@@ -73,7 +73,7 @@ func + (left:LazyParagraph?, right:LazyParagraph? ) -> LazyParagraph? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyParagraph()
+    let object = LazyParagraph()
     
     object.alignment = left?.alignment + right?.alignment
     

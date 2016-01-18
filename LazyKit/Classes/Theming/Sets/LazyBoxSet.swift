@@ -89,7 +89,7 @@ func + (left:LazyBoxSet?, right:LazyBoxSet? ) -> LazyBoxSet? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyBoxSet()
+    let object = LazyBoxSet()
     
     object.width = left?.width + right?.width
     

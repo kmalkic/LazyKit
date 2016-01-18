@@ -21,7 +21,7 @@ func + (left:LazyTextStroke?, right:LazyTextStroke? ) -> LazyTextStroke? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyTextStroke()
+    let object = LazyTextStroke()
     
     object.color = left?.color + right?.color
     

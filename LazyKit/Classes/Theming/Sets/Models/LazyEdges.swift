@@ -27,7 +27,7 @@ class LazyEdges {
     
     func setupEdges(value:String) {
         
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kEdgesRegex)$", value) ) {
+        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kEdgesRegex)$", text: value) ) {
             top = LazyMeasure(string: components[0])
             left = LazyMeasure(string: components[0])
             bottom = LazyMeasure(string: components[0])
@@ -35,7 +35,7 @@ class LazyEdges {
             return
         }
         
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kEdgesRegex) \(kEdgesRegex)$", value) ) {
+        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kEdgesRegex) \(kEdgesRegex)$", text: value) ) {
             top = LazyMeasure(string: components[0])
             left = LazyMeasure(string: components[1])
             bottom = LazyMeasure(string: components[0])
@@ -43,7 +43,7 @@ class LazyEdges {
             return
         }
         
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kEdgesRegex) \(kEdgesRegex) \(kEdgesRegex) \(kEdgesRegex)$", value) ) {
+        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kEdgesRegex) \(kEdgesRegex) \(kEdgesRegex) \(kEdgesRegex)$", text: value) ) {
             top = LazyMeasure(string: components[0])
             left = LazyMeasure(string: components[1])
             bottom = LazyMeasure(string: components[2])
@@ -52,14 +52,21 @@ class LazyEdges {
         }
     }
     
-    private func splitComponentsFromMatches(matches:[String]) -> [String]? {
-        if matches.count > 0 {
-            return matches[0].componentsSeparatedByString(" ")
+    private func splitComponentsFromMatches(matches:[String]?) -> [String]? {
+        
+        if let matches = matches {
+            
+            if matches.count > 0 {
+                
+                return matches[0].componentsSeparatedByString(" ")
+            }
         }
+        
         return nil
     }
     
     func edgeInsets() -> UIEdgeInsets {
+        
         let lTop    = (self.top?.value != nil) ? self.top!.value! : 0
         let lBottom = (self.bottom?.value != nil) ? self.bottom!.value! : 0
         let lLeft   = (self.left?.value != nil) ? self.left!.value! : 0
@@ -73,7 +80,7 @@ func + (left:LazyEdges?, right:LazyEdges? ) -> LazyEdges? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyEdges()
+    let object = LazyEdges()
     
     object.top = left?.top + right?.top
     

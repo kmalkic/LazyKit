@@ -45,7 +45,7 @@ func + (left:LazyStyleSet?, right:LazyStyleSet? ) -> LazyStyleSet? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyStyleSet()
+    let object = LazyStyleSet()
     
     object.basicSet         = left?.basicSet + right?.basicSet
     

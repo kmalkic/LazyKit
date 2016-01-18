@@ -40,7 +40,7 @@ func + (left:LazyFont?, right:LazyFont? ) -> LazyFont? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyFont()
+    let object = LazyFont()
     
     object.fontName = left?.fontName + right?.fontName
     

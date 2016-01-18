@@ -8,6 +8,11 @@
 
 import UIKit
 
+func count(string: String) -> Int {
+
+    return string.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+}
+
 struct LazyColor {
    
     var red: Float = 0
@@ -37,8 +42,10 @@ struct LazyColor {
     
         var colorString = hexString.stringByReplacingOccurrencesOfString("#", withString:"").stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
         
-        var range:NSRange = (colorString as NSString).rangeOfString(" ")
+        let range:NSRange = (colorString as NSString).rangeOfString(" ")
+        
         if range.location != NSNotFound {
+            
             colorString = (colorString as NSString).substringToIndex(range.location)
         }
         
@@ -77,7 +84,7 @@ struct LazyColor {
         
         let components = colorString.componentsSeparatedByString(",") as Array<String>
         
-        if count(components) != 3 {
+        if components.count != 3 {
 //            var error: NSError?
 //            NSException.raise("Invalid color value", format: "It should be a rgb value of the form rgb(255,255,255)", arguments: getVaList([error ?? "nil"]))
             print("It should be a rgb value of the form rgb(255,255,255)\n")
@@ -94,7 +101,7 @@ struct LazyColor {
         
         let components = colorString.componentsSeparatedByString(",") as Array<String>
         
-        if count(components) != 4 {
+        if components.count != 4 {
 //            var error: NSError?
 //            NSException.raise("Invalid color value", format: "It should be a rgb value of the form rgba(255,255,255)", arguments: getVaList([error ?? "nil"]))
             print("It should be a rgb value of the form rgba(255,255,255)\n")

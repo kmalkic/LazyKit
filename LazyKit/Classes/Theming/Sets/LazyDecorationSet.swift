@@ -86,7 +86,7 @@ func + (left:LazyDecorationSet?, right:LazyDecorationSet? ) -> LazyDecorationSet
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyDecorationSet()
+    let object = LazyDecorationSet()
     
     object.borders  = left?.borders + right?.borders
     

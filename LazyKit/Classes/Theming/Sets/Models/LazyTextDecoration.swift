@@ -35,7 +35,7 @@ func + (left:LazyTextDecoration?, right:LazyTextDecoration? ) -> LazyTextDecorat
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyTextDecoration()
+    let object = LazyTextDecoration()
     
     object.underline = left?.underline + right?.underline
     

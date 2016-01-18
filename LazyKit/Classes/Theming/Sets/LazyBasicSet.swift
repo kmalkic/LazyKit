@@ -115,7 +115,7 @@ func + (left:LazyBasicSet?, right:LazyBasicSet? ) -> LazyBasicSet? {
     
     if left == nil && right == nil { return nil }
     
-    var object = LazyBasicSet()
+    let object = LazyBasicSet()
     
     object.backgroundColor  = left?.backgroundColor + right?.backgroundColor
     

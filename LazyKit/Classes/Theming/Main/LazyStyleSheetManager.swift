@@ -10,7 +10,7 @@ import UIKit
 
 /// Default collection name
 public let kDefaultCollectionName = "Default"
-
+public let kUpdateStylesNotificationKey = "kUpdateStylesNotificationKey"
 
 /// Style manager that handle collection of styles.
 public class LazyStyleSheetManager: NSObject {
@@ -23,17 +23,13 @@ public class LazyStyleSheetManager: NSObject {
     
     internal var enableThemeSwapping = false
     
-    internal var debugMode = false
-    
-    private let debugViewHeight:CGFloat = 160
-    
     internal var displayStyleLabels = false {
+        
         didSet {
+            
             self.postUpdateStylesNotification()
         }
     }
-    
-    internal var debugTapGesture: UIScreenEdgePanGestureRecognizer?
     
     /**
         Current collection name.
@@ -44,7 +40,9 @@ public class LazyStyleSheetManager: NSObject {
         You can call postUpdateStylesNotification() manually to trigger the same update.
     */
     public var currentCollectionName = kDefaultCollectionName {
+        
         didSet {
+            
             postUpdateStylesNotification()
         }
     }
@@ -59,12 +57,16 @@ public class LazyStyleSheetManager: NSObject {
     public class var shared: LazyStyleSheetManager {
         
         struct Static {
+            
             static var instance: LazyStyleSheetManager!
             static var token: dispatch_once_t = 0
         }
+        
         dispatch_once(&Static.token) {
+            
             Static.instance = LazyStyleSheetManager()
         }
+        
         return Static.instance!
     }
     
@@ -75,25 +77,16 @@ public class LazyStyleSheetManager: NSObject {
     
     //MARK: - internal
     
-    internal func applyStylingToObject(object: NSObject) -> LazyStyleSet? {
+    internal func applyStylingToObject(object: UIView, styleId: String?, styleClass: String?) -> LazyStyleSet? {
         
-        if let styleSet = getStylingToObject(object) {
-            (object as NSObject).applyStyle(styleSet)
-            return styleSet
-        }
+//        if let styleSet = getStylingToObject(object) {
+//            
+////            (object as NSObject).applyStyle(styleSet)
+//            return styleSet
+//        }
         return nil
     }
     
-    internal func getStylingToObject(object: NSObject) -> LazyStyleSet? {
-        
-        if let styleSheet = styleCollections[currentCollectionName] {
-            if let styleSet = styleSheet.styleThatMatchObject(object) {
-                return styleSet
-            }
-        }
-        return nil
-    }
-
     //MARK: - private
     
     private func keyText(key: String) -> String {
@@ -114,7 +107,7 @@ public class LazyStyleSheetManager: NSObject {
         Call postUpdateStylesNotification() manually to trigger all the views to update their styles.
     */
     public func postUpdateStylesNotification() {
-        LazyComposerManager.shared.flushConfigurations()
+        
         NSNotificationCenter.defaultCenter().postNotificationName(kUpdateStylesNotificationKey, object: nil)
     }
     
@@ -125,23 +118,14 @@ public class LazyStyleSheetManager: NSObject {
         :param: swapping defines if the manager can handle swapping the current collection with another collection styles.
     */
     public func enableThemeSwapping(swapping: Bool) {
+        
         enableThemeSwapping = swapping
-    }
-    
-    public func debugMode(debug: Bool) {
-        #if DEBUG
-            debugMode = debug
-            if debug {
-                debugView = LazyDebugView(frame: CGRectZero)
-                debugView!.backgroundColor = UIColor.clearColor()
-                let timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addGestureToWindow"), userInfo: nil, repeats: false)
-            }
-        #endif
     }
     
     public func setUrlToRefreshCollectionFile(collectionName: String, urls:[NSURL]) {
         
         if urls.count == 0 {
+            
             return
         }
         styleCollectionsUrl[collectionName]! = urls
@@ -150,11 +134,15 @@ public class LazyStyleSheetManager: NSObject {
     private func appendUrlToRefreshCollectionFile(collectionName: String, urls:[NSURL]) {
         
         if urls.count == 0 {
+            
             return
         }
+        
         if styleCollectionsUrl[collectionName] == nil {
+            
             styleCollectionsUrl[collectionName] = [NSURL]()
         }
+        
         styleCollectionsUrl[collectionName]! += urls
     }
     
@@ -171,6 +159,7 @@ public class LazyStyleSheetManager: NSObject {
     public func setStylesFromFileAtUrl(url: NSURL?, collectionName: String) -> Bool {
         
         if url == nil {
+            
             return false
         }
         
@@ -182,6 +171,7 @@ public class LazyStyleSheetManager: NSObject {
         let styleSheet:LazyStyleSheet? = styleCollections[collectionName]
         
         if styleSheet != nil {
+            
             styleCollections.removeValueForKey(collectionName)
         }
         
@@ -193,6 +183,7 @@ public class LazyStyleSheetManager: NSObject {
     public func appendStylesFromFileAtUrls(urls: [NSURL], collectionName: String) -> Bool {
         
         if urls.count == 0 {
+            
             return false
         }
         
@@ -205,18 +196,21 @@ public class LazyStyleSheetManager: NSObject {
             styleCollections[collectionName] = styleSheet!
         }
         
-        if !contains(styleCollectionsNames, collectionName) {
+        if !styleCollectionsNames.contains(collectionName) {
+            
             styleCollectionsNames.append(collectionName)
         }
         
         for url in urls {
+            
             styleSheet!.startParsingFileAtUrl(url, parserType: .CSS)
         }
-        let success = (styleSheet!.styleSets.count > 0)
-        return success
+        
+        return (styleSheet!.styleSets.count > 0)
     }
     
     public func help() {
+        
         var helpText = "****************************** HELP ******************************\n"
         helpText +=    "******************** Available keys and usages *******************\n\n"
         

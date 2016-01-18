@@ -41,31 +41,12 @@ class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
         return true
     }
     
-    func styleThatMatchObject(object: NSObject) -> LazyStyleSet? {
-        
-        var newStyleSet = (bodyStyle != nil) ? bodyStyle : LazyStyleSet()
-        
-        let possibilities = possibilityPatterns(object.dynamicType, styleClass: object.styleClass, styleId: object.styleId)
-        
-        let styleSetsTmp = styleSets
-            
-        for styleSet in styleSetsTmp {
-            
-            if testPatterns(patterns: styleSet.patterns, possibilities: possibilities) {
-                
-                newStyleSet = newStyleSet + styleSet
-
-            }
-        }
-        
-        return newStyleSet
-    }
-    
     func possibilityPatterns(klass:AnyClass, styleClass: String?, styleId: String?) -> [String] {
         
         var possibilities = [String]()
-        let klassName = NSStringFromClass(klass).pathExtension
         
+        let klassName = NSStringFromClass(klass)
+
         possibilities.append(klassName)
         
         if styleClass != nil {
@@ -102,7 +83,9 @@ class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
     func testPatterns(patterns patterns: [String], possibilities: [String]) -> Bool {
     
         for pattern in patterns {
-            if contains(possibilities,pattern) {
+            
+            if possibilities.contains(pattern) {
+                
                 return true
             }
         }
@@ -116,17 +99,24 @@ class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
         
         self.styleSets += styleSets
         
-        var searchResults = styleSets.filter(){
+        let searchResults = styleSets.filter() {
+            
             for pattern in $0.patterns {
+                
                 if pattern == "body" {
+                    
                     return true
                 }
             }
             return false
         }
+        
         if searchResults.count > 0 {
+            
             bodyStyle = LazyStyleSet()
+            
             for style in searchResults {
+                
                 bodyStyle = bodyStyle + style
             }
         }

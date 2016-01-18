@@ -122,10 +122,16 @@ class LazyBorders {
         }
     }
     
-    private func splitComponentsFromMatches(matches:[String]) -> [String]? {
-        if matches.count > 0 {
-            return matches[0].componentsSeparatedByString(" ")
+    private func splitComponentsFromMatches(matches:[String]?) -> [String]? {
+        
+        if let matches = matches {
+            
+            if matches.count > 0 {
+                
+                return matches[0].componentsSeparatedByString(" ")
+            }
         }
+        
         return nil
     }
     
@@ -165,6 +171,7 @@ class LazyBorders {
     }
     
     private func assignBorderSettingToAllBorders(topWidth topWidth:String, bottomWidth:String, leftWidth:String, rightWidth:String, color:String?) {
+        
         top = LazyBorder(widthString: topWidth, colorString: color)
         left = LazyBorder(widthString: leftWidth, colorString: color)
         bottom = LazyBorder(widthString: bottomWidth, colorString: color)
@@ -172,35 +179,44 @@ class LazyBorders {
     }
     
     func isBordersWidthZero() -> Bool {
+        
         if top == nil {
+            
             return true
         }
+        
         return (top?.value == 0 && left?.value == 0 && bottom?.value == 0 && right?.value == 0)
     }
     
     func highiestBorderWidth() -> LazyMeasure {
+        
         let values = [top, left, bottom, right]
-        let result = values.sorted { (a, b) -> Bool in
+        
+        let result = values.sort { (a, b) -> Bool in
+            
             return (a!.value > b!.value)
         }
+
         return result.first!!
     }
     
     //Radius
     func setupBorderRadius(key:String, value:String) {
         
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex)$", value) ) {
+        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex)$", text: value) ) {
+            
             assignBorderRadiusSettingToAllBorders(radius: components[0])
             return
         }
         
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex)$", value) ) {
+        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex)$", text: value) ) {
             assignBorderRadiusSettingToAllBorders(topRadius: components[0], bottomRadius: components[1], leftRadius: components[2], rightRadius: components[3])
             return
         }
     }
     
     private func assignBorderRadiusSettingToAllBorders(radius radius:String) {
+        
         cornerRadiusTopRight = LazyMeasure(string: radius)
         cornerRadiusTopLeft = LazyMeasure(string: radius)
         cornerRadiusBottomRight = LazyMeasure(string: radius)
@@ -209,6 +225,7 @@ class LazyBorders {
     }
     
     private func assignBorderRadiusSettingToAllBorders(topRadius topRadius:String, bottomRadius:String, leftRadius:String, rightRadius:String) {
+        
         cornerRadiusTopRight = LazyMeasure(string: topRadius)
         cornerRadiusTopLeft = LazyMeasure(string: bottomRadius)
         cornerRadiusBottomRight = LazyMeasure(string: leftRadius)
@@ -217,36 +234,48 @@ class LazyBorders {
         rectCorner = nil
         
         if cornerRadiusTopRight!.value > 0 {
-            if rectCorner == nil { rectCorner = .TopRight } else { rectCorner = rectCorner! | .TopRight }
+
+            if rectCorner == nil { rectCorner = .TopRight } else { rectCorner = [rectCorner!, .TopRight] }
         }
+        
         if cornerRadiusTopLeft!.value > 0 {
-            if rectCorner == nil { rectCorner = .TopLeft } else { rectCorner = rectCorner! | .TopLeft }
+            
+            if rectCorner == nil { rectCorner = .TopLeft } else { rectCorner = [rectCorner!, .TopLeft] }
         }
+        
         if cornerRadiusBottomRight!.value > 0 {
-            if rectCorner == nil { rectCorner = .BottomRight } else { rectCorner = rectCorner! | .BottomRight }
+            
+            if rectCorner == nil { rectCorner = .BottomRight } else { rectCorner = [rectCorner!, .BottomRight] }
         }
+        
         if cornerRadiusBottomLeft!.value > 0 {
-            if rectCorner == nil { rectCorner = .BottomLeft } else { rectCorner = rectCorner! | .BottomLeft }
+            
+            if rectCorner == nil { rectCorner = .BottomLeft } else { rectCorner = [rectCorner!, .BottomLeft] }
         }
     }
     
     func hasCornerRadius() -> Bool {
+        
         return (cornerRadiusBottomLeft?.value > 0 || cornerRadiusBottomRight?.value > 0 || cornerRadiusTopLeft?.value > 0 || cornerRadiusTopRight?.value > 0)
     }
     
     func isCornersRadiusEqual() -> Bool {
+        
         return (cornerRadiusBottomLeft?.value == cornerRadiusBottomRight?.value && cornerRadiusTopLeft?.value == cornerRadiusBottomRight?.value && cornerRadiusTopRight?.value == cornerRadiusBottomRight?.value)
     }
     
     func highiestRadius() -> LazyMeasure {
+        
         let values = [cornerRadiusBottomLeft, cornerRadiusBottomRight, cornerRadiusTopLeft, cornerRadiusTopRight]
-        let result = values.sorted { (a, b) -> Bool in
+        
+        let result = values.sort({ (a, b) -> Bool in
+            
             return (a!.value > b!.value)
-        }
+        })
+        
         return result.first!!
     }
 }
-
 
 func + (left:LazyBorders?, right:LazyBorders? ) -> LazyBorders? {
     

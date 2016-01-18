@@ -257,32 +257,37 @@ public class LazyStyleSheetManager: NSObject {
         helpText += usageText() + "none|underline|line-through\n"
         helpText += keyText(kTextDecorationColorKey)
         helpText += usageText() + "#RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))\n"
-        helpText += "\n"
         
-        helpText += "DECORATIONS KEYS:\n"
-        helpText += keyText(kBorderKey)
-        helpText += patternsText() + "\n"
-        helpText += "       - width color\n"
-        helpText += "       - vertical-width horizontal-width color\n"
-        helpText += "       - top-width left-width bottom-width right-width color\n"
-        
-        helpText += keyText(kBorderColorKey)
-        helpText += usageText() + "#RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))\n"
-        
-        helpText += keyText(kBorderWidthKey)
-        helpText += patternsText() + "\n"
-        helpText += "       - width color\n"
-        helpText += "       - vertical-width horizontal-width\n"
-        helpText += "       - top-width left-width bottom-width right-width\n"
-        
-        helpText += keyText(kBorderRadiusKey)
-        helpText += usageText() + "radius in px\n"
+        helpText += "\nFor placeholder styling\n"
+        helpText += keyText(TextSearchMode.Placeholder.rawValue)
+        helpText += usageText() + "You can add '" + TextSearchMode.Placeholder.rawValue + "' to any of the above text keys\n"
         
         helpText += "\n"
         
-        helpText += "OPTIONS KEYS:\n"
-        helpText += keyText(kBar_TranslucentKey)
-        helpText += usageText() + "true | false\n\n"
+//        helpText += "DECORATIONS KEYS:\n"
+//        helpText += keyText(kBorderKey)
+//        helpText += patternsText() + "\n"
+//        helpText += "       - width color\n"
+//        helpText += "       - vertical-width horizontal-width color\n"
+//        helpText += "       - top-width left-width bottom-width right-width color\n"
+//        
+//        helpText += keyText(kBorderColorKey)
+//        helpText += usageText() + "#RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))\n"
+//        
+//        helpText += keyText(kBorderWidthKey)
+//        helpText += patternsText() + "\n"
+//        helpText += "       - width color\n"
+//        helpText += "       - vertical-width horizontal-width\n"
+//        helpText += "       - top-width left-width bottom-width right-width\n"
+//        
+//        helpText += keyText(kBorderRadiusKey)
+//        helpText += usageText() + "radius in px\n"
+//        
+//        helpText += "\n"
+//        
+//        helpText += "OPTIONS KEYS:\n"
+//        helpText += keyText(kBar_TranslucentKey)
+//        helpText += usageText() + "true | false\n\n"
         
         helpText += "******************************************************************\n\n"
         

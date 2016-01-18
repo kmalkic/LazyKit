@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("default.css", ofType: nil)!)
         ]
         LazyStyleSheetManager.shared.setDefaultStylesFromFileAtUrls(defaultUrls)
-//        LazyStyleSheetManager.shared.help()
+        LazyStyleSheetManager.shared.help()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.rootViewController = MyViewControllerCssTest()

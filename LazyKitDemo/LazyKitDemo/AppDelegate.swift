@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.rootViewController = MyViewControllerCssTest()
         window!.makeKeyAndVisible()
         
-        
         return true
     }
 

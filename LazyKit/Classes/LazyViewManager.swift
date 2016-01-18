@@ -32,19 +32,27 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                 
                 for elementOptions in elementsOptions {
                     
-                    if let identifier = elementOptions.identifier {
+                    if let element = LazyUIFactory.element(elementOptions) {
                         
-                        if let view = LazyUIFactory.element(elementOptions) {
+                        if elementOptions.styleClass != nil || elementOptions.styleId != nil {
                             
-                            storedElements[identifier] = view
+                            if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: elementOptions.styleId, styleClass: elementOptions.styleClass) {
+                                
+                                if let newElementOptions = convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
+                                
+                                    LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+                                }
+                            }
                         }
+                        
+                        if let identifier = elementOptions.identifier {
+
+                            storedElements[identifier] = element
+                        }
+                        
+                        view.addSubview(element)
                     }
                 }
-            }
-            
-            for (_, element) in storedElements {
-                
-                view.addSubview(element)
             }
             
             if let visualFormatConstraintOptions = ViewConfigurations.visualFormatConstraintOptions() {
@@ -93,6 +101,99 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
+    private func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
+    
+        var textBaseOptions: TextBaseOptions?
+        var placeholderBaseOptions: TextBaseOptions?
+        var viewBaseOptions: ViewBaseOptions?
+        var imageBaseOptions: ImageBaseOptions?
+        
+        if let basicSet = styleSet.basicSet {
+            
+            viewBaseOptions = ViewBaseOptions(backgroundColor: basicSet.backgroundColor?.color(), tintColor: basicSet.tintColor?.color())
+            
+            if let image = basicSet.image {
+            
+                imageBaseOptions = ImageBaseOptions(imageNamed: image.imageName, contentMode: image.contentMode, tintColor: image.tintColor?.color())
+            }
+        }
+        
+        if let textSet = styleSet.textSet {
+            
+            textBaseOptions = TextBaseOptions(font: textSet.fontObj?.font(), textColor: textSet.textColor?.color(), textAlignment: textSet.textAlignment?.alignment, numberOfLines: textSet.numberOfLines, adjustsFontSizeToFitWidth: false, lineSpacing: textSet.paragraph?.lineSpacing?.value, paragraphSpacing: textSet.paragraph?.paragraphSpacing?.value, headIndent: textSet.paragraph?.headIndent?.value, lineBreakMode: textSet.paragraph?.lineBreakMode)
+        }
+        
+        if let textSet = styleSet.placeholderSet {
+            
+            placeholderBaseOptions = TextBaseOptions(font: textSet.fontObj?.font(), textColor: textSet.textColor?.color(), textAlignment: textSet.textAlignment?.alignment, numberOfLines: textSet.numberOfLines, adjustsFontSizeToFitWidth: false, lineSpacing: textSet.paragraph?.lineSpacing?.value, paragraphSpacing: textSet.paragraph?.paragraphSpacing?.value, headIndent: textSet.paragraph?.headIndent?.value, lineBreakMode: textSet.paragraph?.lineBreakMode)
+        }
+        
+        switch options {
+            
+        case var elementOptions as LabelOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptions = elementOptions.textOptions + textBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as ButtonOptions:
+            
+            var textOptionsForType: [UIControlState: TextBaseOptions]?
+            
+            if textBaseOptions != nil {
+            
+                textOptionsForType = [UIControlState: TextBaseOptions]()
+                
+                textOptionsForType![.Normal] = textBaseOptions!
+            }
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptionsForType = elementOptions.textOptionsForType + textOptionsForType
+            
+            return elementOptions
+            
+        case var elementOptions as TextFieldOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptions = elementOptions.textOptions + textBaseOptions
+            elementOptions.placeholderOptions = elementOptions.placeholderOptions + placeholderBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as TextViewOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.textOptions = elementOptions.textOptions + textBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as ImageOptions:
+        
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            elementOptions.imageBaseOptions = elementOptions.imageBaseOptions + imageBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as TableViewOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            
+            return elementOptions
+            
+        case var elementOptions as ViewOptions:
+            
+            elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
+            
+            return elementOptions
+            
+        default:
+            break
+        }
+
+        return nil
+    }
+    
     //MARK: Getters
     
     public func element<T: UIView>(identifier: String) -> T? {
@@ -131,77 +232,15 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     }
     
     //MARK: Updates
-    
-    public func updateElementForStates(identifier: String, baseOptions: [UIControlState: BaseOptions]) -> Bool {
+        
+    public func updateElement<T: ElementOptions>(identifier: String, elementOptions: T) -> Bool {
         
         guard let element = storedElements[identifier] else {
             
             return false
         }
         
-        guard let button = element as? UIButton else {
-            
-            return false
-        }
-        
-        guard let textOptionsForType = baseOptions as? [UIControlState: TextBaseOptions] else {
-            
-            return false
-        }
-        
-        LazyUIFactory.updateButton(button, textOptionsForType: textOptionsForType)
-        
-        return true
-    }
-    
-    public func updateElement<T: BaseOptions>(identifier: String, baseOptions: T, secondaryBaseOptions: T? = nil) -> Bool {
-        
-        guard let element = storedElements[identifier] else {
-            
-            return false
-        }
-        
-        switch baseOptions {
-            
-        case let baseOptions as ViewBaseOptions:
-            
-            LazyUIFactory.updateView(element, baseOptions: baseOptions)
-            
-            break
-            
-        case let baseOptions as TextBaseOptions:
-            
-            if let label = element as? UILabel {
-                
-                LazyUIFactory.updateLabel(label, textOptions: baseOptions)
-                
-                return true
-            }
-            
-            if let textField = element as? UITextField {
-                
-                LazyUIFactory.updateTextField(textField, textOptions: baseOptions, placeholderOptions: secondaryBaseOptions as? TextBaseOptions)
-                
-                return true
-            }
-            
-            break
-            
-        case let baseOptions as ImageBaseOptions:
-            
-            guard let imageView = element as? UIImageView else {
-                
-                return false
-            }
-            
-            LazyUIFactory.updateImage(imageView, imageOptions: baseOptions)
-            
-            break
-            
-        default:
-            
-            return false
-        }
+        LazyUIFactory.updateElement(element, elementOptions: elementOptions)
         
         return true
     }

@@ -1,0 +1,55 @@
+@global_bold_font_name: RobotoSlab-Bold;
+@global_regular_font_name: RobotoSlab-Regular;
+@titleColor: #ff0000;
+@buttonColor: #fff000;
+@buttonBackgroundColor: #00000044;
+@tintColor: #3e8fdb;
+@bodyColor: #333333;
+
+body {
+    color: @bodyColor;
+    font-family: @global_bold_font_name;
+    placeholder-font-family: @global_bold_font_name;
+}
+
+#title {
+    font-size: 14px;
+    text-align:left;
+    text-maxline: 2;
+}
+
+#subtitle {
+    font-size: 12px;
+    text-align:left;
+    text-indent: 5px;
+    text-decoration: underline;
+    text-decoration-color: #000000;
+}
+
+#button {
+    font-size: 24px;
+    text-align:center;
+    background-color: @buttonBackgroundColor;
+    text-maxline: 1;
+    color: @buttonColor;
+}
+
+#textfield {
+    font-size: 14px;
+    tint-color: @tintColor;
+    placeholder-color: #ff0000;
+    placeholder-font-size: 14px;
+}
+
+#textview {
+    font-size: 12px;
+    background-color: @buttonBackgroundColor;
+}
+
+#photo {
+    background-image-content: scaleToFill;
+}
+
+.photo {
+    background-image: image;
+}

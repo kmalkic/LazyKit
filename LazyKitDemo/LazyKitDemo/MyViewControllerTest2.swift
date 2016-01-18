@@ -30,10 +30,10 @@ class MyView: LazyBaseView <MyConfigurations> {
         
         super.init()
         
-        viewManager.updateElement("title", baseOptions: TextBaseOptions(text: "Bonjour"))
+        viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
         
-        viewManager.updateElementForStates("button", baseOptions: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")])
-        
+        viewManager.updateElement("button", elementOptions: ButtonOptions(textOptionsForType: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")]))
+                
         viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
     }
 }

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		496CD9241C4CF77E00C6868C /* MyViewControllerCssTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496CD9231C4CF77E00C6868C /* MyViewControllerCssTest.swift */; };
+		496CD9261C4CF7EC00C6868C /* MyCssConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496CD9251C4CF7EC00C6868C /* MyCssConfigurations.swift */; };
+		498B91421C4C64AF006808AE /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 498B91411C4C64AF006808AE /* default.css */; };
+		498B914C1C4C66D6006808AE /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 498B91451C4C66D6006808AE /* DroidSans-Bold.ttf */; };
+		498B914D1C4C66D6006808AE /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 498B91461C4C66D6006808AE /* DroidSans.ttf */; };
+		498B914E1C4C66D6006808AE /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 498B91481C4C66D6006808AE /* RobotoSlab-Bold.ttf */; };
+		498B914F1C4C66D6006808AE /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 498B91491C4C66D6006808AE /* RobotoSlab-Light.ttf */; };
+		498B91501C4C66D6006808AE /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 498B914A1C4C66D6006808AE /* RobotoSlab-Regular.ttf */; };
+		498B91511C4C66D6006808AE /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 498B914B1C4C66D6006808AE /* RobotoSlab-Thin.ttf */; };
 		49C435F31C4836460070728B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C435F21C4836460070728B /* AppDelegate.swift */; };
 		49C435FD1C4836460070728B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49C435FB1C4836460070728B /* LaunchScreen.storyboard */; };
 		49C436051C4836810070728B /* MyViewControllerTest1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436041C4836810070728B /* MyViewControllerTest1.swift */; };
@@ -35,6 +44,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		496CD9231C4CF77E00C6868C /* MyViewControllerCssTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewControllerCssTest.swift; sourceTree = "<group>"; };
+		496CD9251C4CF7EC00C6868C /* MyCssConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCssConfigurations.swift; sourceTree = "<group>"; };
+		498B91411C4C64AF006808AE /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
+		498B91451C4C66D6006808AE /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DroidSans-Bold.ttf"; sourceTree = "<group>"; };
+		498B91461C4C66D6006808AE /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DroidSans.ttf; sourceTree = "<group>"; };
+		498B91481C4C66D6006808AE /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
+		498B91491C4C66D6006808AE /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
+		498B914A1C4C66D6006808AE /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
+		498B914B1C4C66D6006808AE /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
 		49C435EF1C4836460070728B /* LazyKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LazyKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C435F21C4836460070728B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49C435FC1C4836460070728B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,6 +79,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		496CD9271C4CF80400C6868C /* Classic */ = {
+			isa = PBXGroup;
+			children = (
+				49C436041C4836810070728B /* MyViewControllerTest1.swift */,
+				49C436281C4A739D0070728B /* MyViewControllerTest2.swift */,
+				49C4362A1C4A73C00070728B /* MyConfigurations.swift */,
+			);
+			name = Classic;
+			sourceTree = "<group>";
+		};
+		496CD9281C4CF83400C6868C /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				49C436341C4C39E40070728B /* MyViewControllerTableViewTest.swift */,
+				49C4363A1C4C3CD10070728B /* MyTableConf.swift */,
+				49C436381C4C3B080070728B /* MyCellConfigurations.swift */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		496CD9291C4CF84600C6868C /* Css */ = {
+			isa = PBXGroup;
+			children = (
+				496CD9231C4CF77E00C6868C /* MyViewControllerCssTest.swift */,
+				496CD9251C4CF7EC00C6868C /* MyCssConfigurations.swift */,
+			);
+			name = Css;
+			sourceTree = "<group>";
+		};
+		498B91431C4C66D6006808AE /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				498B91441C4C66D6006808AE /* Droid_Sans */,
+				498B91471C4C66D6006808AE /* Roboto_Slab */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		498B91441C4C66D6006808AE /* Droid_Sans */ = {
+			isa = PBXGroup;
+			children = (
+				498B91451C4C66D6006808AE /* DroidSans-Bold.ttf */,
+				498B91461C4C66D6006808AE /* DroidSans.ttf */,
+			);
+			path = Droid_Sans;
+			sourceTree = "<group>";
+		};
+		498B91471C4C66D6006808AE /* Roboto_Slab */ = {
+			isa = PBXGroup;
+			children = (
+				498B91481C4C66D6006808AE /* RobotoSlab-Bold.ttf */,
+				498B91491C4C66D6006808AE /* RobotoSlab-Light.ttf */,
+				498B914A1C4C66D6006808AE /* RobotoSlab-Regular.ttf */,
+				498B914B1C4C66D6006808AE /* RobotoSlab-Thin.ttf */,
+			);
+			path = Roboto_Slab;
+			sourceTree = "<group>";
+		};
 		49C435E61C4836460070728B = {
 			isa = PBXGroup;
 			children = (
@@ -82,13 +158,12 @@
 			isa = PBXGroup;
 			children = (
 				49C435F21C4836460070728B /* AppDelegate.swift */,
-				49C4362A1C4A73C00070728B /* MyConfigurations.swift */,
-				49C436041C4836810070728B /* MyViewControllerTest1.swift */,
-				49C436281C4A739D0070728B /* MyViewControllerTest2.swift */,
-				49C436341C4C39E40070728B /* MyViewControllerTableViewTest.swift */,
-				49C4363A1C4C3CD10070728B /* MyTableConf.swift */,
-				49C436381C4C3B080070728B /* MyCellConfigurations.swift */,
+				496CD9271C4CF80400C6868C /* Classic */,
+				496CD9281C4CF83400C6868C /* TableView */,
+				496CD9291C4CF84600C6868C /* Css */,
 				49C435FB1C4836460070728B /* LaunchScreen.storyboard */,
+				498B91411C4C64AF006808AE /* default.css */,
+				498B91431C4C66D6006808AE /* Font */,
 				49C435FE1C4836460070728B /* Info.plist */,
 				49C4363C1C4C41860070728B /* Media.xcassets */,
 			);
@@ -154,8 +229,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				498B91501C4C66D6006808AE /* RobotoSlab-Regular.ttf in Resources */,
+				498B91511C4C66D6006808AE /* RobotoSlab-Thin.ttf in Resources */,
 				49C4363D1C4C41860070728B /* Media.xcassets in Resources */,
+				498B914F1C4C66D6006808AE /* RobotoSlab-Light.ttf in Resources */,
 				49C435FD1C4836460070728B /* LaunchScreen.storyboard in Resources */,
+				498B914E1C4C66D6006808AE /* RobotoSlab-Bold.ttf in Resources */,
+				498B914D1C4C66D6006808AE /* DroidSans.ttf in Resources */,
+				498B91421C4C64AF006808AE /* default.css in Resources */,
+				498B914C1C4C66D6006808AE /* DroidSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,12 +248,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				496CD9261C4CF7EC00C6868C /* MyCssConfigurations.swift in Sources */,
 				49C4363B1C4C3CD10070728B /* MyTableConf.swift in Sources */,
 				49C436051C4836810070728B /* MyViewControllerTest1.swift in Sources */,
 				49C4362B1C4A73C00070728B /* MyConfigurations.swift in Sources */,
 				49C436351C4C39E40070728B /* MyViewControllerTableViewTest.swift in Sources */,
 				49C436391C4C3B080070728B /* MyCellConfigurations.swift in Sources */,
 				49C435F31C4836460070728B /* AppDelegate.swift in Sources */,
+				496CD9241C4CF77E00C6868C /* MyViewControllerCssTest.swift in Sources */,
 				49C436291C4A739D0070728B /* MyViewControllerTest2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

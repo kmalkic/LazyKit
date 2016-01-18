@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LazyKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+        //Load style from bundle
+        let defaultUrls = [
+            NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("default.css", ofType: nil)!)
+        ]
+        LazyStyleSheetManager.shared.setDefaultStylesFromFileAtUrls(defaultUrls)
+        LazyStyleSheetManager.shared.help()
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window!.rootViewController = MyViewControllerTableViewTest()
+        window!.rootViewController = MyViewControllerCssTest()
         window!.makeKeyAndVisible()
         
         return true

@@ -1,19 +1,21 @@
 # LazyKit
 
-LazyKit is a framework that allow you to write fast and easy views.
-Constructing a view can be long, boring and repetitive, especialy after the n view built.
+LazyKit is a framework that allow you to write fast and easy views.<br />
+Constructing a view can be long, boring and repetitive, especialy after the n view built.<br />
+> **You can now use basic CSS files to style your elements.**
 
 ## Features
 
 - Maps UIView / UILabel / UIButton / UIImageView / UITextField / UITextView / UITableView
 - Base classes for UIViewController / UIView / UITableViewCell / UICollectionViewCell
+- CSS parser / mapper (You'll be even more lazy with that)
 
 ## Features coming up
 - Map for UICollectionView
-- CSS parser / mapper (You'll be even more lazy after that)
+- Support for borders/radius in css
+- Supoort for text decorations in css
 
 ## Requirements
-
 - iOS 8.0+
 - Xcode 7.2+
 
@@ -148,7 +150,7 @@ class MyView: LazyBaseView <MyConfigurations> {
 }
 ```
 
-### Create a advanced view configurations
+### Create an advanced view configurations without CSS
 
 ```swift
 import LazyKit
@@ -230,29 +232,212 @@ struct MyConfigurations: LazyViewConfigurations {
 
 ![Advanced view configurations](https://raw.github.com/kmalkic/LazyKit/master/Readme_Assets/AdvanceViewConf.png)
 
+## Using CSS
+### CSS example
+The styling is declared using a CSS-like syntax that also supports variables:
+```css
+@global_bold_font_name: RobotoSlab-Bold;
+@global_regular_font_name: RobotoSlab-Regular;
+@titleColor: #ff0000;
+@tintColor: #3e8fdb;
+@bodyColor: #333333;
 
+body {
+    color: @bodyColor;
+    font-family: @global_bold_font_name;
+    placeholder-font-family: @global_bold_font_name;
+}
+
+#title {
+    color: @titleColor;
+    font-size: 14px;
+    text-align:left;
+    text-maxline: 2;
+}
+
+.subtitle {
+    font-size: 12px;
+    text-align:left;
+    text-indent: 5px;
+    text-decoration: underline;
+    text-decoration-color: rgba(0,0,0,1);
+}
+
+#photo {
+    background-image-content: scaleToFill;
+}
+
+.photo {
+    background-image: myimage;
+}
+```
+
+Here the list of available attributes:
+```css
+******************************************************************
+GENERAL KEYS:
+  'background' 
+  'background-color' 
+  'tint-color' 
+  'bartint-color' 
+     Usage: #RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))
+  'background-image' 
+     Usage: image name, without ""
+  'background-image-content' 
+     Usage: scaleToFit | scaleToFill | center | top | left | bottom | right
+
+TEXT KEYS:
+  'color' 
+     Usage: #RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))
+  'font-family' 
+     Usage: font name, without ""
+  'font-size' 
+     Usage: size in px
+  'text-align' 
+     Usage: left | center | right | justify
+  'text-maxline' 
+     Usage: number of lines max (integer)
+  'line-height' 
+     Usage: height in px
+  'paragraph-spacing' 
+     Usage: spacing in px
+  'text-indent' 
+     Usage: header in px. Used to indent first line of any new paragraph.
+  'word-wrap' 
+     Usage: word-wrapping | char-wrapping | clipping | truncating-head | truncating-tail | truncating-middle
+  'text-stroke-color' 
+     Usage: #RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))
+  'text-stroke-width' 
+     Usage: width in px
+  'text-decoration' 
+     Usage: none|underline|line-through
+  'text-decoration-color' 
+     Usage: #RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))
+
+For placeholder styling
+  'placeholder-' 
+     Usage: You can add 'placeholder-' to any of the above text keys
+******************************************************************
+```
+For more flexibility It is possible to nest id and classes together such as:<br />
+Very similar to what you do in html, but limited to those.
+```css
+#title.commonText {} //will apply this style to any element that as styleClass = "commonText" and styleId = "title"
+#title.commonText.link {} //will apply this style to any element that as styleClass = "commonText link" and styleId = "title"
+.commonText.link {} //will apply this style to any element that as styleClass = "commonText link"
+UILabel.commonText.link {} //will apply this style to all UILabel that as styleClass = "commonText link"
+UITextField {} //will apply this style to all UITextField
+```
+
+### Initialise the CSS Style manager
+If you prefer seperating css files, you can add it to the array.<br />
+You will notice that it is urls, so you can use http. :)
+```swift
+//Load style from bundle
+let defaultUrls = [
+    NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("default.css", ofType: nil)!)
+]
+LazyStyleSheetManager.shared.setDefaultStylesFromFileAtUrls(defaultUrls)
+```
+### CSS Style manager helper
+To print out css attributes and options.
+```swift
+LazyStyleSheetManager.shared.help()
+```
+
+### Create an advanced view configurations with CSS
+Pretty much the same way as above, but simplier.
+```swift
+import LazyKit
+
+struct MyConfigurations: LazyViewConfigurations {
+    
+    static func elementsOptions() -> [ElementOptions]? {
+        return [
+            LabelOptions(identifier: "title",
+                text: "hello",
+                styleId: "title"),
+            
+            LabelOptions(identifier: "subtitle",
+                text: "hey",
+                styleId: "subtitle"),
+            
+            ButtonOptions(identifier: "button",
+                texts: [.Normal: "button", .Highlighted: "highlighted"],
+                styleId: "button"),
+            
+            ViewOptions(identifier: "line",
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor())),
+            
+            ImageOptions(identifier: "photo",
+                styleId: "photo",
+                styleClass: "photo"),
+            
+            TextFieldOptions(identifier: "textfield",
+                placeholderText: "placeholder",
+                styleId: "textfield",
+                textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .NumbersAndPunctuation, keyboardAppearance: .Dark, returnKeyType: .Done)),
+            
+            TextViewOptions(identifier: "textview",
+                styleId: "textview",
+                textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .EmailAddress, keyboardAppearance: .Dark, returnKeyType: .Done)
+            )
+        ]
+    }
+    
+    static func visualFormatConstraintOptions() -> [VisualFormatConstraintOptions]? {
+        
+        return [
+            VisualFormatConstraintOptions(string: "H:|-[photo(==photoW)]-[title]-|"),
+            VisualFormatConstraintOptions(string: "H:[subtitle(==title)]"),
+            VisualFormatConstraintOptions(string: "H:[textfield(==title)]"),
+            VisualFormatConstraintOptions(string: "H:|-40-[line]-40-|"),
+            VisualFormatConstraintOptions(string: "H:|-[textview]-|"),
+            VisualFormatConstraintOptions(string: "H:|-buttonLeft-[button]-buttonRight-|"),
+            VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]-[textfield]", options: .AlignAllLeft),
+            VisualFormatConstraintOptions(string: "V:|-top-[photo(==photoH)]"),
+            VisualFormatConstraintOptions(string: "V:[line(==1)]-[textview(==200)]-200-[button(==buttonH)]-8-|")
+        ]
+    }
+    
+    static func visualFormatMetrics() -> [String: AnyObject]? {
+        
+        return ["top" : 30, "buttonH" : 44, "buttonLeft" : 100, "buttonRight" : 100, "photoW" : 100, "photoH" : 60]
+    }
+    
+    static func layoutConstraints() -> [ConstraintOptions]? {
+        
+        return [
+            ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .Height, relatedBy: .Equal, toItemIdentifier: nil, attribute: .Height, multiplier: 1, constant: 40)
+        ]
+    }
+}
+```
 
 ### Access an element
 ```swift
 //viewManager.element(...) return an optional 
-if let title: UILabel = viewManager.element("title") {
+if let title = viewManager.element("title") as? UILabel {
     ...
 }
 //or you can call 
 if let title = viewManager.label("title") {
     ...
 }
+//if you are confident
+viewManager.label("title")!.text = "something"
 ```
 
-### Update an element
-You can update the element with any of the base options.
+### Update an element with new options
+You can update the element with any of the base options.<br />
+Note that the new option will replace only the non nil attributes.
 ```swift
-viewManager.updateElement("title", baseOptions: TextBaseOptions(text: "something", textColor: .greenColor()))
+viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
 ```
 
 ### Update an element with states, such as UIButton
 ```swift
-viewManager.updateElementForStates("button", baseOptions: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")])
+viewManager.updateElement("button", elementOptions: ButtonOptions(textOptionsForType: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")]))
 ```
 
 ### Update a contraints constant
@@ -273,6 +458,9 @@ viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 120)
 
 ## FAQ
 ## Credits
+
+Kevin Malkic
+
 ## License
 
 LazyKit is released under the MIT license. See LICENSE for details.

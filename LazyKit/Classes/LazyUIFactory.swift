@@ -144,8 +144,8 @@ internal class LazyUIFactory {
             
             for (state, textOptions) in textOptionsForType {
                 
-                button.setTitle(textOptions.text ?? button.titleForState(state), forState: state)
-                button.setTitleColor(textOptions.textColor ?? button.titleColorForState(state), forState: state)
+                button.setTitle(textOptions.text ?? button.titleForState(state.toUiControlState), forState: state.toUiControlState)
+                button.setTitleColor(textOptions.textColor ?? button.titleColorForState(state.toUiControlState), forState: state.toUiControlState)
             }
         }
     }

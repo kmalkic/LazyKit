@@ -81,14 +81,14 @@ public struct ButtonOptions : ElementOptions {
     public var identifier: String?
     public var classType = UIButton.self
     public var viewBaseOptions: ViewBaseOptions?
-    public var textOptionsForType: [UIControlState: TextBaseOptions]?
+    public var textOptionsForType: [LazyControlState: TextBaseOptions]?
     
     public var type: UIButtonType
     
     public var styleClass: String?
     public var styleId: String?
     
-    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [UIControlState: TextBaseOptions]? = nil) {
+    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [LazyControlState: TextBaseOptions]? = nil) {
         
         self.identifier = identifier
         self.classType = classType
@@ -97,7 +97,7 @@ public struct ButtonOptions : ElementOptions {
         self.type = type
     }
     
-    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, texts: [UIControlState: String]? = nil, styleClass: String? = nil, styleId: String? = nil) {
+    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, texts: [LazyControlState: String]? = nil, styleClass: String? = nil, styleId: String? = nil) {
         
         self.identifier = identifier
         self.classType = classType
@@ -108,7 +108,7 @@ public struct ButtonOptions : ElementOptions {
         
         if let texts = texts {
             
-            var textOptionsForType = [UIControlState: TextBaseOptions]()
+            var textOptionsForType = [LazyControlState: TextBaseOptions]()
             
             for (state, text) in texts {
                 

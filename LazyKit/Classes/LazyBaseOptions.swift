@@ -127,7 +127,7 @@ func + (left:TextBaseOptions?, right:TextBaseOptions? ) -> TextBaseOptions? {
     return object
 }
 
-func + (left:[UIControlState: TextBaseOptions]?, right:[UIControlState: TextBaseOptions]? ) -> [UIControlState: TextBaseOptions]? {
+func + (left:[LazyControlState: TextBaseOptions]?, right:[LazyControlState: TextBaseOptions]? ) -> [LazyControlState: TextBaseOptions]? {
     
     return right ?? left
 }

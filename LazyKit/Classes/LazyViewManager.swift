@@ -139,11 +139,11 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             
         case var elementOptions as ButtonOptions:
             
-            var textOptionsForType: [UIControlState: TextBaseOptions]?
+            var textOptionsForType: [LazyControlState: TextBaseOptions]?
             
             if textBaseOptions != nil {
             
-                textOptionsForType = [UIControlState: TextBaseOptions]()
+                textOptionsForType = [LazyControlState: TextBaseOptions]()
                 
                 textOptionsForType![.Normal] = textBaseOptions!
             }

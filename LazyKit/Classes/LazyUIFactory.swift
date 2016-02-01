@@ -72,7 +72,7 @@ internal class LazyUIFactory {
         return false
     }
     
-    //MARK: Mapping base options
+    //MARK: - Mapping base options
     
     internal class func updateView(view: UIView, viewBaseOptions: ViewBaseOptions?) {
         
@@ -288,7 +288,7 @@ internal class LazyUIFactory {
         }
     }
     
-    //MARK: Factory
+    //MARK: - Factory
     
     internal class func view(option: ViewOptions) -> UIView {
         

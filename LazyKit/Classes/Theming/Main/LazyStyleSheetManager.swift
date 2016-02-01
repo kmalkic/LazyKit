@@ -47,12 +47,12 @@ public class LazyStyleSheetManager: NSObject {
         }
     }
     
-    //MARK: - constructor
+    //MARK: - Constructor
     
     /**
         Returns the singleton manager instance.
     
-        :returns: The manager instance. It is created on the first call.
+        - returns: The manager instance. It is created on the first call.
     */
     public class var shared: LazyStyleSheetManager {
         
@@ -118,7 +118,7 @@ public class LazyStyleSheetManager: NSObject {
         For unnecessary use of internal functions, if you do not need to change any style on runtime set it to false.
         By default it is false.
     
-        :param: swapping defines if the manager can handle swapping the current collection with another collection styles.
+        - parameter swapping: defines if the manager can handle swapping the current collection with another collection styles.
     */
     public func enableThemeSwapping(swapping: Bool) {
         

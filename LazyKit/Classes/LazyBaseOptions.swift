@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK: Base options
+//MARK: - Base options
 
 public protocol BaseOptions {
     
@@ -97,6 +97,7 @@ public struct TextInputBaseOptions: BaseOptions {
     }
 }
 
+//MARK: - Operands
 
 func + (left:ViewBaseOptions?, right:ViewBaseOptions? ) -> ViewBaseOptions? {
     

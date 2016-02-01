@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK: Element options
+//MARK: - Element options protocol
 
 public protocol ElementOptions {
     
@@ -18,6 +18,8 @@ public protocol ElementOptions {
     var styleClass: String? { get set }
     var styleId: String? { get set }
 }
+
+//MARK: - View options
 
 public struct ViewOptions : ElementOptions {
     
@@ -45,6 +47,8 @@ public struct ViewOptions : ElementOptions {
         self.viewBaseOptions = nil
     }
 }
+
+//MARK: - Label options
 
 public struct LabelOptions : ElementOptions {
     
@@ -75,6 +79,8 @@ public struct LabelOptions : ElementOptions {
         self.textOptions = TextBaseOptions(text: text)
     }
 }
+
+//MARK: - Button options
 
 public struct ButtonOptions : ElementOptions {
     
@@ -124,6 +130,8 @@ public struct ButtonOptions : ElementOptions {
     }
 }
 
+//MARK: - Image options
+
 public struct ImageOptions : ElementOptions {
     
     public var identifier: String?
@@ -152,6 +160,8 @@ public struct ImageOptions : ElementOptions {
         self.imageBaseOptions = nil
     }
 }
+
+//MARK: - TextField options
 
 public struct TextFieldOptions : ElementOptions {
     
@@ -194,6 +204,8 @@ public struct TextFieldOptions : ElementOptions {
     }
 }
 
+//MARK: - TextView options
+
 public struct TextViewOptions : ElementOptions {
     
     public var identifier: String?
@@ -225,6 +237,8 @@ public struct TextViewOptions : ElementOptions {
         self.textInputOptions = textInputOptions
     }
 }
+
+//MARK: - TableView options
 
 public struct TableViewOptions : ElementOptions {
     

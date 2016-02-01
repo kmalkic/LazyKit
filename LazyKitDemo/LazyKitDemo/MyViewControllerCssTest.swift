@@ -16,5 +16,10 @@ class MyViewControllerCssTest: LazyBaseViewController <MyCssConfigurations> {
         super.viewDidLoad()
         
         view.backgroundColor = .whiteColor()
+        
+        viewManager.updateElement("title", type: UILabel.self) { (element) -> Void in
+            
+            element.text = "Some title"
+        }
     }
 }

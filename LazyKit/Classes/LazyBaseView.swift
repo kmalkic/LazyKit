@@ -14,17 +14,34 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
     
     public private(set) var viewManager: LazyViewManager<T>!
     
+    deinit {
+        
+        unregisterUpdateStylesNotification(self)
+    }
+    
     public init() {
         
         super.init(frame: CGRectZero)
         
-        viewManager = LazyViewManager(view: self)
+        setup()
     }
     
     public override init(frame: CGRect) {
         
         super.init(frame: frame)
         
+        setup()
+    }
+    
+    private func setup() {
+    
         viewManager = LazyViewManager(view: self)
+        
+        registerUpdateStylesNotification(self)
+    }
+    
+    internal func didReceiveUpdateNotification() {
+        
+        //TODO
     }
 }

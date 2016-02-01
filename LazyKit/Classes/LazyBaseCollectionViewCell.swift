@@ -12,12 +12,29 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
     
     public typealias ViewConfigurations = T
     
+    deinit {
+        
+        unregisterUpdateStylesNotification(self)
+    }
+    
     public private(set) var viewManager: LazyViewManager<T>!
     
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         
+        setup()
+    }
+    
+    private func setup() {
+        
         viewManager = LazyViewManager(view: contentView)
+        
+        registerUpdateStylesNotification(self)
+    }
+    
+    internal func didReceiveUpdateNotification() {
+        
+        //TODO
     }
 }

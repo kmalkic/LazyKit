@@ -14,6 +14,11 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
     
     public private(set) var viewManager: LazyViewManager<T>!
     
+    deinit {
+        
+        unregisterUpdateStylesNotification(self)
+    }
+    
     public init() {
         
         super.init(nibName: nil, bundle: nil)
@@ -28,6 +33,18 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
             NSException(name: "Multiple use of LazyViewConfigurations", reason: "self.view cannot be also using a LazyViewConfigurations", userInfo: nil).raise()
         }
         
+        setup()
+    }
+    
+    private func setup() {
+        
         viewManager = LazyViewManager(view: view)
+        
+        registerUpdateStylesNotification(self)
+    }
+    
+    internal func didReceiveUpdateNotification() {
+        
+        //TODO
     }
 }

@@ -80,6 +80,7 @@ internal class LazyUIFactory {
             
             view.backgroundColor = viewBaseOptions.backgroundColor ?? view.backgroundColor
             view.tintColor = viewBaseOptions.tintColor ?? view.tintColor
+            view.alpha = viewBaseOptions.alpha ?? view.alpha
         }
     }
     

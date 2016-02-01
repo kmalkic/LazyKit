@@ -148,6 +148,29 @@ internal class LazyUIFactory {
                 button.setTitleColor(textOptions.textColor ?? button.titleColorForState(state.toUiControlState), forState: state.toUiControlState)
             }
         }
+        
+        if let imageOptions = options.imageOptionsForType?[.Normal], imageView = button.imageView {
+            
+            imageView.clipsToBounds = true
+            button.contentMode = imageOptions.contentMode ?? imageView.contentMode
+            imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
+            imageView.tintColor = imageOptions.tintColor ?? imageView.tintColor
+        }
+        
+        if let imageOptionsForType = options.imageOptionsForType {
+            
+            for (state, imageOptions) in imageOptionsForType {
+                
+                if let imageNamed = imageOptions.imageNamed, _ = imageOptions.tintColor {
+                    
+                    button.setImage(UIImage(named: imageNamed)?.imageWithRenderingMode(.AlwaysTemplate), forState: state.toUiControlState)
+                    
+                } else if let imageNamed = imageOptions.imageNamed {
+                    
+                    button.setImage(UIImage(named: imageNamed), forState: state.toUiControlState)
+                }
+            }
+        }
     }
     
     internal class func updateImage(imageView: UIImageView, options: ImageOptions) {

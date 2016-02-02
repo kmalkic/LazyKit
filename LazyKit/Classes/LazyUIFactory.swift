@@ -353,7 +353,7 @@ internal class LazyUIFactory {
         return tableView
     }
     
-    internal class func element<T>(option: T) -> UIView? {
+    internal class func createElement<T>(option: T) -> UIView? {
         
         var v: UIView?
         

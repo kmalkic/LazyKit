@@ -53,7 +53,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                 
                 for elementOptions in elementsOptions {
                     
-                    if let element = LazyUIFactory.element(elementOptions) {
+                    if let element = LazyUIFactory.createElement(elementOptions) {
                         
                         if elementOptions.styleClass != nil || elementOptions.styleId != nil {
                             

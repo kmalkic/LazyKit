@@ -16,8 +16,6 @@ class MyViewControllerCssTest: LazyBaseViewController <MyCssConfigurations> {
         super.viewDidLoad()
         
         view.backgroundColor = .whiteColor()
-
-		LazyStyleSheetManager.shared.currentCollectionName = kLazyDefaultCollectionName
     }
 	
 	override func viewDidUpdate() {
@@ -28,5 +26,15 @@ class MyViewControllerCssTest: LazyBaseViewController <MyCssConfigurations> {
 			
 			element.text = "Some title"
 		}
+		
+		viewManager.updateElement("button", type: UIButton.self) { (element) -> Void in
+			
+			element.addTarget(self, action: "swapTheme", forControlEvents: .TouchUpInside)
+		}
+	}
+	
+	func swapTheme() {
+	
+		LazyStyleSheetManager.shared.currentCollectionName = (LazyStyleSheetManager.shared.currentCollectionName == kAlternativeCollectionName) ? kLazyDefaultCollectionName : kAlternativeCollectionName
 	}
 }

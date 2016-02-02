@@ -309,7 +309,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             
             return false
         }
-        element.constraints
+
         LazyUIFactory.updateElement(element, elementOptions: elementOptions)
                 
         return true
@@ -328,8 +328,16 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             if element is T {
                 
                 block(element: element as! T)
-            }
-        }
+				
+			} else {
+			
+				print("element for identifier: " + identifier + " is not of type: \(T.self)")
+			}
+		
+		} else {
+		
+			print("no such element for identifier: " + identifier)
+		}
     }
     
     /**

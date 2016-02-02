@@ -12,6 +12,16 @@ import UIKit
 public let kLazyDefaultCollectionName = "Default"
 public let kUpdateStylesNotificationKey = "kUpdateStylesNotificationKey"
 
+internal func registerUpdateStylesNotification(object: NSObject) {
+	
+	NSNotificationCenter.defaultCenter().addObserver(object, selector: "didReceiveUpdateNotification", name: kUpdateStylesNotificationKey, object: nil)
+}
+
+internal func unregisterUpdateStylesNotification(object: NSObject) {
+	
+	NSNotificationCenter.defaultCenter().removeObserver(object, name: kUpdateStylesNotificationKey, object: nil)
+}
+
 /// Style manager that handle collection of styles.
 public class LazyStyleSheetManager: NSObject {
    

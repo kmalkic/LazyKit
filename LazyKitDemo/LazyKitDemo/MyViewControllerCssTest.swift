@@ -16,10 +16,17 @@ class MyViewControllerCssTest: LazyBaseViewController <MyCssConfigurations> {
         super.viewDidLoad()
         
         view.backgroundColor = .whiteColor()
-        
-        viewManager.updateElement("title", type: UILabel.self) { (element) -> Void in
-            
-            element.text = "Some title"
-        }
+
+		LazyStyleSheetManager.shared.currentCollectionName = kLazyDefaultCollectionName
     }
+	
+	override func viewDidUpdate() {
+		
+		super.viewDidUpdate()
+		
+		viewManager.updateElement("title", type: UILabel.self) { (element) -> Void in
+			
+			element.text = "Some title"
+		}
+	}
 }

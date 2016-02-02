@@ -17,7 +17,28 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     private var contraints = [String: NSLayoutConstraint]()
     
     public weak private(set) var view: UIView?
-    
+	
+	deinit {
+		
+		for (_, subview) in storedElements {
+			
+			subview.removeFromSuperview()
+		}
+		
+		if let view = view {
+
+			for (_, contraints) in visualContraints {
+			
+				view.removeConstraints(contraints)
+			}
+			
+			for (_, contraint) in contraints {
+				
+				view.removeConstraint(contraint)
+			}
+		}
+	}
+	
     public init(view: UIView) {
         
         self.view = view

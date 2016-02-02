@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         LazyStyleSheetManager.shared.setDefaultStylesFromFileAtUrls(defaultUrls)
         LazyStyleSheetManager.shared.help()
-        
+
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.rootViewController = MyViewControllerCssTest()
         window!.makeKeyAndVisible()

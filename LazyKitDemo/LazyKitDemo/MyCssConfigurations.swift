@@ -9,7 +9,7 @@
 import UIKit
 import LazyKit
 
-struct MyCssConfigurations: LazyViewConfigurations {
+struct MyCssConfigurations: LazyViewConfigurations, LazyViewConfigurationsOptions {
     
     static func elementsOptions() -> [ElementOptions]? {
         
@@ -72,4 +72,9 @@ struct MyCssConfigurations: LazyViewConfigurations {
             ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .Height, relatedBy: .Equal, toItemIdentifier: nil, attribute: .Height, multiplier: 1, constant: 40)
         ]
     }
+	
+	static func shouldNotRecreateAllElementsAfterUpdatePosted() -> Bool {
+		
+		return false
+	}
 }

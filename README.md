@@ -6,12 +6,13 @@ Constructing a view can be long, boring and repetitive, especialy after the n vi
 
 ## Features
 
-- Maps UIView / UILabel / UIButton / UIImageView / UITextField / UITextView / UITableView
+- Maps UIView / UILabel / UIButton / UIImageView / UITextField / UITextView / UITableView / UICollectionView
 - Base classes for UIViewController / UIView / UITableViewCell / UICollectionViewCell
 - CSS parser / mapper (You'll be even more lazy with that)
+- Swap CSS themes at runtime
 
 ## Features coming up
-- Map for UICollectionView
+
 - Support for borders/radius in css
 - Supoort for text decorations in css
 
@@ -31,7 +32,7 @@ Constructing a view can be long, boring and repetitive, especialy after the n vi
 $ gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required to build LazyKit 1.0.1+.
+> CocoaPods 0.39.0+ is required to build LazyKit 1.0.2+.
 
 To integrate LazyKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -42,7 +43,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'LazyKit', '~> 1.0.1'
+pod 'LazyKit', '~> 1.0.2'
 ```
 
 Then, run the following command:
@@ -122,7 +123,9 @@ struct MyConfigurations: LazyViewConfigurations {
 ```
 
 ### Using UIViewControllers
+
 That is all you need.
+
 ```swift
 import LazyKit
 
@@ -132,8 +135,10 @@ class MyViewController: LazyBaseViewController <MyConfigurations> {
 ```
 
 ### Using UIView
+
 That is all you need.
 Don't mix LazyBaseViewController and having a view of type LazyBaseView in same time. First make no sense and second you'll end up with duplicate views.
+
 ```swift
 import LazyKit
 
@@ -228,13 +233,16 @@ struct MyConfigurations: LazyViewConfigurations {
     }
 }
 ```
+
 **Here the result with no extra work to do :), but ugly colors.**
 
 ![Advanced view configurations](https://raw.github.com/kmalkic/LazyKit/master/Readme_Assets/AdvanceViewConf.png)
 
 ## Using CSS
 ### CSS example
+
 The styling is declared using a CSS-like syntax that also supports variables:
+
 ```css
 @global_bold_font_name: RobotoSlab-Bold;
 @global_regular_font_name: RobotoSlab-Regular;
@@ -273,6 +281,7 @@ body {
 ```
 
 Here the list of available attributes:
+
 ```css
 ******************************************************************
 GENERAL KEYS:
@@ -319,8 +328,10 @@ For placeholder styling
      Usage: You can add 'placeholder-' to any of the above text keys
 ******************************************************************
 ```
+
 For more flexibility It is possible to nest id and classes together such as:<br />
 Very similar to what you do in html, but limited to those.
+
 ```css
 #title.commonText {} //will apply this style to any element that as styleClass = "commonText" and styleId = "title"
 #title.commonText.link {} //will apply this style to any element that as styleClass = "commonText link" and styleId = "title"
@@ -330,8 +341,10 @@ UITextField {} //will apply this style to all UITextField
 ```
 
 ### Initialise the CSS Style manager
+
 If you prefer seperating css files, you can add it to the array.<br />
 You will notice that it is urls, so you can use http. :)
+
 ```swift
 //Load style from bundle
 let defaultUrls = [
@@ -339,14 +352,42 @@ let defaultUrls = [
 ]
 LazyStyleSheetManager.shared.setDefaultStylesFromFileAtUrls(defaultUrls)
 ```
+
+### Theme swapping
+
+Can load a different set of css files for a given collection name
+
+```swift
+let defaultUrls = [
+    NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("default.css", ofType: nil)!)
+]
+LazyStyleSheetManager.shared.setDefaultStylesFromFileAtUrls(defaultUrls)
+
+let alternativeUrls = [
+	NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("alt.css", ofType: nil)!)
+]
+LazyStyleSheetManager.shared.setStylesFromFileAtUrls(alternativeUrls, collectionName: kAlternativeCollectionName)
+```
+
+Whenever you need you can swap by changing currentCollecionName to your other styles.
+This will trigger a notification under kUpdateStylesNotificationKey. It is automatic so no need to addObserver to it, unless for other purposes.
+
+```swift
+LazyStyleSheetManager.shared.currentCollectionName = kAlternativeCollectionName
+```
+
 ### CSS Style manager helper
+
 To print out css attributes and options.
+
 ```swift
 LazyStyleSheetManager.shared.help()
 ```
 
 ### Create an advanced view configurations with CSS
+
 Pretty much the same way as above, but simplier.
+
 ```swift
 import LazyKit
 
@@ -415,41 +456,59 @@ struct MyConfigurations: LazyViewConfigurations {
 ```
 
 ### Access an element
+
+Various way of doing it
+
 ```swift
-//viewManager.element(...) return an optional 
-if let title = viewManager.element("title") as? UILabel {
-    ...
+viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
+
+viewManager.updateElement("title", type: UILabel.self) { (element) -> Void in
+	
+	element.text = "Bonjour"
 }
-//or you can call 
+
+if let title: UILabel = viewManager.element("title") {
+	
+	title.text = "Bonjour"
+}
+
 if let title = viewManager.label("title") {
-    ...
+	
+	title.text = "Bonjour"
 }
-//if you are confident
-viewManager.label("title")!.text = "something"
+
+viewManager.label("title")!.text = "Bonjour"
 ```
 
 ### Update an element with new options
+
 You can update the element with any of the base options.<br />
 Note that the new option will replace only the non nil attributes.
+
 ```swift
 viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
 ```
 
 ### Update an element with states, such as UIButton
+
 ```swift
 viewManager.updateElement("button", elementOptions: ButtonOptions(textOptionsForType: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")]))
 ```
 
 ### Update a contraints constant
+
 For this particular change, it is recommended to not use Visual format constraints because it does create an array of NSLayoutConstraints.
 Best is to create a constraint using this function:
+
 ```swift
 static func layoutConstraints() -> [ConstraintOptions]? {
     return [
             ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .Height, relatedBy: .Equal, toItemIdentifier: nil, attribute: .Height, multiplier: 1, constant: 40)
         ]
 ```
+
 Now you will be able to target the specific constraint you want to change.
+
 ```swift
 //This will make your title height to change from 40 to 120. Usefull if you want to expand/collapse an element.
 viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 120)

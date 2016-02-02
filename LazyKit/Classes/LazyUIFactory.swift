@@ -352,7 +352,16 @@ internal class LazyUIFactory {
         
         return tableView
     }
-    
+	
+	internal class func collectionView(option: CollectionViewOptions) -> UICollectionView {
+		
+		let collectionView = option.classType.init(frame: .zero, collectionViewLayout: option.collectionViewLayoutType.init())
+		
+		updateElement(collectionView, elementOptions: option)
+		
+		return collectionView
+	}
+	
     internal class func createElement<T>(option: T) -> UIView? {
         
         var v: UIView?
@@ -395,7 +404,12 @@ internal class LazyUIFactory {
                 
                 v = tableView(elementOptions)
                 break
-                
+				
+			case let elementOptions as CollectionViewOptions:
+				
+				v = collectionView(elementOptions)
+				break
+				
             default:
                 break
             }

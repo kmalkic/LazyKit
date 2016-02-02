@@ -246,6 +246,7 @@ public struct TableViewOptions : ElementOptions {
     public var classType = UITableView.self
     public var viewBaseOptions: ViewBaseOptions?
     public var style: UITableViewStyle = .Plain
+	
     public var styleClass: String?
     public var styleId: String?
     
@@ -265,4 +266,34 @@ public struct TableViewOptions : ElementOptions {
         self.styleId = styleId
         self.style = style
     }
+}
+
+//MARK: - TableView options
+
+public struct CollectionViewOptions : ElementOptions {
+	
+	public var identifier: String?
+	public var classType = UICollectionView.self
+	public var viewBaseOptions: ViewBaseOptions?
+	public var collectionViewLayoutType = UICollectionViewLayout.self
+	
+	public var styleClass: String?
+	public var styleId: String?
+	
+	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, viewBaseOptions: ViewBaseOptions? = nil) {
+		
+		self.identifier = identifier
+		self.viewBaseOptions = viewBaseOptions
+		self.classType = classType
+		self.collectionViewLayoutType = collectionViewLayoutType
+	}
+	
+	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, styleClass: String? = nil, styleId: String? = nil) {
+		
+		self.identifier = identifier
+		self.classType = classType
+		self.styleClass = styleClass
+		self.styleId = styleId
+		self.collectionViewLayoutType = collectionViewLayoutType
+	}
 }

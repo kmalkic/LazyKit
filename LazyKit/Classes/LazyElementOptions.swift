@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK: Element options
+//MARK: - Element options protocol
 
 public protocol ElementOptions {
     
@@ -18,6 +18,8 @@ public protocol ElementOptions {
     var styleClass: String? { get set }
     var styleId: String? { get set }
 }
+
+//MARK: - View options
 
 public struct ViewOptions : ElementOptions {
     
@@ -45,6 +47,8 @@ public struct ViewOptions : ElementOptions {
         self.viewBaseOptions = nil
     }
 }
+
+//MARK: - Label options
 
 public struct LabelOptions : ElementOptions {
     
@@ -76,24 +80,28 @@ public struct LabelOptions : ElementOptions {
     }
 }
 
+//MARK: - Button options
+
 public struct ButtonOptions : ElementOptions {
     
     public var identifier: String?
     public var classType = UIButton.self
     public var viewBaseOptions: ViewBaseOptions?
     public var textOptionsForType: [LazyControlState: TextBaseOptions]?
+    public var imageOptionsForType: [LazyControlState: ImageBaseOptions]?
     
     public var type: UIButtonType
     
     public var styleClass: String?
     public var styleId: String?
     
-    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [LazyControlState: TextBaseOptions]? = nil) {
+    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [LazyControlState: TextBaseOptions]? = nil, imageOptionsForType: [LazyControlState: ImageBaseOptions]? = nil) {
         
         self.identifier = identifier
         self.classType = classType
         self.viewBaseOptions = viewBaseOptions
         self.textOptionsForType = textOptionsForType
+        self.imageOptionsForType = imageOptionsForType
         self.type = type
     }
     
@@ -121,6 +129,8 @@ public struct ButtonOptions : ElementOptions {
         self.type = type
     }
 }
+
+//MARK: - Image options
 
 public struct ImageOptions : ElementOptions {
     
@@ -150,6 +160,8 @@ public struct ImageOptions : ElementOptions {
         self.imageBaseOptions = nil
     }
 }
+
+//MARK: - TextField options
 
 public struct TextFieldOptions : ElementOptions {
     
@@ -192,6 +204,8 @@ public struct TextFieldOptions : ElementOptions {
     }
 }
 
+//MARK: - TextView options
+
 public struct TextViewOptions : ElementOptions {
     
     public var identifier: String?
@@ -224,12 +238,15 @@ public struct TextViewOptions : ElementOptions {
     }
 }
 
+//MARK: - TableView options
+
 public struct TableViewOptions : ElementOptions {
     
     public var identifier: String?
     public var classType = UITableView.self
     public var viewBaseOptions: ViewBaseOptions?
     public var style: UITableViewStyle = .Plain
+	
     public var styleClass: String?
     public var styleId: String?
     
@@ -249,4 +266,34 @@ public struct TableViewOptions : ElementOptions {
         self.styleId = styleId
         self.style = style
     }
+}
+
+//MARK: - TableView options
+
+public struct CollectionViewOptions : ElementOptions {
+	
+	public var identifier: String?
+	public var classType = UICollectionView.self
+	public var viewBaseOptions: ViewBaseOptions?
+	public var collectionViewLayoutType = UICollectionViewLayout.self
+	
+	public var styleClass: String?
+	public var styleId: String?
+	
+	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, viewBaseOptions: ViewBaseOptions? = nil) {
+		
+		self.identifier = identifier
+		self.viewBaseOptions = viewBaseOptions
+		self.classType = classType
+		self.collectionViewLayoutType = collectionViewLayoutType
+	}
+	
+	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, styleClass: String? = nil, styleId: String? = nil) {
+		
+		self.identifier = identifier
+		self.classType = classType
+		self.styleClass = styleClass
+		self.styleId = styleId
+		self.collectionViewLayoutType = collectionViewLayoutType
+	}
 }

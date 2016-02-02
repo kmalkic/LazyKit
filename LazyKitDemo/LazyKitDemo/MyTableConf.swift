@@ -19,7 +19,7 @@ struct MyTableConfigurations: LazyViewConfigurations {
             )
         ]
     }
-    
+	
     static func visualFormatConstraintOptions() -> [VisualFormatConstraintOptions]? {
         
         return [

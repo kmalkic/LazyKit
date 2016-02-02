@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A2E16B41C60D4AD00BBED68 /* alt.css in Resources */ = {isa = PBXBuildFile; fileRef = 0A2E16B31C60D4AD00BBED68 /* alt.css */; };
 		496CD9241C4CF77E00C6868C /* MyViewControllerCssTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496CD9231C4CF77E00C6868C /* MyViewControllerCssTest.swift */; };
 		496CD9261C4CF7EC00C6868C /* MyCssConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496CD9251C4CF7EC00C6868C /* MyCssConfigurations.swift */; };
 		498B91421C4C64AF006808AE /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 498B91411C4C64AF006808AE /* default.css */; };
@@ -44,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A2E16B31C60D4AD00BBED68 /* alt.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = alt.css; sourceTree = "<group>"; };
 		496CD9231C4CF77E00C6868C /* MyViewControllerCssTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewControllerCssTest.swift; sourceTree = "<group>"; };
 		496CD9251C4CF7EC00C6868C /* MyCssConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCssConfigurations.swift; sourceTree = "<group>"; };
 		498B91411C4C64AF006808AE /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				496CD9291C4CF84600C6868C /* Css */,
 				49C435FB1C4836460070728B /* LaunchScreen.storyboard */,
 				498B91411C4C64AF006808AE /* default.css */,
+				0A2E16B31C60D4AD00BBED68 /* alt.css */,
 				498B91431C4C66D6006808AE /* Font */,
 				49C435FE1C4836460070728B /* Info.plist */,
 				49C4363C1C4C41860070728B /* Media.xcassets */,
@@ -230,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				498B91501C4C66D6006808AE /* RobotoSlab-Regular.ttf in Resources */,
+				0A2E16B41C60D4AD00BBED68 /* alt.css in Resources */,
 				498B91511C4C66D6006808AE /* RobotoSlab-Thin.ttf in Resources */,
 				49C4363D1C4C41860070728B /* Media.xcassets in Resources */,
 				498B914F1C4C66D6006808AE /* RobotoSlab-Light.ttf in Resources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK: Base options
+//MARK: - Base options
 
 public protocol BaseOptions {
     
@@ -19,12 +19,14 @@ public struct ViewBaseOptions: BaseOptions {
     public var accessibilityIdentifier: String?
     public var backgroundColor: UIColor?
     public var tintColor: UIColor?
+    public var alpha: CGFloat?
     
-    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor? = nil, tintColor: UIColor? = nil) {
+    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor? = nil, tintColor: UIColor? = nil, alpha: CGFloat? = nil) {
         
         self.accessibilityIdentifier = accessibilityIdentifier
         self.backgroundColor = backgroundColor
         self.tintColor = tintColor
+        self.alpha = alpha
     }
 }
 
@@ -95,6 +97,7 @@ public struct TextInputBaseOptions: BaseOptions {
     }
 }
 
+//MARK: - Operands
 
 func + (left:ViewBaseOptions?, right:ViewBaseOptions? ) -> ViewBaseOptions? {
     
@@ -104,6 +107,7 @@ func + (left:ViewBaseOptions?, right:ViewBaseOptions? ) -> ViewBaseOptions? {
     object.accessibilityIdentifier  = right?.accessibilityIdentifier ?? left?.accessibilityIdentifier
     object.backgroundColor  = right?.backgroundColor ?? left?.backgroundColor
     object.tintColor  = right?.tintColor ?? left?.tintColor
+    object.alpha = right?.alpha ?? left?.alpha
     
     return object
 }
@@ -128,6 +132,11 @@ func + (left:TextBaseOptions?, right:TextBaseOptions? ) -> TextBaseOptions? {
 }
 
 func + (left:[LazyControlState: TextBaseOptions]?, right:[LazyControlState: TextBaseOptions]? ) -> [LazyControlState: TextBaseOptions]? {
+    
+    return right ?? left
+}
+
+func + (left:[LazyControlState: ImageBaseOptions]?, right:[LazyControlState: ImageBaseOptions]? ) -> [LazyControlState: ImageBaseOptions]? {
     
     return right ?? left
 }

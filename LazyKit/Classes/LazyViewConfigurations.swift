@@ -15,3 +15,8 @@ public protocol LazyViewConfigurations {
     static func visualFormatMetrics() -> [String: AnyObject]?
     static func layoutConstraints() -> [ConstraintOptions]?
 }
+
+public protocol LazyViewConfigurationsOptions {
+    
+    static func shouldNotRecreateAllElementsAfterUpdatePosted() -> Bool
+}

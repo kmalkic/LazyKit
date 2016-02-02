@@ -17,7 +17,28 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     private var contraints = [String: NSLayoutConstraint]()
     
     public weak private(set) var view: UIView?
-    
+	
+	deinit {
+		
+		for (_, subview) in storedElements {
+			
+			subview.removeFromSuperview()
+		}
+		
+		if let view = view {
+
+			for (_, contraints) in visualContraints {
+			
+				view.removeConstraints(contraints)
+			}
+			
+			for (_, contraint) in contraints {
+				
+				view.removeConstraint(contraint)
+			}
+		}
+	}
+	
     public init(view: UIView) {
         
         self.view = view
@@ -32,7 +53,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                 
                 for elementOptions in elementsOptions {
                     
-                    if let element = LazyUIFactory.element(elementOptions) {
+                    if let element = LazyUIFactory.createElement(elementOptions) {
                         
                         if elementOptions.styleClass != nil || elementOptions.styleId != nil {
                             
@@ -194,67 +215,159 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         return nil
     }
     
-    //MARK: Getters
+    //MARK: - Getters
     
+    /**
+    Get an UI element for a given identifier.
+    
+    - parameter identifier: identifier of the element.
+    - returns: The element if founded.
+    */
     public func element<T: UIView>(identifier: String) -> T? {
         
         return storedElements[identifier] as? T
     }
     
+    /**
+     Get an UILabel for a given identifier.
+     
+     - parameter identifier: identifier of the label.
+     - returns: The label if founded.
+     */
     public func label<T: UILabel>(identifier: String) -> T? {
         
         return element(identifier) as? T
     }
     
+    /**
+     Get an UIButton for a given identifier.
+     
+     - parameter identifier: identifier of the button.
+     - returns: The button if founded.
+     */
     public func button<T: UIButton>(identifier: String) -> T? {
         
         return element(identifier) as? T
     }
     
+    /**
+     Get an UIImageView for a given identifier.
+     
+     - parameter identifier: identifier of the imageView.
+     - returns: The imageView if founded.
+     */
     public func imageView<T: UIImageView>(identifier: String) -> T? {
         
         return element(identifier) as? T
     }
     
+    /**
+     Get an UITableView for a given identifier.
+     
+     - parameter identifier: identifier of the tableView.
+     - returns: The tableView if founded.
+     */
     public func tableView<T: UITableView>(identifier: String) -> T? {
         
         return element(identifier) as? T
     }
     
+    /**
+     Get an UITextField for a given identifier.
+     
+     - parameter identifier: identifier of the textField.
+     - returns: The textField if founded.
+     */
     public func textField<T: UITextField>(identifier: String) -> T? {
         
         return element(identifier) as? T
     }
     
+    /**
+     Get an UITextView for a given identifier.
+     
+     - parameter identifier: identifier of the textView.
+     - returns: The textView if founded.
+     */
     public func textView<T: UITextView>(identifier: String) -> T? {
         
         return element(identifier) as? T
     }
     
-    //MARK: Updates
-        
+    //MARK: - Updates
+    
+    /**
+    Updates an UI element with any ElementOptions, if suited for the type of the element found with the given identifier.
+    
+    - parameter identifier: identifier of the element given.
+    - parameter elementOptions: Some options to be applied.
+    - returns: If element was founded.
+    */
     public func updateElement<T: ElementOptions>(identifier: String, elementOptions: T) -> Bool {
         
         guard let element = storedElements[identifier] else {
             
             return false
         }
-        
+
         LazyUIFactory.updateElement(element, elementOptions: elementOptions)
-        
+                
         return true
     }
     
+    /**
+     Updates an UI element with closure, if element found with the given identifier.
+     
+     - parameter identifier: identifier of the element given.
+     - parameter type: The type of the element you looking for.
+     */
+    public func updateElement<T>(identifier: String, type: T.Type, block: (element: T) -> Void) {
+        
+        if let element = element(identifier) {
+
+            if element is T {
+                
+                block(element: element as! T)
+				
+			} else {
+			
+				print("element for identifier: " + identifier + " is not of type: \(T.self)")
+			}
+		
+		} else {
+		
+			print("no such element for identifier: " + identifier)
+		}
+    }
+    
+    /**
+     The constraints created with visual format constraints.
+     
+     - parameter identifier: identifier of the given set of constraints.
+     - returns: The constraints if any.
+     */
     public func layoutConstraints(identifier: String) -> [NSLayoutConstraint]? {
         
         return visualContraints[identifier]
     }
     
+    /**
+     The constraints created with single layout constraint.
+     
+     - parameter identifier: identifier of the given constraint.
+     - returns: The constraint if any.
+     */
     public func layoutConstraint(identifier: String) -> NSLayoutConstraint? {
         
         return contraints[identifier]
     }
     
+    /**
+     The constraints created with single layout constraint.
+     
+     - parameter identifier: identifier of the given constraint. (Won't work with constraints created using visual format constraints!)
+     - returns: If constraint was founded.
+     */
     public func changeConstantOfLayoutConstaint(identifier: String, constant: CGFloat) -> Bool {
         
         guard let layoutConstraint = contraints[identifier] else {
@@ -267,4 +380,3 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         return true
     }
 }
-

@@ -12,12 +12,51 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
     
     public typealias ViewConfigurations = T
     
+    deinit {
+        
+        unregisterUpdateStylesNotification(self)
+    }
+    
     public private(set) var viewManager: LazyViewManager<T>!
     
     override init(frame: CGRect) {
         
         super.init(frame: frame)
         
-        viewManager = LazyViewManager(view: contentView)
+        setup()
     }
+    
+	private func setup() {
+		
+		viewManager = LazyViewManager(view: contentView)
+		
+		registerUpdateStylesNotification(self)
+		
+		viewDidUpdate()
+	}
+	
+	internal func didReceiveUpdateNotification() {
+		
+		var canUpdate = true
+		
+		if let ViewConfigurationsOptions = ViewConfigurations.self as? LazyViewConfigurationsOptions.Type {
+			
+			canUpdate = !ViewConfigurationsOptions.shouldNotRecreateAllElementsAfterUpdatePosted()
+		}
+		
+		if canUpdate {
+			
+			viewManager = LazyViewManager(view: contentView)
+			
+			viewDidUpdate()
+		}
+	}
+	
+	/**
+	Called after the view has been updated from the view configurations. Would be called also after kUpdateStylesNotificationKey was posted
+	*/
+	public func viewDidUpdate() {
+		
+		
+	}
 }

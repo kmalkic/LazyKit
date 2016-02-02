@@ -72,7 +72,7 @@ internal class LazyUIFactory {
         return false
     }
     
-    //MARK: Mapping base options
+    //MARK: - Mapping base options
     
     internal class func updateView(view: UIView, viewBaseOptions: ViewBaseOptions?) {
         
@@ -80,6 +80,7 @@ internal class LazyUIFactory {
             
             view.backgroundColor = viewBaseOptions.backgroundColor ?? view.backgroundColor
             view.tintColor = viewBaseOptions.tintColor ?? view.tintColor
+            view.alpha = viewBaseOptions.alpha ?? view.alpha
         }
     }
     
@@ -146,6 +147,29 @@ internal class LazyUIFactory {
                 
                 button.setTitle(textOptions.text ?? button.titleForState(state.toUiControlState), forState: state.toUiControlState)
                 button.setTitleColor(textOptions.textColor ?? button.titleColorForState(state.toUiControlState), forState: state.toUiControlState)
+            }
+        }
+        
+        if let imageOptions = options.imageOptionsForType?[.Normal], imageView = button.imageView {
+            
+            imageView.clipsToBounds = true
+            button.contentMode = imageOptions.contentMode ?? imageView.contentMode
+            imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
+            imageView.tintColor = imageOptions.tintColor ?? imageView.tintColor
+        }
+        
+        if let imageOptionsForType = options.imageOptionsForType {
+            
+            for (state, imageOptions) in imageOptionsForType {
+                
+                if let imageNamed = imageOptions.imageNamed, _ = imageOptions.tintColor {
+                    
+                    button.setImage(UIImage(named: imageNamed)?.imageWithRenderingMode(.AlwaysTemplate), forState: state.toUiControlState)
+                    
+                } else if let imageNamed = imageOptions.imageNamed {
+                    
+                    button.setImage(UIImage(named: imageNamed), forState: state.toUiControlState)
+                }
             }
         }
     }
@@ -264,7 +288,7 @@ internal class LazyUIFactory {
         }
     }
     
-    //MARK: Factory
+    //MARK: - Factory
     
     internal class func view(option: ViewOptions) -> UIView {
         
@@ -328,8 +352,17 @@ internal class LazyUIFactory {
         
         return tableView
     }
-    
-    internal class func element<T>(option: T) -> UIView? {
+	
+	internal class func collectionView(option: CollectionViewOptions) -> UICollectionView {
+		
+		let collectionView = option.classType.init(frame: .zero, collectionViewLayout: option.collectionViewLayoutType.init())
+		
+		updateElement(collectionView, elementOptions: option)
+		
+		return collectionView
+	}
+	
+    internal class func createElement<T>(option: T) -> UIView? {
         
         var v: UIView?
         
@@ -371,7 +404,12 @@ internal class LazyUIFactory {
                 
                 v = tableView(elementOptions)
                 break
-                
+				
+			case let elementOptions as CollectionViewOptions:
+				
+				v = collectionView(elementOptions)
+				break
+				
             default:
                 break
             }

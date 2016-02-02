@@ -9,6 +9,8 @@
 import UIKit
 import LazyKit
 
+let kAlternativeCollectionName = "Alternative"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -22,8 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("default.css", ofType: nil)!)
         ]
         LazyStyleSheetManager.shared.setDefaultStylesFromFileAtUrls(defaultUrls)
+		
+		let alternativeUrls = [
+			NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("alt.css", ofType: nil)!)
+		]
+		LazyStyleSheetManager.shared.setStylesFromFileAtUrls(alternativeUrls, collectionName: kAlternativeCollectionName)
+		
         LazyStyleSheetManager.shared.help()
-        
+
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.rootViewController = MyViewControllerCssTest()
         window!.makeKeyAndVisible()
@@ -52,7 +60,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 

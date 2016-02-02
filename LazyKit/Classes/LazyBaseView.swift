@@ -14,17 +14,56 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
     
     public private(set) var viewManager: LazyViewManager<T>!
     
+    deinit {
+        
+        unregisterUpdateStylesNotification(self)
+    }
+    
     public init() {
         
-        super.init(frame: CGRectZero)
+        super.init(frame: .zero)
         
-        viewManager = LazyViewManager(view: self)
+        setup()
     }
     
     public override init(frame: CGRect) {
         
         super.init(frame: frame)
         
-        viewManager = LazyViewManager(view: self)
+        setup()
     }
+    
+	private func setup() {
+		
+		viewManager = LazyViewManager(view: self)
+		
+		registerUpdateStylesNotification(self)
+		
+		viewDidUpdate()
+	}
+	
+	internal func didReceiveUpdateNotification() {
+		
+		var canUpdate = true
+		
+		if let ViewConfigurationsOptions = ViewConfigurations.self as? LazyViewConfigurationsOptions.Type {
+			
+			canUpdate = !ViewConfigurationsOptions.shouldNotRecreateAllElementsAfterUpdatePosted()
+		}
+		
+		if canUpdate {
+			
+			viewManager = LazyViewManager(view: self)
+			
+			viewDidUpdate()
+		}
+	}
+	
+	/**
+	Called after the view has been updated from the view configurations. Would be called also after kUpdateStylesNotificationKey was posted
+	*/
+	public func viewDidUpdate() {
+		
+		
+	}
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK: Layout constraints options
+//MARK: - Layout constraints options
 
 public struct VisualFormatConstraintOptions {
     

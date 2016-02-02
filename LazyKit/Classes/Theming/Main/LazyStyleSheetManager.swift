@@ -9,8 +9,18 @@
 import UIKit
 
 /// Default collection name
-public let kDefaultCollectionName = "Default"
+public let kLazyDefaultCollectionName = "Default"
 public let kUpdateStylesNotificationKey = "kUpdateStylesNotificationKey"
+
+internal func registerUpdateStylesNotification(object: NSObject) {
+	
+	NSNotificationCenter.defaultCenter().addObserver(object, selector: "didReceiveUpdateNotification", name: kUpdateStylesNotificationKey, object: nil)
+}
+
+internal func unregisterUpdateStylesNotification(object: NSObject) {
+	
+	NSNotificationCenter.defaultCenter().removeObserver(object, name: kUpdateStylesNotificationKey, object: nil)
+}
 
 /// Style manager that handle collection of styles.
 public class LazyStyleSheetManager: NSObject {
@@ -34,12 +44,12 @@ public class LazyStyleSheetManager: NSObject {
     /**
         Current collection name.
     
-        If not set it will be assigned the default value : kDefaultCollectionName.
+        If not set it will be assigned the default value : kLazyDefaultCollectionName.
         On didSet it post a notification to all views to update their styles.
     
         You can call postUpdateStylesNotification() manually to trigger the same update.
     */
-    public var currentCollectionName = kDefaultCollectionName {
+    public var currentCollectionName = kLazyDefaultCollectionName {
         
         didSet {
             
@@ -47,12 +57,12 @@ public class LazyStyleSheetManager: NSObject {
         }
     }
     
-    //MARK: - constructor
+    //MARK: - Constructor
     
     /**
         Returns the singleton manager instance.
     
-        :returns: The manager instance. It is created on the first call.
+        - returns: The manager instance. It is created on the first call.
     */
     public class var shared: LazyStyleSheetManager {
         
@@ -104,33 +114,13 @@ public class LazyStyleSheetManager: NSObject {
         return "\n     Patterns: "
     }
     
-    //MARK: - public
-    
-    /**
-        Call postUpdateStylesNotification() manually to trigger all the views to update their styles.
-    */
-    public func postUpdateStylesNotification() {
-        
-        NSNotificationCenter.defaultCenter().postNotificationName(kUpdateStylesNotificationKey, object: nil)
-    }
-    
-    /**
-        For unnecessary use of internal functions, if you do not need to change any style on runtime set it to false.
-        By default it is false.
-    
-        :param: swapping defines if the manager can handle swapping the current collection with another collection styles.
-    */
-    public func enableThemeSwapping(swapping: Bool) {
-        
-        enableThemeSwapping = swapping
-    }
-    
-    public func setUrlToRefreshCollectionFile(collectionName: String, urls:[NSURL]) {
+    private func setUrlToRefreshCollectionFile(collectionName: String, urls:[NSURL]) {
         
         if urls.count == 0 {
             
             return
         }
+        
         styleCollectionsUrl[collectionName]! = urls
     }
     
@@ -149,16 +139,55 @@ public class LazyStyleSheetManager: NSObject {
         styleCollectionsUrl[collectionName]! += urls
     }
     
+    //MARK: - public
+    
+    /**
+        Call postUpdateStylesNotification() manually to trigger all the views to update their styles.
+    */
+    public func postUpdateStylesNotification() {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(kUpdateStylesNotificationKey, object: nil)
+    }
+    
+    /**
+        For unnecessary use of internal functions, if you do not need to change any style on runtime set it to false.
+        By default it is false.
+    
+        - parameter swapping: defines if the manager can handle swapping the current collection with another collection styles.
+    */
+    public func enableThemeSwapping(swapping: Bool) {
+        
+        enableThemeSwapping = swapping
+    }
+
+    /**
+     Convenient function to set the main collection styles of the app under the kLazyDefaultCollectionName key.
+     Note.: this will set a single file for the default collection.
+     
+     - parameter url: the url of the file.
+     */
     public func setDefaultStylesFromFileAtUrl(url: NSURL?) -> Bool {
         
-        return setStylesFromFileAtUrl(url, collectionName: kDefaultCollectionName)
+        return setStylesFromFileAtUrl(url, collectionName: kLazyDefaultCollectionName)
     }
     
+    /**
+     Convenient function to set the main collection styles of the app under the kLazyDefaultCollectionName key.
+     
+     - parameter urls: set of urls of all files required.
+     */
     public func setDefaultStylesFromFileAtUrls(urls: [NSURL]) -> Bool {
     
-        return setStylesFromFileAtUrls(urls, collectionName: kDefaultCollectionName)
+        return setStylesFromFileAtUrls(urls, collectionName: kLazyDefaultCollectionName)
     }
     
+    /**
+     Function to set a different collection styles for the app using specific identifier key.
+     Can be swapped at any time by changing currentCollectionName. (this will post a notification under kUpdateStylesNotificationKey)
+     Note: you will have to manually update your UI elements, or set your configurations to conform to LazyViewConfigurationsOptions and use shouldRecreateAllElementsForThemeSwapping().
+     
+     - parameter url: the url of the file.
+     */
     public func setStylesFromFileAtUrl(url: NSURL?, collectionName: String) -> Bool {
         
         if url == nil {

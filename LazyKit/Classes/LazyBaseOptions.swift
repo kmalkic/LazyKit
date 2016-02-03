@@ -10,11 +10,7 @@ import UIKit
 
 //MARK: - Base options
 
-public protocol BaseOptions {
-    
-}
-
-public struct ViewBaseOptions: BaseOptions {
+public struct ViewBaseOptions {
     
     public var accessibilityIdentifier: String?
     public var backgroundColor: UIColor?
@@ -30,7 +26,7 @@ public struct ViewBaseOptions: BaseOptions {
     }
 }
 
-public struct TextBaseOptions: BaseOptions {
+public struct TextBaseOptions {
     
     public var text: String?
     public var font: UIFont?
@@ -59,7 +55,7 @@ public struct TextBaseOptions: BaseOptions {
     }
 }
 
-public struct ImageBaseOptions: BaseOptions {
+public struct ImageBaseOptions {
     
     public var contentMode: UIViewContentMode?
     public var tintColor: UIColor?
@@ -73,7 +69,7 @@ public struct ImageBaseOptions: BaseOptions {
     }
 }
 
-public struct TextInputBaseOptions: BaseOptions {
+public struct TextInputBaseOptions {
     
     public var autocapitalizationType: UITextAutocapitalizationType?
     public var autocorrectionType: UITextAutocorrectionType?

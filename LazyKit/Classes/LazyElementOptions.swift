@@ -8,111 +8,108 @@
 
 import UIKit
 
-//MARK: - Element options protocol
-
-public protocol ElementOptions {
+public protocol ElementOptions: Equatable {
     
-    var identifier: String? { get set }
-    var viewBaseOptions: ViewBaseOptions? { get set }
-    
-    var styleClass: String? { get set }
-    var styleId: String? { get set }
+    typealias U
 }
 
-//MARK: - View options
+//MARK: - Element options protocol
 
-public struct ViewOptions : ElementOptions {
+public struct BaseOptions<T> {
     
-    public var identifier: String?
-    public var classType = UIView.self
-    public var viewBaseOptions: ViewBaseOptions?
+    public typealias U = T
     
-    public var styleClass: String?
-    public var styleId: String?
+    var identifier: String?
+    var classType: T.Type = T.self
+    var styleClass: String?
+    var styleId: String?
     
-    public init(identifier: String? = nil, classType: UIView.Type = UIView.self, viewBaseOptions: ViewBaseOptions? = nil) {
-        
-        self.identifier = identifier
-        self.viewBaseOptions = viewBaseOptions
-        self.classType = classType
-    }
+    public init(identifier: String? = nil, classType: T.Type = T.self, styleClass: String? = nil, styleId: String? = nil) {
     
-    public init(identifier: String? = nil, classType: UIView.Type = UIView.self, styleClass: String? = nil, styleId: String? = nil) {
-        
         self.identifier = identifier
         self.classType = classType
         self.styleClass = styleClass
         self.styleId = styleId
+    }
+    
+
+}
+
+//MARK: - View options
+
+public struct ViewOptions<T: UIView>: ElementOptions {
+    
+    public typealias U = T
+    
+    public var baseOptions: BaseOptions<T>?
+    public var viewBaseOptions: ViewBaseOptions?
+    
+    public init(identifier: String? = nil, classType: T.Type = T.self, viewBaseOptions: ViewBaseOptions? = nil) {
         
-        self.viewBaseOptions = nil
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
+        self.viewBaseOptions = viewBaseOptions
+    }
+    
+    public init(identifier: String? = nil, classType: T.Type = T.self, styleClass: String? = nil, styleId: String? = nil) {
+        
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+    }
+    
+    func == (lhs: ViewOptions<UIView>, rhs: ViewOptions<UIView>) -> Bool {
+    
+    
     }
 }
 
 //MARK: - Label options
 
-public struct LabelOptions : ElementOptions {
+public struct LabelOptions<T: UILabel>: ElementOptions {
     
-    public var identifier: String?
-    public var classType = UILabel.self
+    public typealias U = T
+    
+    public var baseOptions: BaseOptions<T>?
     public var viewBaseOptions: ViewBaseOptions?
     public var textOptions: TextBaseOptions?
     
-    public var styleClass: String?
-    public var styleId: String?
-    
-    public init(identifier: String? = nil, classType: UILabel.Type = UILabel.self, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
         self.viewBaseOptions = viewBaseOptions
         self.textOptions = textOptions
     }
     
-    public init(identifier: String? = nil, classType: UILabel.Type = UILabel.self, text: String? = nil, styleClass: String? = nil, styleId: String? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, text: String? = nil, styleClass: String? = nil, styleId: String? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
-        self.styleClass = styleClass
-        self.styleId = styleId
-        
-        self.viewBaseOptions = nil
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
         self.textOptions = TextBaseOptions(text: text)
     }
 }
 
 //MARK: - Button options
 
-public struct ButtonOptions : ElementOptions {
+public struct ButtonOptions<T: UIButton>: ElementOptions {
     
-    public var identifier: String?
-    public var classType = UIButton.self
+    public typealias U = T
+    
+    public var baseOptions: BaseOptions<T>?
     public var viewBaseOptions: ViewBaseOptions?
     public var textOptionsForType: [LazyControlState: TextBaseOptions]?
     public var imageOptionsForType: [LazyControlState: ImageBaseOptions]?
     
     public var type: UIButtonType
-    
-    public var styleClass: String?
-    public var styleId: String?
-    
-    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [LazyControlState: TextBaseOptions]? = nil, imageOptionsForType: [LazyControlState: ImageBaseOptions]? = nil) {
+
+    public init(identifier: String? = nil, classType: T.Type = T.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [LazyControlState: TextBaseOptions]? = nil, imageOptionsForType: [LazyControlState: ImageBaseOptions]? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
         self.viewBaseOptions = viewBaseOptions
         self.textOptionsForType = textOptionsForType
         self.imageOptionsForType = imageOptionsForType
         self.type = type
     }
     
-    public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, texts: [LazyControlState: String]? = nil, styleClass: String? = nil, styleId: String? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, type: UIButtonType = .Custom, texts: [LazyControlState: String]? = nil, styleClass: String? = nil, styleId: String? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
-        self.styleClass = styleClass
-        self.styleId = styleId
-        
-        self.viewBaseOptions = nil
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
         
         if let texts = texts {
             
@@ -132,56 +129,43 @@ public struct ButtonOptions : ElementOptions {
 
 //MARK: - Image options
 
-public struct ImageOptions : ElementOptions {
+public struct ImageOptions<T: UIImageView>: ElementOptions {
     
-    public var identifier: String?
-    public var classType = UIImageView.self
+    public typealias U = T
+    
+    public var baseOptions: BaseOptions<T>?
     public var viewBaseOptions: ViewBaseOptions?
     public var imageBaseOptions: ImageBaseOptions?
-    
-    public var styleClass: String?
-    public var styleId: String?
-    
-    public init(identifier: String? = nil, classType: UIImageView.Type = UIImageView.self, viewBaseOptions: ViewBaseOptions? = nil, imageBaseOptions: ImageBaseOptions? = nil) {
+
+    public init(identifier: String? = nil, classType: T.Type = T.self, viewBaseOptions: ViewBaseOptions? = nil, imageBaseOptions: ImageBaseOptions? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
         self.viewBaseOptions = viewBaseOptions
         self.imageBaseOptions = imageBaseOptions
     }
     
-    public init(identifier: String? = nil, classType: UIImageView.Type = UIImageView.self, styleClass: String? = nil, styleId: String? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, styleClass: String? = nil, styleId: String? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
-        self.styleClass = styleClass
-        self.styleId = styleId
-        self.viewBaseOptions = nil
-        self.imageBaseOptions = nil
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
     }
 }
 
 //MARK: - TextField options
 
-public struct TextFieldOptions : ElementOptions {
+public struct TextFieldOptions<T: UITextField>: ElementOptions {
     
-    public var identifier: String?
-    public var classType = UITextField.self
+    public typealias U = T
+    
+    public var baseOptions: BaseOptions<T>?
     public var viewBaseOptions: ViewBaseOptions?
     public var textOptions: TextBaseOptions?
     public var placeholderOptions: TextBaseOptions?
     public var textInputOptions: TextInputBaseOptions?
-    
     public var borderStyle: UITextBorderStyle?
     
-    public var styleClass: String?
-    public var styleId: String?
-    
-    public init(identifier: String? = nil, classType: UITextField.Type = UITextField.self, borderStyle: UITextBorderStyle? = nil, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil, placeholderOptions: TextBaseOptions? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, borderStyle: UITextBorderStyle? = nil, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil, placeholderOptions: TextBaseOptions? = nil, textInputOptions: TextInputBaseOptions? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
-        
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
         self.viewBaseOptions = viewBaseOptions
         self.textOptions = textOptions
         self.borderStyle = borderStyle
@@ -189,15 +173,10 @@ public struct TextFieldOptions : ElementOptions {
         self.textInputOptions = textInputOptions
     }
     
-    public init(identifier: String? = nil, classType: UITextField.Type = UITextField.self, borderStyle: UITextBorderStyle? = nil, text: String? = nil, placeholderText: String? = nil, styleClass: String? = nil, styleId: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, borderStyle: UITextBorderStyle? = nil, text: String? = nil, placeholderText: String? = nil, styleClass: String? = nil, styleId: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
-        self.styleClass = styleClass
-        self.styleId = styleId
-        
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
         self.borderStyle = borderStyle
-        self.viewBaseOptions = nil
         self.textOptions = TextBaseOptions(text: text)
         self.placeholderOptions = TextBaseOptions(text: placeholderText)
         self.textInputOptions = textInputOptions
@@ -206,33 +185,26 @@ public struct TextFieldOptions : ElementOptions {
 
 //MARK: - TextView options
 
-public struct TextViewOptions : ElementOptions {
+public struct TextViewOptions<T: UITextView>: ElementOptions {
     
-    public var identifier: String?
-    public var classType = UITextView.self
+    public typealias U = T
+    
+    public var baseOptions: BaseOptions<T>?
     public var viewBaseOptions: ViewBaseOptions?
     public var textOptions: TextBaseOptions?
     public var textInputOptions: TextInputBaseOptions?
     
-    public var styleClass: String?
-    public var styleId: String?
-    
-    public init(identifier: String? = nil, classType: UITextView.Type = UITextView.self, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, viewBaseOptions: ViewBaseOptions? = nil, textOptions: TextBaseOptions? = nil, textInputOptions: TextInputBaseOptions? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
         self.viewBaseOptions = viewBaseOptions
         self.textOptions = textOptions
         self.textInputOptions = textInputOptions
     }
     
-    public init(identifier: String? = nil, classType: UITextView.Type = UITextView.self, text: String? = nil, styleClass: String? = nil, styleId: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, text: String? = nil, styleClass: String? = nil, styleId: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
-        self.styleClass = styleClass
-        self.styleId = styleId
-        self.viewBaseOptions = nil
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
         self.textOptions = TextBaseOptions(text: text)
         self.textInputOptions = textInputOptions
     }
@@ -240,60 +212,48 @@ public struct TextViewOptions : ElementOptions {
 
 //MARK: - TableView options
 
-public struct TableViewOptions : ElementOptions {
+public struct TableViewOptions<T: UITableView>: ElementOptions {
     
-    public var identifier: String?
-    public var classType = UITableView.self
+    public typealias U = T
+    
+    public var baseOptions: BaseOptions<T>?
     public var viewBaseOptions: ViewBaseOptions?
     public var style: UITableViewStyle = .Plain
-	
-    public var styleClass: String?
-    public var styleId: String?
-    
-    public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .Plain, viewBaseOptions: ViewBaseOptions? = nil) {
+
+    public init(identifier: String? = nil, classType: T.Type = T.self, style: UITableViewStyle = .Plain, viewBaseOptions: ViewBaseOptions? = nil) {
         
-        self.identifier = identifier
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
         self.viewBaseOptions = viewBaseOptions
-        self.classType = classType
         self.style = style
     }
     
-    public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .Plain, styleClass: String? = nil, styleId: String? = nil) {
+    public init(identifier: String? = nil, classType: T.Type = T.self, style: UITableViewStyle = .Plain, styleClass: String? = nil, styleId: String? = nil) {
         
-        self.identifier = identifier
-        self.classType = classType
-        self.styleClass = styleClass
-        self.styleId = styleId
+        self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
         self.style = style
     }
 }
 
 //MARK: - TableView options
 
-public struct CollectionViewOptions : ElementOptions {
+public struct CollectionViewOptions<T: UICollectionView>: ElementOptions {
 	
-	public var identifier: String?
-	public var classType = UICollectionView.self
+    public typealias U = T
+    
+	public var baseOptions: BaseOptions<T>?
 	public var viewBaseOptions: ViewBaseOptions?
 	public var collectionViewLayoutType = UICollectionViewLayout.self
 	
-	public var styleClass: String?
-	public var styleId: String?
-	
-	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, viewBaseOptions: ViewBaseOptions? = nil) {
+	public init(identifier: String? = nil, classType: T.Type = T.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, viewBaseOptions: ViewBaseOptions? = nil) {
 		
-		self.identifier = identifier
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
 		self.viewBaseOptions = viewBaseOptions
-		self.classType = classType
 		self.collectionViewLayoutType = collectionViewLayoutType
 	}
 	
-	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: T.Type = T.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, styleClass: String? = nil, styleId: String? = nil) {
 		
-		self.identifier = identifier
-		self.classType = classType
-		self.styleClass = styleClass
-		self.styleId = styleId
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
 		self.collectionViewLayoutType = collectionViewLayoutType
 	}
 }

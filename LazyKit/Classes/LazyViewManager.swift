@@ -54,23 +54,23 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                 for elementOptions in elementsOptions {
                     
                     if let element = LazyUIFactory.createElement(elementOptions) {
-                        
-                        if elementOptions.styleClass != nil || elementOptions.styleId != nil {
-                            
-                            if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: elementOptions.styleId, styleClass: elementOptions.styleClass) {
-                                
-                                if let newElementOptions = convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
-                                
-                                    LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
-                                }
-                            }
-                        }
-                        
-                        if let identifier = elementOptions.identifier {
-
-                            storedElements[identifier] = element
-                        }
-                        
+						
+						elementOptions.styleMe({ (styleId, styleClass) -> Void in
+							
+							if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
+								
+								if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
+									
+									LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+								}
+							}
+						})
+						
+						elementOptions.identifyMe({ (identifier) -> Void in
+							
+							self.storedElements[identifier] = element
+						})
+						
                         view.addSubview(element)
                     }
                 }

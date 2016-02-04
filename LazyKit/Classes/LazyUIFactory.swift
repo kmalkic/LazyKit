@@ -292,7 +292,7 @@ internal class LazyUIFactory {
     
     internal class func view(option: ViewOptions) -> UIView {
         
-        let view = option.classType.init(frame: .zero)
+        let view = option.baseOptions.classType.init(frame: .zero)
         
         updateElement(view, elementOptions: option)
         
@@ -301,7 +301,7 @@ internal class LazyUIFactory {
     
     internal class func label(option: LabelOptions) -> UILabel {
         
-        let label = option.classType.init(frame: .zero)
+        let label = option.baseOptions.classType.init(frame: .zero)
         
         updateElement(label, elementOptions: option)
         
@@ -310,7 +310,7 @@ internal class LazyUIFactory {
     
     internal class func button(option: ButtonOptions) -> UIButton {
         
-        let button = option.classType.init(type: option.type)
+        let button = option.baseOptions.classType.init(type: option.type)
         
         updateElement(button, elementOptions: option)
         
@@ -319,7 +319,7 @@ internal class LazyUIFactory {
     
     internal class func image(option: ImageOptions) -> UIImageView {
         
-        let imageView = option.classType.init(frame: .zero)
+        let imageView = option.baseOptions.classType.init(frame: .zero)
         
         updateElement(imageView, elementOptions: option)
         
@@ -328,7 +328,7 @@ internal class LazyUIFactory {
     
     internal class func textField(option: TextFieldOptions) -> UITextField {
         
-        let textField = option.classType.init(frame: .zero)
+        let textField = option.baseOptions.classType.init(frame: .zero)
         
         updateElement(textField, elementOptions: option)
         
@@ -337,7 +337,7 @@ internal class LazyUIFactory {
     
     internal class func textView(option: TextViewOptions) -> UITextView {
         
-        let textView = option.classType.init(frame: .zero)
+        let textView = option.baseOptions.classType.init(frame: .zero)
         
         updateElement(textView, elementOptions: option)
         
@@ -346,7 +346,7 @@ internal class LazyUIFactory {
     
     internal class func tableView(option: TableViewOptions) -> UITableView {
         
-        let tableView = option.classType.init(frame: .zero, style: option.style)
+        let tableView = option.baseOptions.classType.init(frame: .zero, style: option.style)
         
         updateElement(tableView, elementOptions: option)
         
@@ -355,7 +355,7 @@ internal class LazyUIFactory {
 	
 	internal class func collectionView(option: CollectionViewOptions) -> UICollectionView {
 		
-		let collectionView = option.classType.init(frame: .zero, collectionViewLayout: option.collectionViewLayoutType.init())
+		let collectionView = option.baseOptions.classType.init(frame: .zero, collectionViewLayout: option.collectionViewLayoutType.init())
 		
 		updateElement(collectionView, elementOptions: option)
 		

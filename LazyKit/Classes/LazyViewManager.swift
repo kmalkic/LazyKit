@@ -66,7 +66,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
 							}
 						})
 						
-						elementOptions.identifyMe({ (identifier) -> Void in
+						elementOptions.getStyleIdentifier({ (identifier) -> Void in
 							
 							self.storedElements[identifier] = element
 						})

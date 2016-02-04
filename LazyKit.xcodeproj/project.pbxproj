@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AA600751C638B6F001DACB6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA600741C638B6F001DACB6 /* NSDateExtensions.swift */; };
 		49C435DF1C4836090070728B /* LazyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C435DE1C4836090070728B /* LazyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436071C4836BA0070728B /* LazyBaseViewController.swift */; };
 		49C4360B1C4836BA0070728B /* LazyViewConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436081C4836BA0070728B /* LazyViewConfigurations.swift */; };
@@ -36,13 +37,14 @@
 		49C436991C4C4E340070728B /* LazyTextStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436621C4C4E340070728B /* LazyTextStroke.swift */; };
 		49C436A41C4C4E340070728B /* LazyStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4366F1C4C4E340070728B /* LazyStyleSheet.swift */; };
 		49C436A51C4C4E340070728B /* LazyStyleSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436701C4C4E340070728B /* LazyStyleSheetManager.swift */; };
-		49C436A81C4C4E340070728B /* UIColor+LazyKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436741C4C4E340070728B /* UIColor+LazyKit.swift */; };
+		49C436A81C4C4E340070728B /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436741C4C4E340070728B /* UIColorExtensions.swift */; };
 		49C436AB1C4C4E340070728B /* LazyStyleSheetCSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436781C4C4E340070728B /* LazyStyleSheetCSSParser.swift */; };
 		49C436AC1C4C4E340070728B /* LazyStyleSheetParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436791C4C4E340070728B /* LazyStyleSheetParser.swift */; };
 		49C436AD1C4C4E340070728B /* Operands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C4367A1C4C4E340070728B /* Operands.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AA600741C638B6F001DACB6 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		49C435DB1C4836090070728B /* LazyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LazyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C435DE1C4836090070728B /* LazyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyKit.h; sourceTree = "<group>"; };
 		49C435E01C4836090070728B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,7 +76,7 @@
 		49C436621C4C4E340070728B /* LazyTextStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTextStroke.swift; sourceTree = "<group>"; };
 		49C4366F1C4C4E340070728B /* LazyStyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheet.swift; sourceTree = "<group>"; };
 		49C436701C4C4E340070728B /* LazyStyleSheetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheetManager.swift; sourceTree = "<group>"; };
-		49C436741C4C4E340070728B /* UIColor+LazyKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+LazyKit.swift"; sourceTree = "<group>"; };
+		49C436741C4C4E340070728B /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		49C436781C4C4E340070728B /* LazyStyleSheetCSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheetCSSParser.swift; sourceTree = "<group>"; };
 		49C436791C4C4E340070728B /* LazyStyleSheetParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyStyleSheetParser.swift; sourceTree = "<group>"; };
 		49C4367A1C4C4E340070728B /* Operands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operands.swift; sourceTree = "<group>"; };
@@ -190,7 +192,8 @@
 		49C436711C4C4E340070728B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				49C436741C4C4E340070728B /* UIColor+LazyKit.swift */,
+				49C436741C4C4E340070728B /* UIColorExtensions.swift */,
+				0AA600741C638B6F001DACB6 /* NSDateExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,7 +297,7 @@
 				49C4368D1C4C4E340070728B /* LazyOptionSet.swift in Sources */,
 				49C436951C4C4E340070728B /* LazyMeasureUnit.swift in Sources */,
 				49C436A51C4C4E340070728B /* LazyStyleSheetManager.swift in Sources */,
-				49C436A81C4C4E340070728B /* UIColor+LazyKit.swift in Sources */,
+				49C436A81C4C4E340070728B /* UIColorExtensions.swift in Sources */,
 				49C4368C1C4C4E340070728B /* LazyDecorationSet.swift in Sources */,
 				49C436251C4A6EC40070728B /* LazyViewManager.swift in Sources */,
 				49C4368A1C4C4E340070728B /* LazyBasicSet.swift in Sources */,
@@ -313,6 +316,7 @@
 				49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */,
 				49C436311C4C37E50070728B /* LazyBaseTableViewCell.swift in Sources */,
 				49C4362D1C4BD4B40070728B /* LazyBaseOptions.swift in Sources */,
+				0AA600751C638B6F001DACB6 /* NSDateExtensions.swift in Sources */,
 				49C436931C4C4E340070728B /* LazyFont.swift in Sources */,
 				49C436941C4C4E340070728B /* LazyImage.swift in Sources */,
 			);

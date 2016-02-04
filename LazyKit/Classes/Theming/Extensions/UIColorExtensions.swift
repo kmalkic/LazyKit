@@ -1,5 +1,5 @@
 //
-//  UIColor+LazyKit.swift
+//  UIColorExtensions.swift
 //  LazyKit
 //
 //  Created by Kevin Malkic on 02/05/2015.

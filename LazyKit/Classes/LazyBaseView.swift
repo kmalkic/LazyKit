@@ -42,22 +42,26 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
 		viewDidUpdate()
 	}
 	
-	internal func didReceiveUpdateNotification() {
-		
-		var canUpdate = true
-		
-		if let ViewConfigurationsOptions = ViewConfigurations.self as? LazyViewConfigurationsOptions.Type {
-			
-			canUpdate = !ViewConfigurationsOptions.shouldNotRecreateAllElementsAfterUpdatePosted()
-		}
-		
-		if canUpdate {
-			
-			viewManager = LazyViewManager(view: self)
-			
-			viewDidUpdate()
-		}
-	}
+    internal func didReceiveUpdateNotification() {
+        
+        var canUpdate = true
+        
+        if let ViewConfigurationsOptions = ViewConfigurations.self as? LazyViewConfigurationsOptions.Type {
+            
+            canUpdate = !ViewConfigurationsOptions.shouldRecreateAllElementsAfterUpdatePosted()
+        }
+        
+        if canUpdate {
+            
+            viewManager.updateStyles()
+            
+        } else {
+            
+            viewManager = LazyViewManager(view: self)
+        }
+        
+        viewDidUpdate()
+    }
 	
 	/**
 	Called after the view has been updated from the view configurations. Would be called also after kUpdateStylesNotificationKey was posted

@@ -18,5 +18,5 @@ public protocol LazyViewConfigurations {
 
 public protocol LazyViewConfigurationsOptions {
     
-    static func shouldNotRecreateAllElementsAfterUpdatePosted() -> Bool
+    static func shouldRecreateAllElementsAfterUpdatePosted() -> Bool
 }

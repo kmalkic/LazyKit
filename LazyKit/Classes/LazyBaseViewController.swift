@@ -51,15 +51,19 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 		
 		if let ViewConfigurationsOptions = ViewConfigurations.self as? LazyViewConfigurationsOptions.Type {
 			
-			canUpdate = !ViewConfigurationsOptions.shouldNotRecreateAllElementsAfterUpdatePosted()
+			canUpdate = !ViewConfigurationsOptions.shouldRecreateAllElementsAfterUpdatePosted()
 		}
 		
 		if canUpdate {
 			
-			viewManager = LazyViewManager(view: view)
-			
-			viewDidUpdate()
-		}
+			viewManager.updateStyles()
+            
+        } else {
+        
+            viewManager = LazyViewManager(view: view)
+        }
+        
+        viewDidUpdate()
 	}
 	
 	/**

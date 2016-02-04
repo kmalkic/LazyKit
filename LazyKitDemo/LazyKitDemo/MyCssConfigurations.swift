@@ -73,7 +73,7 @@ struct MyCssConfigurations: LazyViewConfigurations, LazyViewConfigurationsOption
         ]
     }
 	
-	static func shouldNotRecreateAllElementsAfterUpdatePosted() -> Bool {
+	static func shouldRecreateAllElementsAfterUpdatePosted() -> Bool {
 		
 		return false
 	}

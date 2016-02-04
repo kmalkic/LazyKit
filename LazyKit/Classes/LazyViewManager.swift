@@ -122,6 +122,36 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
+    public func updateStyles() {
+    
+        if let elementsOptions = ViewConfigurations.elementsOptions() {
+            
+            for elementOptions in elementsOptions {
+
+                elementOptions.getStyleIdentifier({ (identifier) -> Void in
+                    
+                    guard let element = self.storedElements[identifier] else {
+                    
+                        return
+                    }
+                    
+                    LazyUIFactory.updateElement(element, elementOptions: elementOptions)
+                    
+                    elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
+                        
+                        if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
+                            
+                            if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
+                                
+                                LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+                            }
+                        }
+                    })
+                })
+            }
+        }
+    }
+    
     internal func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
     
         var textBaseOptions: TextBaseOptions?

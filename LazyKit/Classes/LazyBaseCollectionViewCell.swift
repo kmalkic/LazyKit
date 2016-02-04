@@ -35,22 +35,26 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
 		viewDidUpdate()
 	}
 	
-	internal func didReceiveUpdateNotification() {
-		
-		var canUpdate = true
-		
-		if let ViewConfigurationsOptions = ViewConfigurations.self as? LazyViewConfigurationsOptions.Type {
-			
-			canUpdate = !ViewConfigurationsOptions.shouldNotRecreateAllElementsAfterUpdatePosted()
-		}
-		
-		if canUpdate {
-			
-			viewManager = LazyViewManager(view: contentView)
-			
-			viewDidUpdate()
-		}
-	}
+    internal func didReceiveUpdateNotification() {
+        
+        var canUpdate = true
+        
+        if let ViewConfigurationsOptions = ViewConfigurations.self as? LazyViewConfigurationsOptions.Type {
+            
+            canUpdate = !ViewConfigurationsOptions.shouldRecreateAllElementsAfterUpdatePosted()
+        }
+        
+        if canUpdate {
+            
+            viewManager.updateStyles()
+            
+        } else {
+            
+            viewManager = LazyViewManager(view: contentView)
+        }
+        
+        viewDidUpdate()
+    }
 	
 	/**
 	Called after the view has been updated from the view configurations. Would be called also after kUpdateStylesNotificationKey was posted

@@ -94,15 +94,12 @@ class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
                 }
             }
             
-        } else {
-            
-            if styleId != nil {
-                
-                possibilities.append( klassName + String(format:"#%@",styleId!) )
-                possibilities.append( String(format:"#%@",styleId!) )
-            }
-            
+        } else if styleId != nil {
+			
+			possibilities.append( klassName + String(format:"#%@",styleId!) )
+			possibilities.append( String(format:"#%@",styleId!) )
         }
+		
         return possibilities
     }
     

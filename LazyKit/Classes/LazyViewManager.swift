@@ -55,7 +55,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                     
                     if let element = LazyUIFactory.createElement(elementOptions) {
 						
-						elementOptions.styleMe({ (styleId, styleClass) -> Void in
+						elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
 							
 							if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
 								

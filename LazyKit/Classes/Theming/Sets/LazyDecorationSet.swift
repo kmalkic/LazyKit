@@ -23,9 +23,12 @@ class LazyDecorationSet {
     }
     
     func fetchBorders() -> LazyBorders {
+		
         if borders == nil {
+			
             borders = LazyBorders()
         }
+		
         return borders!
     }
     
@@ -34,7 +37,9 @@ class LazyDecorationSet {
         for property in content {
             
             let components = property.componentsSeparatedByString(":")
+			
             if components.count != 2 {
+				
                 print("Invalid property should be 'key: value'\n")
                 print(components)
                 print("\n")
@@ -46,10 +51,9 @@ class LazyDecorationSet {
             
             var value = rawValue
             
-            if variables != nil {
-                if variables![rawValue] != nil {
-                    value = variables![rawValue]!
-                }
+            if let variables = variables {
+				
+				value = variables[rawValue] ?? rawValue
             }
             
             switch key {
@@ -72,11 +76,13 @@ class LazyDecorationSet {
         }
         
         if isPropertiesNil() {
+			
             return nil
         }
     }
     
     func isPropertiesNil() -> Bool {
+		
         return borders == nil
     }
 }

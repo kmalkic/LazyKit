@@ -24,16 +24,27 @@ struct LazyColor {
         
     }
     
-    init?(anyString: String) {
+    init?(anyString: String?) {
+		
+		guard let anyString = anyString else {
+		
+			return nil
+		}
+		
         if anyString.rangeOfString("rgba(") != nil {
+			
             self.init(rgbaString:anyString)
-        }
-        else if anyString.rangeOfString("rgb(") != nil {
+			
+        } else if anyString.rangeOfString("rgb(") != nil {
+			
             self.init(rgbString:anyString)
-        }
-        else if anyString.rangeOfString("#") != nil {
+			
+        } else if anyString.rangeOfString("#") != nil {
+			
             self.init(hexString:anyString)
+			
         } else {
+			
             return nil
         }
     }

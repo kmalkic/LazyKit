@@ -8,12 +8,13 @@
 
 import UIKit
 
-enum MeasureUnit: Int {
-    case Default
-    case Pixel
-    case Point
-    case Percent
-    case Auto
+enum MeasureUnit: String {
+	
+    case Default = "default"
+    case Pixel = "px"
+    case Point = "pt"
+    case Percent = "%"
+    case Auto = "auto"
 }
 
 class LazyMeasure {
@@ -26,52 +27,69 @@ class LazyMeasure {
         
     }
     
-    init(string: String) {
+    init(string: String?) {
         
         setup(string)
     }
     
-    func setup(string: String) {
+    func setup(string: String?) {
         
-        value = CGFloat(valueFromString(string))
+        value = valueFromString(string)
         unit = unitFromString(string)
     }
     
-    func unitFromString(string:String) -> MeasureUnit {
-        
-        let convertString = string.stringByReplacingOccurrencesOfString(" ", withString:"")
-        
-        if convertString.rangeOfString("px") != nil {
+    func unitFromString(string: String?) -> MeasureUnit? {
+		
+		guard let string = string else {
+		
+			return nil
+		}
+		
+        if string.containsString(MeasureUnit.Pixel.rawValue) {
+			
             return .Pixel
-        }
-        else if convertString.rangeOfString("pt") != nil {
+			
+        } else if string.containsString(MeasureUnit.Point.rawValue) {
+			
             return .Point
-        }
-        else if convertString.rangeOfString("%") != nil {
+			
+        } else if string.containsString(MeasureUnit.Percent.rawValue) {
+			
             return .Percent
-        }
-        else if convertString == "auto" {
+			
+        } else if string == MeasureUnit.Auto.rawValue {
+			
             return .Auto
         }
+		
         return .Default
     }
     
-    func valueFromString(string:String) -> Float {
-        
+    func valueFromString(string: String?) -> LazyFloat? {
+		
+		guard let string = string else {
+			
+			return nil
+		}
+		
         let convertString = string.stringByReplacingOccurrencesOfString(" ", withString:"") as NSString
-        var range:NSRange
-        let tests = ["px","pt","%"]
+		
+        var range: NSRange
+		
+        let units = [MeasureUnit.Pixel,MeasureUnit.Point,MeasureUnit.Percent]
         
-        for test in tests {
+        for unit in units {
             
-            range = convertString.rangeOfString(test)
+            range = convertString.rangeOfString(unit.rawValue)
             
             if range.location != NSNotFound {
+				
+				let value = (convertString.substringToIndex(range.location) as NSString).floatValue
                 
-                return (convertString.substringToIndex(range.location) as NSString).floatValue
+                return LazyFloat(value)
             }
         }
         
-        return convertString.floatValue
+        return LazyFloat(convertString.floatValue)
     }
 }

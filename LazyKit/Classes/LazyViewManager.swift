@@ -121,37 +121,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             }
         }
     }
-    
-    public func updateStyles() {
-    
-        if let elementsOptions = ViewConfigurations.elementsOptions() {
-            
-            for elementOptions in elementsOptions {
-
-                elementOptions.getStyleIdentifier({ (identifier) -> Void in
-                    
-                    guard let element = self.storedElements[identifier] else {
-                    
-                        return
-                    }
-                    
-                    LazyUIFactory.updateElement(element, elementOptions: elementOptions)
-                    
-                    elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
-                        
-                        if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
-                            
-                            if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
-                                
-                                LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
-                            }
-                        }
-                    })
-                })
-            }
-        }
-    }
-    
+	
     internal func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
     
         var textBaseOptions: TextBaseOptions?
@@ -244,23 +214,58 @@ public class LazyViewManager<T: LazyViewConfigurations> {
 
         return nil
     }
-    
+	
+	//MARK: - Public
+	
+	/**
+	Reload all current views to initial setup
+	*/
+	public func updateStyles() {
+		
+		if let elementsOptions = ViewConfigurations.elementsOptions() {
+			
+			for elementOptions in elementsOptions {
+				
+				elementOptions.getStyleIdentifier({ (identifier) -> Void in
+					
+					guard let element = self.element(identifier) else {
+						
+						return
+					}
+					
+					LazyUIFactory.updateElement(element, elementOptions: elementOptions)
+					
+					elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
+						
+						if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
+							
+							if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
+								
+								LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+							}
+						}
+					})
+				})
+			}
+		}
+	}
+	
     //MARK: - Getters
-    
+	
     /**
     Get an UI element for a given identifier.
-    
+	
     - parameter identifier: identifier of the element.
     - returns: The element if founded.
     */
     public func element<T: UIView>(identifier: String) -> T? {
-        
+		
         return storedElements[identifier] as? T
     }
-    
+	
     /**
      Get an UILabel for a given identifier.
-     
+	
      - parameter identifier: identifier of the label.
      - returns: The label if founded.
      */

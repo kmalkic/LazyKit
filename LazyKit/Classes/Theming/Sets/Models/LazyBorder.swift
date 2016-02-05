@@ -15,34 +15,59 @@ enum LazyBorderSide: Int {
     case Right
 }
 
+let kBorderWidthRegex = "([0-9px]+)"
+let kBorderTextRegex = "([a-zA-Z]+)"
+let kBorderColorRegex = "(rga|rgba|#+)(.*)"
+
+struct LazyStringBorderEdges {
+	
+	let top : String
+	let left : String
+	let bottom : String
+	let right : String
+	let color : String?
+	
+	init(top: String = "0", left: String? = nil, bottom: String? = nil, right: String? = nil, color: String? = nil) {
+		
+		self.top = top
+		self.left = left ?? top
+		self.bottom = bottom ?? top
+		self.right = right ?? left ?? top
+		self.color = color
+	}
+}
+
+struct LazyStringBorderRadiusEdges {
+	
+	let topLeft : String
+	let topRight : String
+	let bottomRight : String
+	let bottomLeft : String
+	
+	init(topLeft: String = "0", topRight: String? = nil, bottomRight: String? = nil, bottomLeft: String? = nil) {
+		
+		self.topLeft = topLeft
+		self.topRight = topRight ?? topLeft
+		self.bottomRight = bottomRight ?? topLeft
+		self.bottomLeft = bottomLeft ?? topLeft
+	}
+}
+
 class LazyBorder: LazyMeasure {
     
     var color: LazyColor?
 
-    init(widthString: String, colorString: String?) {
+    init(widthString: String? = nil, colorString: String? = nil) {
+		
         super.init(string: widthString)
-        if colorString != nil {
-            color = LazyColor(anyString: colorString!)
-        }
+		color = LazyColor(anyString: colorString)
     }
-    
-    override init(string: String) {
-        super.init(string: string)
-        value = CGFloat(self.valueFromString(string))
-        unit = self.unitFromString(string)
-    }
-    
-    init(colorString: String) {
-        super.init()
-        setupColor(colorString)
-    }
-    
-    func setupColor(colorString: String) {
+	
+    func setupColor(colorString: String?) {
+		
         color = LazyColor(anyString: colorString)
     }
 }
-
-let kBorderWidthRegex = "([0-9px]+)"
 
 class LazyBorders {
    
@@ -61,199 +86,170 @@ class LazyBorders {
     init() {
         
     }
-    
-    //Borders
-    func setupBorder(key:String, value:String) {
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex)$", text: value) ) {
-            assignBorderSettingToAllBorders(width: components[0], color: "#000", replace: true)
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) (rga|rgba|#+)(.*)$", text: value) ) {
-            assignBorderSettingToAllBorders(width: components[0], color: components[1], replace: true)
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) ([a-zA-Z]+) (rga|rgba|#+)(.*)$", text: value) ) {
-            assignBorderSettingToAllBorders(width: components[0], color: components[2], replace: true)
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex) ([a-zA-Z]+) (rga|rgba|#+)(.*)$", text: value) ) {
-            assignBorderSettingToAllBorders(topWidth: components[0], bottomWidth: components[0], leftWidth: components[1], rightWidth: components[1], color: components[2])
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) ([a-zA-Z]+) (rga|rgba|#+)(.*)$", text: value) ) {
-            assignBorderSettingToAllBorders(topWidth: components[0], bottomWidth: components[1], leftWidth: components[2], rightWidth: components[3], color: components[5])
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) (rga|rgba|#+)(.*)$", text: value) ) {
-            assignBorderSettingToAllBorders(topWidth: components[0], bottomWidth: components[1], leftWidth: components[2], rightWidth: components[3], color: components[4])
-            return
-        }
+	
+    //MARK: - Borders
+	
+    func setupBorder(key: String, value: String) {
+		
+		let regexes = [
+			"^\(kBorderWidthRegex)$",
+			"^\(kBorderWidthRegex) \(kBorderColorRegex)$",
+			"^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderColorRegex)$",
+			"^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderColorRegex)$",
+		]
+		
+		threatBorders(regexes, value: value)
     }
     
     func setupBorderWidth(key:String, value:String) {
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex)$", text: value) ) {
-            assignBorderSettingToAllBorders(width: components[0], color: nil, replace: false)
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex)$", text: value) ) {
-            assignBorderSettingToAllBorders(topWidth: components[0], bottomWidth: components[0], leftWidth: components[1], rightWidth: components[1], color: nil)
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex)$", text: value) ) {
-            assignBorderSettingToAllBorders(topWidth: components[0], bottomWidth: components[1], leftWidth: components[2], rightWidth: components[3], color: nil)
-            return
-        }
+		
+		let regexes = [
+			"^\(kBorderWidthRegex)$",
+			"^\(kBorderWidthRegex) \(kBorderWidthRegex)$",
+			"^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex)$",
+		]
+		
+		threatBorders(regexes, value: value)
     }
     
     func setupBorderColor(key:String, value:String) {
         
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^(rga|rgba|#+)(.*)$", text: value) ) {
-            assignBorderSettingToAllBorders(width: nil, color: components[0], replace: false)
-            return
-        }
+		let regexes = [
+			"^\(kBorderColorRegex)$"
+		]
+		
+		threatBorders(regexes, value: value)
     }
     
-    private func splitComponentsFromMatches(matches:[String]?) -> [String]? {
-        
-        if let matches = matches {
-            
-            if matches.count > 0 {
-                
-                return matches[0].componentsSeparatedByString(" ")
-            }
-        }
-        
-        return nil
-    }
-    
-    private func assignBorderSettingToAllBorders(width width: String?, color: String?, replace: Bool) {
-        if width != nil && color != nil {
-            top = LazyBorder(widthString: width!, colorString: color!)
-            left = LazyBorder(widthString: width!, colorString: color!)
-            bottom = LazyBorder(widthString: width!, colorString: color!)
-            right = LazyBorder(widthString: width!, colorString: color!)
-        }
-        else if width != nil {
-            if replace == true {
-                top = LazyBorder(string: width!)
-                left = LazyBorder(string: width!)
-                bottom = LazyBorder(string: width!)
-                right = LazyBorder(string: width!)
-            } else {
-                if top == nil       { top = LazyBorder(string: width!)    } else { top!.setup(width!) }
-                if left == nil      { left = LazyBorder(string: width!)   } else { left?.setup(width!) }
-                if bottom == nil    { bottom = LazyBorder(string: width!) } else { bottom!.setup(width!) }
-                if right == nil     { right = LazyBorder(string: width!)  } else { right?.setup(width!) }
-            }
-        }
-        else if (color != nil) {
-            if replace == true {
-                top = LazyBorder(colorString: color!)
-                left = LazyBorder(colorString: color!)
-                bottom = LazyBorder(colorString: color!)
-                right = LazyBorder(colorString: color!)
-            } else {
-                if top == nil    { top = LazyBorder(colorString: color!)    } else { top!.setupColor(color!) }
-                if left == nil   { left = LazyBorder(colorString: color!)   } else { left?.setupColor(color!) }
-                if bottom == nil { bottom = LazyBorder(colorString: color!) } else { bottom!.setupColor(color!) }
-                if right == nil  { right = LazyBorder(colorString: color!)  } else { right?.setupColor(color!) }
-            }
-        }
-    }
-    
-    private func assignBorderSettingToAllBorders(topWidth topWidth:String, bottomWidth:String, leftWidth:String, rightWidth:String, color:String?) {
-        
-        top = LazyBorder(widthString: topWidth, colorString: color)
-        left = LazyBorder(widthString: leftWidth, colorString: color)
-        bottom = LazyBorder(widthString: bottomWidth, colorString: color)
-        right = LazyBorder(widthString: rightWidth, colorString: color)
-    }
-    
+	private func threatBorders(regexes:[String], value:String) {
+		
+		for regex in regexes {
+			
+			if let stringEdges = stringBorderEdgesFromMatches( matchesForRegexInText(regex, text: value) ) {
+				
+				top = merge(left:top, right:LazyBorder(widthString: stringEdges.top, colorString: stringEdges.color))
+				left = merge(left:left, right:LazyBorder(widthString: stringEdges.left, colorString: stringEdges.color))
+				bottom = merge(left:bottom, right:LazyBorder(widthString: stringEdges.bottom, colorString: stringEdges.color))
+				right = merge(left:right, right:LazyBorder(widthString: stringEdges.right, colorString: stringEdges.color))
+				break
+			}
+		}
+	}
+	
+	private func merge(left left:LazyBorder?, right:LazyBorder) -> LazyBorder {
+		
+		let object = LazyBorder()
+		object.color = right.color ?? left?.color
+		object.value = right.value ?? left?.value
+		object.unit = right.unit ?? left?.unit
+		
+		return object
+	}
+	
     func isBordersWidthZero() -> Bool {
-        
-        if top == nil {
-            
-            return true
-        }
-        
+		
         return (top?.value == 0 && left?.value == 0 && bottom?.value == 0 && right?.value == 0)
     }
     
-    func highiestBorderWidth() -> LazyMeasure {
+    func highiestBorderWidth() -> LazyMeasure? {
         
-        let values = [top, left, bottom, right]
+		var values = [LazyMeasure](); if let top = top { values.append(top) }; if let left = left { values.append(left) }; if let bottom = bottom { values.append(bottom) }; if let right = right { values.append(right) };
         
         let result = values.sort { (a, b) -> Bool in
             
-            return (a!.value > b!.value)
+            return (a.value > b.value)
         }
 
-        return result.first!!
+		guard let first = result.first else {
+			
+			return nil
+		}
+		
+        return first
     }
     
-    //Radius
+    //MARK: - Radius
+	
     func setupBorderRadius(key:String, value:String) {
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex)$", text: value) ) {
-            
-            assignBorderRadiusSettingToAllBorders(radius: components[0])
-            return
-        }
-        
-        if let components = splitComponentsFromMatches( matchesForRegexInText("^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex)$", text: value) ) {
-            assignBorderRadiusSettingToAllBorders(topRadius: components[0], bottomRadius: components[1], leftRadius: components[2], rightRadius: components[3])
-            return
-        }
+		
+		let regexes = [
+			"^\(kBorderWidthRegex)$",
+			"^\(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex) \(kBorderWidthRegex)$",
+		]
+		
+		threatBordersRadius(regexes, value: value)
     }
-    
-    private func assignBorderRadiusSettingToAllBorders(radius radius:String) {
-        
-        cornerRadiusTopRight = LazyMeasure(string: radius)
-        cornerRadiusTopLeft = LazyMeasure(string: radius)
-        cornerRadiusBottomRight = LazyMeasure(string: radius)
-        cornerRadiusBottomLeft = LazyMeasure(string: radius)
-        rectCorner = .AllCorners
-    }
-    
-    private func assignBorderRadiusSettingToAllBorders(topRadius topRadius:String, bottomRadius:String, leftRadius:String, rightRadius:String) {
-        
-        cornerRadiusTopRight = LazyMeasure(string: topRadius)
-        cornerRadiusTopLeft = LazyMeasure(string: bottomRadius)
-        cornerRadiusBottomRight = LazyMeasure(string: leftRadius)
-        cornerRadiusBottomLeft = LazyMeasure(string: rightRadius)
-        
+	
+	private func threatBordersRadius(regexes:[String], value:String) {
+		
+		for regex in regexes {
+			
+			if let stringEdges = stringBorderRadiusEdgesFromMatches( matchesForRegexInText(regex, text: value) ) {
+				
+				cornerRadiusTopLeft = LazyMeasure(string: stringEdges.topLeft)
+				cornerRadiusTopRight = LazyMeasure(string: stringEdges.topRight)
+				cornerRadiusBottomRight = LazyMeasure(string: stringEdges.bottomRight)
+				cornerRadiusBottomLeft = LazyMeasure(string: stringEdges.bottomLeft)
+				break
+			}
+		}
+		
+		assignRectCorners()
+	}
+	
+    private func assignRectCorners() {
+		
         rectCorner = nil
         
-        if cornerRadiusTopRight!.value > 0 {
-
-            if rectCorner == nil { rectCorner = .TopRight } else { rectCorner = [rectCorner!, .TopRight] }
+		if cornerRadiusTopLeft?.value > 0 {
+			
+			if let rectCorner = rectCorner {
+				
+				self.rectCorner = [rectCorner, .TopLeft]
+				
+			} else {
+				
+				rectCorner = .TopLeft
+			}
+		}
+		
+		if cornerRadiusTopRight?.value > 0 {
+			
+			if let rectCorner = rectCorner {
+				
+				self.rectCorner = [rectCorner, .TopRight]
+				
+			} else {
+				
+				rectCorner = .TopRight
+			}
+		}
+		
+        if cornerRadiusBottomRight?.value > 0 {
+			
+            if let rectCorner = rectCorner {
+				
+				self.rectCorner = [rectCorner, .BottomRight]
+				
+			} else {
+				
+				rectCorner = .BottomRight
+			}
         }
         
-        if cornerRadiusTopLeft!.value > 0 {
-            
-            if rectCorner == nil { rectCorner = .TopLeft } else { rectCorner = [rectCorner!, .TopLeft] }
-        }
-        
-        if cornerRadiusBottomRight!.value > 0 {
-            
-            if rectCorner == nil { rectCorner = .BottomRight } else { rectCorner = [rectCorner!, .BottomRight] }
-        }
-        
-        if cornerRadiusBottomLeft!.value > 0 {
-            
-            if rectCorner == nil { rectCorner = .BottomLeft } else { rectCorner = [rectCorner!, .BottomLeft] }
-        }
+		if cornerRadiusBottomLeft?.value > 0 {
+			
+			if let rectCorner = rectCorner {
+				
+				self.rectCorner = [rectCorner, .BottomLeft]
+				
+			} else {
+				
+				rectCorner = .BottomLeft
+			}
+		}
     }
-    
+	
     func hasCornerRadius() -> Bool {
         
         return (cornerRadiusBottomLeft?.value > 0 || cornerRadiusBottomRight?.value > 0 || cornerRadiusTopLeft?.value > 0 || cornerRadiusTopRight?.value > 0)
@@ -263,16 +259,98 @@ class LazyBorders {
         
         return (cornerRadiusBottomLeft?.value == cornerRadiusBottomRight?.value && cornerRadiusTopLeft?.value == cornerRadiusBottomRight?.value && cornerRadiusTopRight?.value == cornerRadiusBottomRight?.value)
     }
-    
-    func highiestRadius() -> LazyMeasure {
-        
-        let values = [cornerRadiusBottomLeft, cornerRadiusBottomRight, cornerRadiusTopLeft, cornerRadiusTopRight]
-        
-        let result = values.sort({ (a, b) -> Bool in
-            
-            return (a!.value > b!.value)
-        })
-        
-        return result.first!!
-    }
+	
+	func highiestBorderRadius() -> LazyMeasure? {
+		
+		var values = [LazyMeasure](); if let measure = cornerRadiusBottomLeft { values.append(measure) }; if let measure = cornerRadiusBottomRight { values.append(measure) }; if let measure = cornerRadiusTopRight { values.append(measure) }; if let measure = cornerRadiusTopLeft { values.append(measure) };
+		
+		let result = values.sort { (a, b) -> Bool in
+			
+			return (a.value > b.value)
+		}
+		
+		guard let first = result.first else {
+			
+			return nil
+		}
+		
+		return first
+	}
+	
+	//MARK: Utils
+	
+	private func stringBorderEdgesFromMatches(matches:[String]?) -> LazyStringBorderEdges? {
+		
+		if let matches = matches {
+			
+			if let components = matches.first?.componentsSeparatedByString(" ") {
+				
+				if matchesForRegexInText(kBorderColorRegex, text: components.last) != nil {
+					
+					switch components.count {
+						
+					case 1:
+						return LazyStringBorderEdges(color: components.first)
+						
+					case 2:
+						return LazyStringBorderEdges(top: components[0], color: components[1])
+						
+					case 3:
+						return LazyStringBorderEdges(top: components[0], left: components[1], color: components[2])
+						
+					case 5:
+						return LazyStringBorderEdges(top: components[0], left: components[1], bottom: components[2], right: components[3], color: components[4])
+						
+					default:
+						break
+					}
+					
+				} else if matchesForRegexInText(kBorderWidthRegex, text: components.last) != nil {
+					
+					switch components.count {
+						
+					case 1:
+						return LazyStringBorderEdges(top: components.first!, color: "#000")
+						
+					case 2:
+						return LazyStringBorderEdges(top: components[0], left: components[1], color: "#000")
+						
+					case 4:
+						return LazyStringBorderEdges(top: components[0], left: components[1], bottom: components[2], right: components[3], color: "#000")
+						
+					default:
+						break
+					}
+				}
+			}
+		}
+		
+		return nil
+	}
+	
+	private func stringBorderRadiusEdgesFromMatches(matches:[String]?) -> LazyStringBorderRadiusEdges? {
+		
+		if let matches = matches {
+			
+			if let components = matches.first?.componentsSeparatedByString(" ") {
+				
+				if matchesForRegexInText(kBorderWidthRegex, text: components.last) != nil {
+					
+					switch components.count {
+						
+					case 1:
+						return LazyStringBorderRadiusEdges(topLeft: components.first!)
+						
+					case 4:
+						return LazyStringBorderRadiusEdges(topLeft: components[0], topRight: components[1], bottomRight: components[2], bottomLeft: components[3])
+						
+					default:
+						break
+					}
+				}
+			}
+		}
+		
+		return nil
+	}
 }

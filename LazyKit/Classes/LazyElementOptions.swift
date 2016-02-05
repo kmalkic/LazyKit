@@ -23,14 +23,14 @@ extension ElementOptions {
 		
 		switch self {
 			
-		case let elementOptions as LabelOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
-		case let elementOptions as ButtonOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
-		case let elementOptions as TextFieldOptions:		block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
-		case let elementOptions as TextViewOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
-		case let elementOptions as ImageOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
-		case let elementOptions as TableViewOptions:		block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
-		case let elementOptions as CollectionViewOptions:	block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
-		case let elementOptions as ViewOptions:				block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass); break
+		case let elementOptions as LabelOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as ButtonOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as TextFieldOptions:		block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as TextViewOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as ImageOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as TableViewOptions:		block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as CollectionViewOptions:	block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as ViewOptions:				block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
 			
 		default: break
 		}
@@ -42,14 +42,14 @@ extension ElementOptions {
 		
 		switch self {
 			
-		case let elementOptions as LabelOptions:			identifier = elementOptions.baseOptions.identifier; break
-		case let elementOptions as ButtonOptions:			identifier = elementOptions.baseOptions.identifier; break
-		case let elementOptions as TextFieldOptions:		identifier = elementOptions.baseOptions.identifier; break
-		case let elementOptions as TextViewOptions:			identifier = elementOptions.baseOptions.identifier; break
-		case let elementOptions as ImageOptions:			identifier = elementOptions.baseOptions.identifier; break
-		case let elementOptions as TableViewOptions:		identifier = elementOptions.baseOptions.identifier; break
-		case let elementOptions as CollectionViewOptions:	identifier = elementOptions.baseOptions.identifier; break
-		case let elementOptions as ViewOptions:				identifier = elementOptions.baseOptions.identifier; break
+		case let elementOptions as LabelOptions:			identifier = elementOptions.baseOptions.identifier
+		case let elementOptions as ButtonOptions:			identifier = elementOptions.baseOptions.identifier
+		case let elementOptions as TextFieldOptions:		identifier = elementOptions.baseOptions.identifier
+		case let elementOptions as TextViewOptions:			identifier = elementOptions.baseOptions.identifier
+		case let elementOptions as ImageOptions:			identifier = elementOptions.baseOptions.identifier
+		case let elementOptions as TableViewOptions:		identifier = elementOptions.baseOptions.identifier
+		case let elementOptions as CollectionViewOptions:	identifier = elementOptions.baseOptions.identifier
+		case let elementOptions as ViewOptions:				identifier = elementOptions.baseOptions.identifier
 			
 		default: break
 		}

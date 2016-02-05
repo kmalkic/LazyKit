@@ -8,8 +8,13 @@
 
 import UIKit
 
-func matchesForRegexInText(regex: String!, text: String!) -> [String]? {
-    
+func matchesForRegexInText(regex: String!, text: String?) -> [String]? {
+	
+	guard let text = text else {
+	
+		return nil
+	}
+	
     do {
         let regex = try NSRegularExpression(pattern: regex, options: .CaseInsensitive)
         let nsString = text as NSString

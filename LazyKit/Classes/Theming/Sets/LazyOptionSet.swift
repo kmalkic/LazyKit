@@ -24,7 +24,9 @@ class LazyOptionSet {
         for property in content {
             
             let components = property.componentsSeparatedByString(":")
+			
             if components.count != 2 {
+				
                 print("Invalid property should be 'key: value'\n")
                 print(components)
                 print("\n")
@@ -34,17 +36,17 @@ class LazyOptionSet {
             let key = components[0].stringByReplacingOccurrencesOfString(" ", withString: "")
             let rawValue = components[1].stringByTrimmingCharactersInSet(.whitespaceCharacterSet()).stringByReplacingOccurrencesOfString(";", withString: "")
             
-            var value = rawValue
-            
-            if variables != nil {
-                if variables![rawValue] != nil {
-                    value = variables![rawValue]!
-                }
-            }
-            
+			var value = rawValue
+			
+			if let variables = variables {
+				
+				value = variables[rawValue] ?? rawValue
+			}
+			
             switch key {
                              
             case kBar_TranslucentKey:
+				
                 translucent = (value as NSString).boolValue
                 
             default:

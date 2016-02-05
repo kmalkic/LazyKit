@@ -15,21 +15,28 @@ class LazyFont {
     var fontSize: LazyMeasure?
     
     func parseFontNames(string:String) -> String {
+		
         let cleanString = string.stringByReplacingOccurrencesOfString("\"", withString: "").stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
         let components = cleanString.componentsSeparatedByString(",")
+		
         return components[0].stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
     }
     
     func font() -> UIFont! {
-        if fontName != nil && fontSize != nil {
-            return UIFont(name: fontName!, size: fontSize!.value!)
+		
+        if let fontName = fontName, fontSize = fontSize?.value {
+			
+            return UIFont(name: fontName, size: fontSize)
+			
+        } else if let fontName = fontName {
+			
+            return UIFont(name: fontName, size: 12)
+			
+        } else if let fontSize = fontSize?.value {
+			
+            return UIFont.systemFontOfSize(fontSize)
         }
-        else if fontName != nil {
-            return UIFont(name: fontName!, size: 12)
-        }
-        else if fontSize != nil {
-            return UIFont.systemFontOfSize(fontSize!.value!)
-        }
+		
         return UIFont.systemFontOfSize(12)
     }
 

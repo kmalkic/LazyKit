@@ -10,17 +10,24 @@ import UIKit
 
 class LazyImage {
    
-    lazy var image: UIImage? = {
-        if self.imageName != nil {
-            let newImage = UIImage(named: self.imageName!)
-            if self.tintColor != nil && newImage != nil {
-                return newImage!.imageWithRenderingMode(.AlwaysTemplate)
-            }
-            return newImage
-        }
-        return nil
-        }()
-    
+	lazy var image: UIImage? = {
+		
+		if let imageName = self.imageName {
+			
+			if let newImage = UIImage(named: imageName) {
+				
+				if self.tintColor != nil {
+					
+					return newImage.imageWithRenderingMode(.AlwaysTemplate)
+				}
+				
+				return newImage
+			}
+		}
+		
+		return nil
+	}()
+	
     var imageName: LazyString?
     
     var tintColor: LazyColor?
@@ -28,30 +35,32 @@ class LazyImage {
     var contentMode: LazyViewContentMode?
     
     func setupContentModeWithString(string: String) {
-        
-        if string == "scaleToFit" {
-            contentMode = .ScaleAspectFit;
-        }
-        else if string == "scaleToFill" {
-            contentMode = .ScaleAspectFill;
-        }
-        else if string == "center" {
-            contentMode = .Center;
-        }
-        else if string == "top" {
-            contentMode = .Top;
-        }
-        else if string == "left" {
-            contentMode = .Left;
-        }
-        else if string == "bottom" {
-            contentMode = .Bottom;
-        }
-        else if string == "right" {
-            contentMode = .Right;
-            
-        } else {
-            contentMode = .ScaleAspectFill
-        }
+		
+		switch string {
+		
+		case "scaleToFit":
+			contentMode = .ScaleAspectFit
+			
+		case "scaleToFill":
+			contentMode = .ScaleAspectFill
+			
+		case "center":
+			contentMode = .Center
+			
+		case "top":
+			contentMode = .Top
+			
+		case "left":
+			contentMode = .Left
+			
+		case "bottom":
+			contentMode = .Bottom
+		
+		case "right":
+			contentMode = .Right
+			
+		default:
+			contentMode = .ScaleAspectFill
+		}
     }
 }

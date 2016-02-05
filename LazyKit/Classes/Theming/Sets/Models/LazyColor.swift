@@ -61,26 +61,31 @@ struct LazyColor {
         }
         
         switch count(colorString) {
+			
         case 3: // #RGB
             red     = colorComponentFrom(colorString, start: 0, length: 1)
             green   = colorComponentFrom(colorString, start: 1, length: 1)
             blue    = colorComponentFrom(colorString, start: 2, length: 1)
             alpha   = 1
+			
         case 4: // #RGBA
             red     = colorComponentFrom(colorString, start: 0, length: 1)
             green   = colorComponentFrom(colorString, start: 1, length: 1)
             blue    = colorComponentFrom(colorString, start: 2, length: 1)
             alpha   = colorComponentFrom(colorString, start: 3, length: 1)
+			
         case 6: // #RRGGBB
             red     = colorComponentFrom(colorString, start: 0, length: 2)
             green   = colorComponentFrom(colorString, start: 2, length: 2)
             blue    = colorComponentFrom(colorString, start: 4, length: 2)
             alpha   = 1
+			
         case 8: // #RRGGBBAA
             red     = colorComponentFrom(colorString, start: 0, length: 2)
             green   = colorComponentFrom(colorString, start: 2, length: 2)
             blue    = colorComponentFrom(colorString, start: 4, length: 2)
             alpha   = colorComponentFrom(colorString, start: 6, length: 2)
+			
         default:
 //            var error: NSError?
 //            NSException.raise("Invalid color value", format: "It should be a hex value of the form #RBG, #ARGB, #RRGGBB, or #AARRGGBB", arguments: getVaList([error ?? "nil"]))
@@ -99,7 +104,9 @@ struct LazyColor {
 //            var error: NSError?
 //            NSException.raise("Invalid color value", format: "It should be a rgb value of the form rgb(255,255,255)", arguments: getVaList([error ?? "nil"]))
             print("It should be a rgb value of the form rgb(255,255,255)\n")
+			
         } else {
+			
             red     = (components[0] as NSString).floatValue / 255.0
             green   = (components[1] as NSString).floatValue / 255.0
             blue    = (components[2] as NSString).floatValue / 255.0
@@ -108,15 +115,19 @@ struct LazyColor {
     }
     
     init(rgbaString: String) {
+		
         let colorString = rgbaString.stringByReplacingOccurrencesOfString("rgba(", withString:"").stringByReplacingOccurrencesOfString(")", withString:"").stringByReplacingOccurrencesOfString(" ", withString:"")
         
         let components = colorString.componentsSeparatedByString(",") as Array<String>
         
         if components.count != 4 {
+			
 //            var error: NSError?
 //            NSException.raise("Invalid color value", format: "It should be a rgb value of the form rgba(255,255,255)", arguments: getVaList([error ?? "nil"]))
             print("It should be a rgb value of the form rgba(255,255,255)\n")
+			
         } else {
+			
             red     = (components[0] as NSString).floatValue / 255.0
             green   = (components[1] as NSString).floatValue / 255.0
             blue    = (components[2] as NSString).floatValue / 255.0
@@ -135,6 +146,7 @@ struct LazyColor {
     }
     
     func color() -> UIColor {
+		
         return UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
     }
     

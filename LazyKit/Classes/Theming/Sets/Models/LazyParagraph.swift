@@ -23,21 +23,29 @@ class LazyParagraph {
     func convertWordWrap(wordWrap: String) -> NSLineBreakMode {
         
         switch wordWrap {
+			
         case "word-wrapping":
             return .ByWordWrapping
+			
         case "char-wrapping":
             return .ByCharWrapping
+			
         case "clipping":
             return .ByClipping
+			
         case "truncating-head":
             return .ByTruncatingHead
+			
         case "truncating-tail":
             return .ByTruncatingTail
+			
         case "truncating-middle":
             return .ByTruncatingMiddle
+			
         default:
             break
         }
+		
         return .ByTruncatingTail
     }
     

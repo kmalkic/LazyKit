@@ -14,20 +14,26 @@ class LazyTextDecoration {
     var strikethrough: LazyBool?
     var color: LazyColor?
     
-    func setup(string: String) {
-        if string == "none" {
-            underline = false
-            strikethrough = false
-            
-        } else if string == "underline" {
-            underline = true
-            strikethrough = false
-            
-        } else if string == "line-through" {
-            strikethrough = true
-            underline = false
-        }
-    }
+	func setup(string: String) {
+		
+		switch string {
+		
+		case "none":
+			underline = false
+			strikethrough = false
+			
+		case "underline":
+			underline = true
+			strikethrough = false
+			
+		case "line-through":
+			strikethrough = true
+			underline = false
+			
+		default:
+			break
+		}
+	}
 }
 
 

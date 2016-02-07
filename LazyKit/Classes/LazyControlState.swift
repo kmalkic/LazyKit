@@ -67,7 +67,7 @@ public struct LazyControlState : OptionSetType {
     }
 }
 
-public extension LazyControlState : Hashable {
+extension LazyControlState : Hashable {
     
     /**
      Hashable

@@ -312,27 +312,27 @@ public class LazyStyleSheetManager: NSObject {
         
         helpText += "\n"
         
-//        helpText += "DECORATIONS KEYS:\n"
-//        helpText += keyText(kBorderKey)
-//        helpText += patternsText() + "\n"
-//        helpText += "       - width color\n"
+        helpText += "DECORATIONS KEYS:\n"
+        helpText += keyText(kBorderKey)
+        helpText += patternsText() + "\n"
+        helpText += "       - width color\n"
 //        helpText += "       - vertical-width horizontal-width color\n"
 //        helpText += "       - top-width left-width bottom-width right-width color\n"
-//        
-//        helpText += keyText(kBorderColorKey)
-//        helpText += usageText() + "#RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))\n"
-//        
-//        helpText += keyText(kBorderWidthKey)
-//        helpText += patternsText() + "\n"
-//        helpText += "       - width color\n"
+        
+        helpText += keyText(kBorderColorKey)
+        helpText += usageText() + "#RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))\n"
+        
+        helpText += keyText(kBorderWidthKey)
+        helpText += patternsText() + "\n"
+        helpText += "       - width\n"
 //        helpText += "       - vertical-width horizontal-width\n"
 //        helpText += "       - top-width left-width bottom-width right-width\n"
-//        
-//        helpText += keyText(kBorderRadiusKey)
-//        helpText += usageText() + "radius in px\n"
-//        
-//        helpText += "\n"
-//        
+        
+        helpText += keyText(kBorderRadiusKey)
+        helpText += usageText() + "radius in px\n"
+        
+        helpText += "\n"
+//
 //        helpText += "OPTIONS KEYS:\n"
 //        helpText += keyText(kBar_TranslucentKey)
 //        helpText += usageText() + "true | false\n\n"

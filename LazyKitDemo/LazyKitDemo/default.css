@@ -32,6 +32,7 @@ body {
     background-color: @buttonBackgroundColor;
     text-maxline: 1;
     color: @buttonColor;
+    border-radius: 5px;
 }
 
 #textfield {
@@ -48,6 +49,7 @@ body {
 
 #photo {
     background-image-content: scaleToFill;
+    border: 2px #0FF990;
 }
 
 .photo {

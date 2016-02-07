@@ -147,6 +147,18 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             }
         }
         
+        if let decorationSet = styleSet.decorationSet {
+            
+            if viewBaseOptions == nil {
+            
+                viewBaseOptions = ViewBaseOptions()
+            }
+            
+            viewBaseOptions!.borderColor = decorationSet.borders?.top?.color?.color()
+            viewBaseOptions!.borderWidth = decorationSet.borders?.top?.value
+            viewBaseOptions!.cornerRadius = decorationSet.borders?.cornerRadiusTopLeft?.value
+        }
+        
         if let textSet = styleSet.textSet {
             
             textBaseOptions = TextBaseOptions(font: textSet.fontObj?.font(), textColor: textSet.textColor?.color(), textAlignment: textSet.textAlignment?.alignment, numberOfLines: textSet.numberOfLines, adjustsFontSizeToFitWidth: false, lineSpacing: textSet.paragraph?.lineSpacing?.value, paragraphSpacing: textSet.paragraph?.paragraphSpacing?.value, headIndent: textSet.paragraph?.headIndent?.value, lineBreakMode: textSet.paragraph?.lineBreakMode)

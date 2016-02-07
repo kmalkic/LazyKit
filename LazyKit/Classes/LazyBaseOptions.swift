@@ -29,16 +29,31 @@ public struct ViewBaseOptions {
      The view’s alpha value.
      */
     public var alpha: CGFloat?
+    /**
+     The width of the layer’s border.
+     */
+    public var borderWidth: CGFloat?
+    /**
+     The color of the layer’s border.
+     */
+    public var borderColor: UIColor?
+    /**
+     The radius of curvature for the plane’s corners.
+     */
+    public var cornerRadius: CGFloat?
     
     /**
      Constructor
      */
-    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor? = nil, tintColor: UIColor? = nil, alpha: CGFloat? = nil) {
+    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor? = nil, tintColor: UIColor? = nil, alpha: CGFloat? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, cornerRadius: CGFloat? = nil) {
         
         self.accessibilityIdentifier = accessibilityIdentifier
         self.backgroundColor = backgroundColor
         self.tintColor = tintColor
         self.alpha = alpha
+        self.borderWidth = borderWidth
+        self.borderColor = borderColor
+        self.cornerRadius = cornerRadius
     }
 }
 
@@ -194,6 +209,9 @@ internal func + (left:ViewBaseOptions?, right:ViewBaseOptions? ) -> ViewBaseOpti
     object.backgroundColor  = right?.backgroundColor ?? left?.backgroundColor
     object.tintColor  = right?.tintColor ?? left?.tintColor
     object.alpha = right?.alpha ?? left?.alpha
+    object.borderWidth = right?.borderWidth ?? left?.borderWidth
+    object.borderColor = right?.borderColor ?? left?.borderColor
+    object.cornerRadius = right?.cornerRadius ?? left?.cornerRadius
     
     return object
 }

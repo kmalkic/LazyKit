@@ -80,7 +80,11 @@ internal class LazyUIFactory {
             
             view.backgroundColor = viewBaseOptions.backgroundColor ?? view.backgroundColor
             view.tintColor = viewBaseOptions.tintColor ?? view.tintColor
-            view.alpha = viewBaseOptions.alpha ?? view.alpha
+            view.alpha = viewBaseOptions.alpha ?? 1
+            view.layer.borderWidth = viewBaseOptions.borderWidth ?? 0
+            view.layer.borderColor = viewBaseOptions.borderColor?.CGColor ?? view.layer.borderColor
+            view.layer.cornerRadius = viewBaseOptions.cornerRadius ?? 0
+            view.layer.masksToBounds = (view.layer.cornerRadius > 0)
         }
     }
     

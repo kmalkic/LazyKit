@@ -142,6 +142,7 @@ public struct ViewOptions: ElementOptions {
 
 //MARK: - Label options
 
+//Structure for UILabel options
 public struct LabelOptions: ElementOptions {
 	
     /**
@@ -179,6 +180,7 @@ public struct LabelOptions: ElementOptions {
 
 //MARK: - Button options
 
+//Structure for UIButton options
 public struct ButtonOptions: ElementOptions {
 	
     /**
@@ -239,6 +241,7 @@ public struct ButtonOptions: ElementOptions {
 
 //MARK: - Image options
 
+//Structure for UIImageView options
 public struct ImageOptions: ElementOptions {
 	
     /**
@@ -275,6 +278,7 @@ public struct ImageOptions: ElementOptions {
 
 //MARK: - TextField options
 
+//Structure for UITextField options
 public struct TextFieldOptions: ElementOptions {
 	
     /**
@@ -330,6 +334,7 @@ public struct TextFieldOptions: ElementOptions {
 
 //MARK: - TextView options
 
+//Structure for UITextView options
 public struct TextViewOptions: ElementOptions {
 	
     /**
@@ -373,6 +378,7 @@ public struct TextViewOptions: ElementOptions {
 
 //MARK: - TableView options
 
+//Structure for UITableView options
 public struct TableViewOptions: ElementOptions {
 	
     /**
@@ -410,6 +416,7 @@ public struct TableViewOptions: ElementOptions {
 
 //MARK: - TableView options
 
+//Structure for UICollectionView options
 public struct CollectionViewOptions: ElementOptions {
 	
     /**

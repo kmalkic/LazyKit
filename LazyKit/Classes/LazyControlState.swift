@@ -12,18 +12,36 @@ import UIKit
 public struct LazyControlState : OptionSetType {
     
     private var value: UInt = 0
-    init(_ value: UInt) { self.value = value }
-    // MARK: _RawOptionSetType
-    public init(rawValue value: UInt) { self.value = value }
-    // MARK: NilLiteralConvertible
-    init(nilLiteral: ()) { self.value = 0 }
-    // MARK: RawRepresentable
-    public var rawValue: UInt { return self.value }
-    // MARK: BitwiseOperationsType
     
+    init(_ value: UInt) { self.value = value }
+    /** 
+     _RawOptionSetType
+     */
+    public init(rawValue value: UInt) { self.value = value }
+    /**
+     NilLiteralConvertible
+     */
+    init(nilLiteral: ()) { self.value = 0 }
+    /**
+     RawRepresentable
+     */
+    public var rawValue: UInt { return self.value }
+
+    /**
+    Used when UIControl is normal
+    */
     public static var Normal: LazyControlState { return self.init(0) }
+    /**
+     Used when UIControl isHighlighted is set
+     */
     public static var Highlighted: LazyControlState { return self.init(1 << 0) }
+    /**
+     Used when UIControl is disabled
+     */
     public static var Disabled: LazyControlState { return self.init(1 << 1) }
+    /**
+     Used when UIControl is selected
+     */
     public static var Selected: LazyControlState { return self.init(1 << 2) }
     
     /**
@@ -49,8 +67,11 @@ public struct LazyControlState : OptionSetType {
     }
 }
 
-extension LazyControlState : Hashable {
+public extension LazyControlState : Hashable {
     
+    /**
+     Hashable
+     */
     public var hashValue: Int {
         
         return Int(rawValue)

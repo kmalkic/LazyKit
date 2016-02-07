@@ -32,7 +32,7 @@ Constructing a view can be long, boring and repetitive, especialy after the n vi
 $ gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required to build LazyKit 1.0.2+.
+> CocoaPods 0.39.0+ is required to build LazyKit 1.1+.
 
 To integrate LazyKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -43,7 +43,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'LazyKit', '~> 1.0.2'
+pod 'LazyKit', '~> 1.1'
 ```
 
 Then, run the following command:
@@ -326,6 +326,19 @@ TEXT KEYS:
 For placeholder styling
   'placeholder-' 
      Usage: You can add 'placeholder-' to any of the above text keys
+
+DECORATIONS KEYS:
+  'border' 
+     Patterns: 
+       - width color
+  'border-color' 
+     Usage: #RBG | #ARGB | #RRGGBB | #AARRGGBB | rgb(red(0-255),green(0-255),blue(0-255)) | rgba(red(0-255),green(0-255),blue(0-255),alpha(0.0-1.0))
+  'border-width' 
+     Patterns: 
+       - width
+  'border-radius' 
+     Usage: radius in px
+     
 ******************************************************************
 ```
 

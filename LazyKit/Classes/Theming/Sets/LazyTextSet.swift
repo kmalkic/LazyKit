@@ -8,29 +8,29 @@
 
 import UIKit
 
-let kFullFontKey            = "font"
-let kTextColorKey           = "color"
-let kFontNameKey            = "font-family"
-let kFontSizeKey            = "font-size"
-let kAlignmentSizeKey       = "text-align"
-let kLineSpacingKey         = "line-height"
-let kParagraphSpacingKey    = "paragraph-spacing"
-let kHeadIndentKey          = "text-indent"
-let kWordWrapKey            = "word-wrap"
-let kNumberOfLinesKey       = "text-maxline"
+internal let kFullFontKey            = "font"
+internal let kTextColorKey           = "color"
+internal let kFontNameKey            = "font-family"
+internal let kFontSizeKey            = "font-size"
+internal let kAlignmentSizeKey       = "text-align"
+internal let kLineSpacingKey         = "line-height"
+internal let kParagraphSpacingKey    = "paragraph-spacing"
+internal let kHeadIndentKey          = "text-indent"
+internal let kWordWrapKey            = "word-wrap"
+internal let kNumberOfLinesKey       = "text-maxline"
 
-let kTextStrokeWidthKey     = "text-stroke-width"
-let kTextStrokeColorKey     = "text-stroke-color"
-let kTextDecorationKey      = "text-decoration"
-let kTextDecorationColorKey = "text-decoration-color"
+internal let kTextStrokeWidthKey     = "text-stroke-width"
+internal let kTextStrokeColorKey     = "text-stroke-color"
+internal let kTextDecorationKey      = "text-decoration"
+internal let kTextDecorationColorKey = "text-decoration-color"
 
-enum TextSearchMode: String {
+internal enum TextSearchMode: String {
 
     case Normal = ""
     case Placeholder = "placeholder-"
 }
 
-class LazyTextSet {
+internal class LazyTextSet {
  
     var fontObj: LazyFont?
     var textColor: LazyColor?

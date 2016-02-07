@@ -10,6 +10,7 @@ import UIKit
 
 /// Default collection name
 public let kLazyDefaultCollectionName = "Default"
+/// Notifies observers that an update session will start.
 public let kUpdateStylesNotificationKey = "kUpdateStylesNotificationKey"
 
 internal func registerUpdateStylesNotification(object: NSObject) {
@@ -187,6 +188,7 @@ public class LazyStyleSheetManager: NSObject {
      Note: you will have to manually update your UI elements, or set your configurations to conform to LazyViewConfigurationsOptions and use shouldRecreateAllElementsForThemeSwapping().
      
      - parameter url: the url of the file.
+     - parameter collectionName: should specify an unique collection name.
      */
     public func setStylesFromFileAtUrl(url: NSURL?, collectionName: String) -> Bool {
         
@@ -198,6 +200,14 @@ public class LazyStyleSheetManager: NSObject {
         return setStylesFromFileAtUrls([url!], collectionName: collectionName)
     }
     
+    /**
+     Function to set some differents collection styles for the app using specific identifier key.
+     Can be swapped at any time by changing currentCollectionName. (this will post a notification under kUpdateStylesNotificationKey)
+     Note: you will have to manually update your UI elements, or set your configurations to conform to LazyViewConfigurationsOptions and use shouldRecreateAllElementsForThemeSwapping().
+     
+     - parameter urls: set of urls of all files required.
+     - parameter collectionName: should specify an unique collection name.
+     */
     public func setStylesFromFileAtUrls(urls: [NSURL], collectionName: String) -> Bool {
         
         let styleSheet:LazyStyleSheet? = styleCollections[collectionName]
@@ -212,6 +222,12 @@ public class LazyStyleSheetManager: NSObject {
         return appendStylesFromFileAtUrls(urls, collectionName: collectionName)
     }
     
+    /**
+     Function to append some differents collection styles for a specific collection name.
+     
+     - parameter urls: set of urls of all files required.
+     - parameter collectionName: should specify an unique collection name.
+     */
     public func appendStylesFromFileAtUrls(urls: [NSURL], collectionName: String) -> Bool {
         
         if urls.count == 0 {
@@ -241,6 +257,9 @@ public class LazyStyleSheetManager: NSObject {
         return (styleSheet!.styleSets.count > 0)
     }
     
+    /**
+     Function to display some CSS available keys and usages.
+     */
     public func help() {
         
         var helpText = "****************************** HELP ******************************\n"

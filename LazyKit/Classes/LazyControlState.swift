@@ -8,8 +8,7 @@
 
 import UIKit
 
-//This is because UIControleState was not Hashable, and making "extension LazyControlState : Hashable {" caused an invalid linkage type error while compiling in release
-
+///This is because UIControleState was not Hashable, and making "extension LazyControlState : Hashable {" caused an invalid linkage type error while compiling in release
 public struct LazyControlState : OptionSetType {
     
     private var value: UInt = 0
@@ -27,6 +26,9 @@ public struct LazyControlState : OptionSetType {
     public static var Disabled: LazyControlState { return self.init(1 << 1) }
     public static var Selected: LazyControlState { return self.init(1 << 2) }
     
+    /**
+     Converts LazyControlState to UIControlState
+     */
     public var toUiControlState: UIControlState {
         
         switch self.value {

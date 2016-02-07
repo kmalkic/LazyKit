@@ -8,16 +8,16 @@
 
 import UIKit
 
-let kBackgroundKey = "background"
-let kBackgroundColorKey = "background-color"
-let kTintColorKey = "tint-color"
-let kBarTintColorKey = "bartint-color"
+internal let kBackgroundKey = "background"
+internal let kBackgroundColorKey = "background-color"
+internal let kTintColorKey = "tint-color"
+internal let kBarTintColorKey = "bartint-color"
 
-let kBackgroundImageKey = "background-image"
-let kBackgroundImageContentModeKey = "background-image-content"
-let kBackgroundImageTintColorKey = "background-image-tintColor"
+internal let kBackgroundImageKey = "background-image"
+internal let kBackgroundImageContentModeKey = "background-image-content"
+internal let kBackgroundImageTintColorKey = "background-image-tintColor"
 
-class LazyBasicSet {
+internal class LazyBasicSet {
     
     var image: LazyImage?
     var barTintColor: LazyColor?

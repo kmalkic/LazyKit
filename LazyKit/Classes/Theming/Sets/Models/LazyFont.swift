@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LazyFont {
+internal class LazyFont {
    
     var fontName: LazyString?
     

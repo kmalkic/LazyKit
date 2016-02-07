@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum MeasureUnit: String {
+internal enum MeasureUnit: String {
 	
     case Default = "default"
     case Pixel = "px"
@@ -17,7 +17,7 @@ enum MeasureUnit: String {
     case Auto = "auto"
 }
 
-class LazyMeasure {
+internal class LazyMeasure {
    
     var value: LazyFloat?
     

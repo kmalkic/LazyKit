@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum LazyBorderSide: Int {
+internal enum LazyBorderSide: Int {
     case Top
     case Left
     case Bottom
@@ -19,7 +19,7 @@ let kBorderWidthRegex = "([0-9px]+)"
 let kBorderTextRegex = "([a-zA-Z]+)"
 let kBorderColorRegex = "(rga|rgba|#+)(.*)"
 
-struct LazyStringBorderEdges {
+internal struct LazyStringBorderEdges {
 	
 	let top : String
 	let left : String
@@ -37,7 +37,7 @@ struct LazyStringBorderEdges {
 	}
 }
 
-struct LazyStringBorderRadiusEdges {
+internal struct LazyStringBorderRadiusEdges {
 	
 	let topLeft : String
 	let topRight : String
@@ -53,7 +53,7 @@ struct LazyStringBorderRadiusEdges {
 	}
 }
 
-class LazyBorder: LazyMeasure {
+internal class LazyBorder: LazyMeasure {
     
     var color: LazyColor?
 
@@ -69,7 +69,7 @@ class LazyBorder: LazyMeasure {
     }
 }
 
-class LazyBorders {
+internal class LazyBorders {
    
     var top : LazyBorder?
     var left : LazyBorder?

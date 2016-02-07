@@ -8,10 +8,9 @@
 
 import UIKit
 
-let kBar_TranslucentKey         = "translucent"
+internal let kBar_TranslucentKey         = "translucent"
 
-
-class LazyOptionSet {
+internal class LazyOptionSet {
 
     var translucent: LazyBool?
     

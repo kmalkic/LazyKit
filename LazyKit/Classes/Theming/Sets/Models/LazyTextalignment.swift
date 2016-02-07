@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LazyTextAlignment {
+internal class LazyTextAlignment {
     
     var alignment: NSTextAlignment?
     

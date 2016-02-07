@@ -8,29 +8,29 @@
 
 import UIKit
 
-extension UIColor {
+internal extension UIColor {
  
-    public func red() -> CGFloat {
+    internal func red() -> CGFloat {
         let components = CGColorGetComponents(self.CGColor)
         return components[0]
     }
     
-    public func blue() -> CGFloat {
+    internal func blue() -> CGFloat {
         let components = CGColorGetComponents(self.CGColor)
         return components[2]
     }
     
-    public func green() -> CGFloat {
+    internal func green() -> CGFloat {
         let components = CGColorGetComponents(self.CGColor)
         return components[1]
     }
     
-    public func alpha() -> CGFloat {
+    internal func alpha() -> CGFloat {
         let components = CGColorGetComponents(self.CGColor)
         return components[3]
     }
     
-    public class func random() -> UIColor {
+    internal class func random() -> UIColor {
         return UIColor(red: CGFloat(arc4random_uniform(255))/255.0, green: CGFloat(arc4random_uniform(255))/255.0, blue: CGFloat(arc4random_uniform(255))/255.0, alpha: 1)
     }
 }
@@ -40,13 +40,13 @@ extension UIColor {
  UnableToScanHexValue:      "Scan hex error"
  MismatchedHexStringLength: "Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8"
  */
-public enum UIColorInputError : ErrorType {
+internal enum UIColorInputError : ErrorType {
     case MissingHashMarkAsPrefix,
     UnableToScanHexValue,
     MismatchedHexStringLength
 }
 
-extension UIColor {
+public extension UIColor {
     /**
      The shorthand three-digit hexadecimal representation of color.
      #RGB defines to the color #RRGGBB.

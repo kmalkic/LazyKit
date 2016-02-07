@@ -8,12 +8,12 @@
 
 import UIKit
 
-func count(string: String) -> Int {
+internal func count(string: String) -> Int {
 
     return string.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
 }
 
-struct LazyColor {
+internal struct LazyColor {
    
     var red: Float = 0
     var green: Float = 0

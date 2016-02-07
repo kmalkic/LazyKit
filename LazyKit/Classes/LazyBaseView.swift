@@ -8,10 +8,14 @@
 
 import UIKit
 
+///Generic subclass of UIView
 public class LazyBaseView<T: LazyViewConfigurations>: UIView {
     
     public typealias ViewConfigurations = T
     
+    /**
+     The view manager used on this view instance.
+     */
     public private(set) var viewManager: LazyViewManager<T>!
     
     deinit {
@@ -19,6 +23,9 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
         unregisterUpdateStylesNotification(self)
     }
     
+    /**
+     Constructor
+     */
     public init() {
         
         super.init(frame: .zero)
@@ -26,6 +33,9 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
         setup()
     }
     
+    /**
+     Constructor
+     */
     public override init(frame: CGRect) {
         
         super.init(frame: frame)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LazyImage {
+internal class LazyImage {
    
 	lazy var image: UIImage? = {
 		

@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-enum LazyStyleSheetParserType : Int {
+internal enum LazyStyleSheetParserType : Int {
     
     case JSON
     case CSS
 }
 
-class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
+internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
     
     var styleSets = [LazyStyleSet]()
     

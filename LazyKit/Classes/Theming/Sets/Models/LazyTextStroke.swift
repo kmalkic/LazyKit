@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LazyTextStroke {
+internal class LazyTextStroke {
    
     var width: LazyMeasure?
     

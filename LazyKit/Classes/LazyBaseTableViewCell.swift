@@ -8,6 +8,7 @@
 
 import UIKit
 
+///Generic subclass of UITableViewCell
 public class LazyBaseTableViewCell<T: LazyViewConfigurations>: UITableViewCell {
 
     public typealias ViewConfigurations = T
@@ -17,8 +18,14 @@ public class LazyBaseTableViewCell<T: LazyViewConfigurations>: UITableViewCell {
         unregisterUpdateStylesNotification(self)
     }
     
+    /**
+     The view manager used on this table view cell instance.
+     */
     public private(set) var viewManager: LazyViewManager<T>!
     
+    /**
+     Constructor
+     */
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)

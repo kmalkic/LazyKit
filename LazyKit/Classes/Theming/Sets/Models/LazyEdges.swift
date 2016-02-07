@@ -8,9 +8,9 @@
 
 import UIKit
 
-let kEdgesRegex = "([0-9px]+|auto)"
+internal let kEdgesRegex = "([0-9px]+|auto)"
 
-struct LazyStringEdges {
+internal struct LazyStringEdges {
 	
 	let top : String
 	let left : String
@@ -26,7 +26,7 @@ struct LazyStringEdges {
 	}
 }
 
-class LazyEdges {
+internal class LazyEdges {
    
     var top : LazyMeasure?
     var left : LazyMeasure?

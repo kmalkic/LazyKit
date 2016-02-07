@@ -8,13 +8,13 @@
 
 import UIKit
 
-let kBorderKey          = "border"
-let kBorderWidthKey     = "border-width"
-let kBorderColorKey     = "border-color"
-let kBorderRadiusKey    = "border-radius"
+internal let kBorderKey          = "border"
+internal let kBorderWidthKey     = "border-width"
+internal let kBorderColorKey     = "border-color"
+internal let kBorderRadiusKey    = "border-radius"
 
 
-class LazyDecorationSet {
+internal class LazyDecorationSet {
  
     var borders: LazyBorders?
     

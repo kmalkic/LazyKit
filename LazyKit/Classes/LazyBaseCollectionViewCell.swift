@@ -8,6 +8,7 @@
 
 import UIKit
 
+///Generic subclass of UICollectionViewCell
 public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollectionViewCell {
     
     public typealias ViewConfigurations = T
@@ -17,8 +18,14 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
         unregisterUpdateStylesNotification(self)
     }
     
+    /**
+     The view manager used on this collection view cell instance.
+     */
     public private(set) var viewManager: LazyViewManager<T>!
     
+    /**
+     Constructor
+     */
     override init(frame: CGRect) {
         
         super.init(frame: frame)

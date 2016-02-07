@@ -15,7 +15,7 @@ typealias LazyFloat = CGFloat
 typealias LazyLineBreakMode = NSLineBreakMode
 typealias LazyViewContentMode = UIViewContentMode
 
-func + (left:LazyBool?, right:LazyBool? ) -> LazyBool? {
+internal func + (left:LazyBool?, right:LazyBool? ) -> LazyBool? {
     
     if left == nil && right == nil { return nil }
     var object:LazyBool?
@@ -24,7 +24,7 @@ func + (left:LazyBool?, right:LazyBool? ) -> LazyBool? {
 }
 
 
-func + (left:LazyInt?, right:LazyInt? ) -> LazyInt? {
+internal func + (left:LazyInt?, right:LazyInt? ) -> LazyInt? {
     
     if left == nil && right == nil { return nil }
     var object:LazyInt?
@@ -33,7 +33,7 @@ func + (left:LazyInt?, right:LazyInt? ) -> LazyInt? {
 }
 
 
-func + (left:LazyString?, right:LazyString? ) -> LazyString? {
+internal func + (left:LazyString?, right:LazyString? ) -> LazyString? {
     
     if left == nil && right == nil { return nil }
     var object:LazyString?
@@ -42,7 +42,7 @@ func + (left:LazyString?, right:LazyString? ) -> LazyString? {
 }
 
 
-func + (left:LazyFloat?, right:LazyFloat? ) -> LazyFloat? {
+internal func + (left:LazyFloat?, right:LazyFloat? ) -> LazyFloat? {
     
     if left == nil && right == nil { return nil }
     var object:LazyFloat?
@@ -51,7 +51,7 @@ func + (left:LazyFloat?, right:LazyFloat? ) -> LazyFloat? {
 }
 
 
-func + (left:NSTextAlignment?, right:NSTextAlignment? ) -> NSTextAlignment? {
+internal func + (left:NSTextAlignment?, right:NSTextAlignment? ) -> NSTextAlignment? {
     
     if left == nil && right == nil { return nil }
     var object:NSTextAlignment?
@@ -60,7 +60,7 @@ func + (left:NSTextAlignment?, right:NSTextAlignment? ) -> NSTextAlignment? {
 }
 
 
-func + (left:LazyLineBreakMode?, right:LazyLineBreakMode? ) -> LazyLineBreakMode? {
+internal func + (left:LazyLineBreakMode?, right:LazyLineBreakMode? ) -> LazyLineBreakMode? {
     
     if left == nil && right == nil { return nil }
     var object:LazyLineBreakMode?
@@ -68,7 +68,7 @@ func + (left:LazyLineBreakMode?, right:LazyLineBreakMode? ) -> LazyLineBreakMode
     return object
 }
 
-func + (left:LazyViewContentMode?, right:LazyViewContentMode? ) -> LazyViewContentMode? {
+internal func + (left:LazyViewContentMode?, right:LazyViewContentMode? ) -> LazyViewContentMode? {
     
     if left == nil && right == nil { return nil }
     var object:LazyViewContentMode?
@@ -76,7 +76,7 @@ func + (left:LazyViewContentMode?, right:LazyViewContentMode? ) -> LazyViewConte
     return object
 }
 
-func + (left:LazyBorders?, right:LazyBorders? ) -> LazyBorders? {
+internal func + (left:LazyBorders?, right:LazyBorders? ) -> LazyBorders? {
     
     if left == nil && right == nil { return nil }
     
@@ -87,7 +87,7 @@ func + (left:LazyBorders?, right:LazyBorders? ) -> LazyBorders? {
     return object
 }
 
-func + (left:LazyColor?, right:LazyColor? ) -> LazyColor? {
+internal func + (left:LazyColor?, right:LazyColor? ) -> LazyColor? {
     
     if left == nil && right == nil { return nil }
     
@@ -98,7 +98,7 @@ func + (left:LazyColor?, right:LazyColor? ) -> LazyColor? {
     return object
 }
 
-func + (left:LazyEdges?, right:LazyEdges? ) -> LazyEdges? {
+internal func + (left:LazyEdges?, right:LazyEdges? ) -> LazyEdges? {
     
     if left == nil && right == nil { return nil }
     
@@ -115,7 +115,7 @@ func + (left:LazyEdges?, right:LazyEdges? ) -> LazyEdges? {
     return object
 }
 
-func + (left:LazyImage?, right:LazyImage? ) -> LazyImage? {
+internal func + (left:LazyImage?, right:LazyImage? ) -> LazyImage? {
     
     if left == nil && right == nil { return nil }
     
@@ -130,7 +130,7 @@ func + (left:LazyImage?, right:LazyImage? ) -> LazyImage? {
     return object
 }
 
-func + (left:LazyMeasure?, right:LazyMeasure? ) -> LazyMeasure? {
+internal func + (left:LazyMeasure?, right:LazyMeasure? ) -> LazyMeasure? {
     
     if left == nil && right == nil { return nil }
     
@@ -143,7 +143,7 @@ func + (left:LazyMeasure?, right:LazyMeasure? ) -> LazyMeasure? {
     return object
 }
 
-func + (left:MeasureUnit?, right:MeasureUnit? ) -> MeasureUnit? {
+internal func + (left:MeasureUnit?, right:MeasureUnit? ) -> MeasureUnit? {
     
     if left == nil && right == nil { return nil }
     
@@ -154,7 +154,7 @@ func + (left:MeasureUnit?, right:MeasureUnit? ) -> MeasureUnit? {
     return object
 }
 
-func + (left:LazyFont?, right:LazyFont? ) -> LazyFont? {
+internal func + (left:LazyFont?, right:LazyFont? ) -> LazyFont? {
     
     if left == nil && right == nil { return nil }
     
@@ -167,7 +167,7 @@ func + (left:LazyFont?, right:LazyFont? ) -> LazyFont? {
     return object
 }
 
-func + (left:LazyTextStroke?, right:LazyTextStroke? ) -> LazyTextStroke? {
+internal func + (left:LazyTextStroke?, right:LazyTextStroke? ) -> LazyTextStroke? {
     
     if left == nil && right == nil { return nil }
     
@@ -180,7 +180,7 @@ func + (left:LazyTextStroke?, right:LazyTextStroke? ) -> LazyTextStroke? {
     return object
 }
 
-func + (left:LazyTextDecoration?, right:LazyTextDecoration? ) -> LazyTextDecoration? {
+internal func + (left:LazyTextDecoration?, right:LazyTextDecoration? ) -> LazyTextDecoration? {
     
     if left == nil && right == nil { return nil }
     
@@ -195,7 +195,7 @@ func + (left:LazyTextDecoration?, right:LazyTextDecoration? ) -> LazyTextDecorat
     return object
 }
 
-func + (left:LazyTextAlignment?, right:LazyTextAlignment? ) -> LazyTextAlignment? {
+internal func + (left:LazyTextAlignment?, right:LazyTextAlignment? ) -> LazyTextAlignment? {
     
     if left == nil && right == nil { return nil }
     
@@ -208,7 +208,7 @@ func + (left:LazyTextAlignment?, right:LazyTextAlignment? ) -> LazyTextAlignment
     return object
 }
 
-func + (left:LazyParagraph?, right:LazyParagraph? ) -> LazyParagraph? {
+internal func + (left:LazyParagraph?, right:LazyParagraph? ) -> LazyParagraph? {
     
     if left == nil && right == nil { return nil }
     
@@ -227,7 +227,7 @@ func + (left:LazyParagraph?, right:LazyParagraph? ) -> LazyParagraph? {
     return object
 }
 
-func + (left:LazyTextSet?, right:LazyTextSet? ) -> LazyTextSet? {
+internal func + (left:LazyTextSet?, right:LazyTextSet? ) -> LazyTextSet? {
     
     if left == nil && right == nil { return nil }
     
@@ -250,7 +250,7 @@ func + (left:LazyTextSet?, right:LazyTextSet? ) -> LazyTextSet? {
     return object
 }
 
-func + (left:LazyOptionSet?, right:LazyOptionSet? ) -> LazyOptionSet? {
+internal func + (left:LazyOptionSet?, right:LazyOptionSet? ) -> LazyOptionSet? {
     
     if left == nil && right == nil { return nil }
     
@@ -261,7 +261,7 @@ func + (left:LazyOptionSet?, right:LazyOptionSet? ) -> LazyOptionSet? {
     return object
 }
 
-func + (left:LazyDecorationSet?, right:LazyDecorationSet? ) -> LazyDecorationSet? {
+internal func + (left:LazyDecorationSet?, right:LazyDecorationSet? ) -> LazyDecorationSet? {
     
     if left == nil && right == nil { return nil }
     
@@ -272,7 +272,7 @@ func + (left:LazyDecorationSet?, right:LazyDecorationSet? ) -> LazyDecorationSet
     return object
 }
 
-func + (left:LazyBasicSet?, right:LazyBasicSet? ) -> LazyBasicSet? {
+internal func + (left:LazyBasicSet?, right:LazyBasicSet? ) -> LazyBasicSet? {
     
     if left == nil && right == nil { return nil }
     
@@ -289,7 +289,7 @@ func + (left:LazyBasicSet?, right:LazyBasicSet? ) -> LazyBasicSet? {
     return object
 }
 
-func + (left:LazyStyleSet?, right:LazyStyleSet? ) -> LazyStyleSet? {
+internal func + (left:LazyStyleSet?, right:LazyStyleSet? ) -> LazyStyleSet? {
     
     if left == nil && right == nil { return nil }
     

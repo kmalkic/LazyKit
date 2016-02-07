@@ -8,10 +8,14 @@
 
 import UIKit
 
+///Generic subclass of UIViewController
 public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController {
     
     public typealias ViewConfigurations = T
     
+    /**
+     The view manager used on this view controller instance.
+     */
     public private(set) var viewManager: LazyViewManager<T>!
     
     deinit {
@@ -19,6 +23,9 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
         unregisterUpdateStylesNotification(self)
     }
     
+    /**
+     Constructor
+     */
     public init() {
         
         super.init(nibName: nil, bundle: nil)

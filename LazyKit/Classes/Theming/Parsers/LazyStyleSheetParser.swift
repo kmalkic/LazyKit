@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Malkic Kevin. All rights reserved.
 //
 
-protocol LazyStyleSheetParser {
+internal protocol LazyStyleSheetParser {
     
     weak var delegate:LazyStyleSheetParserDelegate? { get set }
     
@@ -18,7 +18,7 @@ protocol LazyStyleSheetParser {
     
 }
 
-protocol LazyStyleSheetParserDelegate : NSObjectProtocol {
+internal protocol LazyStyleSheetParserDelegate : NSObjectProtocol {
     
     func didFinishParsing(parser: LazyStyleSheetParser, styleSets: Array<LazyStyleSet>!)
     

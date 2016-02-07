@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LazyParagraph {
+internal class LazyParagraph {
     
     var lineSpacing: LazyMeasure?
     

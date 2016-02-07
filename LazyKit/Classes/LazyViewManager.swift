@@ -16,6 +16,9 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     private var visualContraints = [String: [NSLayoutConstraint]]()
     private var contraints = [String: NSLayoutConstraint]()
     
+    /**
+     The UIView presenting the configurations, or nil if the view is deallocated.
+     */
     public weak private(set) var view: UIView?
 	
 	deinit {
@@ -39,6 +42,11 @@ public class LazyViewManager<T: LazyViewConfigurations> {
 		}
 	}
 	
+    /**
+     Constructor
+     
+     - param view: the view that present the configurations.
+     */
     public init(view: UIView) {
         
         self.view = view

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LazyTextDecoration {
+internal class LazyTextDecoration {
    
     var underline: LazyBool?
     var strikethrough: LazyBool?

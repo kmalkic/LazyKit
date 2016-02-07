@@ -8,7 +8,7 @@
 
 import UIKit
 
-func matchesForRegexInText(regex: String!, text: String?) -> [String]? {
+internal func matchesForRegexInText(regex: String!, text: String?) -> [String]? {
 	
 	guard let text = text else {
 	
@@ -27,7 +27,7 @@ func matchesForRegexInText(regex: String!, text: String?) -> [String]? {
     }
 }
 
-class LazyStyleSheetCSSParser: LazyStyleSheetParser {
+internal class LazyStyleSheetCSSParser: LazyStyleSheetParser {
     
     weak var delegate:LazyStyleSheetParserDelegate?
     

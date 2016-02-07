@@ -6,7 +6,7 @@
 //  Copyright © 2016 Kevin Malkic. All rights reserved.
 //
 
-extension NSDate {
+internal extension NSDate {
 	
 	static internal func logTimeStamp() -> String {
 		

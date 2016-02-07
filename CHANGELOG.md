@@ -1,3 +1,9 @@
+## 1.1.1 (Feburary 7, 2016)
+
+Features:
+
+  - Missing documentations
+
 ## 1.1 (Feburary 7, 2016)
 
 Features:

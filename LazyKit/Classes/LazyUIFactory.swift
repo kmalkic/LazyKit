@@ -85,6 +85,8 @@ internal class LazyUIFactory {
             view.layer.borderColor = viewBaseOptions.borderColor?.CGColor ?? view.layer.borderColor
             view.layer.cornerRadius = viewBaseOptions.cornerRadius ?? 0
             view.layer.masksToBounds = (view.layer.cornerRadius > 0)
+			view.userInteractionEnabled = viewBaseOptions.userInteractionEnabled ?? view.userInteractionEnabled
+			view.hidden = viewBaseOptions.hidden ?? view.hidden
         }
     }
     

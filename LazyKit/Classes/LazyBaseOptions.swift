@@ -41,11 +41,19 @@ public struct ViewBaseOptions {
      The radius of curvature for the plane’s corners.
      */
     public var cornerRadius: CGFloat?
-    
+	/**
+	A Boolean value that determines whether user events are ignored and removed from the event queue.
+	*/
+	public var userInteractionEnabled: Bool?
+	/**
+	A Boolean value that determines whether the view is hidden.
+	*/
+	public var hidden: Bool?
+	
     /**
      Constructor
      */
-    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor? = nil, tintColor: UIColor? = nil, alpha: CGFloat? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, cornerRadius: CGFloat? = nil) {
+    public init(accessibilityIdentifier: String? = nil, backgroundColor: UIColor? = nil, tintColor: UIColor? = nil, alpha: CGFloat? = nil, borderWidth: CGFloat? = nil, borderColor: UIColor? = nil, cornerRadius: CGFloat? = nil, userInteractionEnabled: Bool? = nil, hidden: Bool? = nil) {
         
         self.accessibilityIdentifier = accessibilityIdentifier
         self.backgroundColor = backgroundColor
@@ -54,6 +62,8 @@ public struct ViewBaseOptions {
         self.borderWidth = borderWidth
         self.borderColor = borderColor
         self.cornerRadius = cornerRadius
+		self.userInteractionEnabled = userInteractionEnabled
+		self.hidden = hidden
     }
 }
 
@@ -212,7 +222,9 @@ internal func + (left:ViewBaseOptions?, right:ViewBaseOptions? ) -> ViewBaseOpti
     object.borderWidth = right?.borderWidth ?? left?.borderWidth
     object.borderColor = right?.borderColor ?? left?.borderColor
     object.cornerRadius = right?.cornerRadius ?? left?.cornerRadius
-    
+	object.userInteractionEnabled = right?.userInteractionEnabled ?? left?.userInteractionEnabled
+	object.hidden = right?.hidden ?? left?.hidden
+	
     return object
 }
 

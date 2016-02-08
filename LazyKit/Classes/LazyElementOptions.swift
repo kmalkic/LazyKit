@@ -393,15 +393,20 @@ public struct TableViewOptions: ElementOptions {
      The style of the table view.
      */
 	public var style: UITableViewStyle = .Plain
+	/**
+	The style for cells used as separators.
+	*/
+	public var cellSeparatorStyle: UITableViewCellSeparatorStyle = .SingleLine
 	
     /**
      Options Constructor
      */
-	public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .Plain, viewBaseOptions: ViewBaseOptions? = nil) {
+	public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .Plain, cellSeparatorStyle: UITableViewCellSeparatorStyle = .SingleLine, viewBaseOptions: ViewBaseOptions? = nil) {
 		
 		self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
 		self.viewBaseOptions = viewBaseOptions
 		self.style = style
+		self.cellSeparatorStyle = cellSeparatorStyle
 	}
 	
     /**

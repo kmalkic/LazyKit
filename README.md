@@ -32,7 +32,7 @@ Constructing a view can be long, boring and repetitive, especialy after the n vi
 $ gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required to build LazyKit 1.1.1+.
+> CocoaPods 0.39.0+ is required to build LazyKit 1.1.2+.
 
 To integrate LazyKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -43,7 +43,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'LazyKit', '~> 1.1.1'
+pod 'LazyKit', '~> 1.1.2'
 ```
 
 Then, run the following command:

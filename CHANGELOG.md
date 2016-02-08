@@ -1,3 +1,11 @@
+## 1.1.2 (Feburary 8, 2016)
+
+Features:
+
+  - Handling table view seperator style
+  - Handling view userInteractionEnabled
+  - Handling view hidden
+
 ## 1.1.1 (Feburary 7, 2016)
 
 Features:

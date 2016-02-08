@@ -110,7 +110,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                         continue
                     }
                     
-                    var item2: UIView?
+                    var item2 = item1.superview
                     
                     if let identifier2 = layoutConstraint.identifier2 {
                         

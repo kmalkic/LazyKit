@@ -353,7 +353,9 @@ internal class LazyUIFactory {
         let tableView = option.baseOptions.classType.init(frame: .zero, style: option.style)
         
         updateElement(tableView, elementOptions: option)
-        
+		
+		tableView.separatorStyle = option.cellSeparatorStyle
+		
         return tableView
     }
 	

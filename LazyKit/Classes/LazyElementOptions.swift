@@ -33,6 +33,11 @@ public protocol ElementOptions {
 
 public extension ElementOptions {
 	
+	/**
+	Get the css identifiers
+	
+	- parameter block: A block that returns the styleId and styleClass
+	*/
 	public func getStyleIdentifiers(block: (styleId: String?, styleClass: String?) -> Void) {
 		
 		switch self {
@@ -50,6 +55,11 @@ public extension ElementOptions {
 		}
 	}
 	
+	/**
+	Get the ui identifier
+	
+	- parameter block: A block that returns the identifier
+	*/
 	public func getStyleIdentifier(block: (identifier: String) -> Void) {
 		
 		var identifier: String?

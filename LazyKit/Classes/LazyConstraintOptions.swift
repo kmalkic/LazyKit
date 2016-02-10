@@ -25,7 +25,10 @@ public struct VisualFormatConstraintOptions {
      Options describing the attribute and the direction of layout for all objects in the visual format string.
      */
     public let options: NSLayoutFormatOptions
-    
+	
+	/**
+	Constructor
+	*/
     public init(identifier: String? = nil, string: String, options: NSLayoutFormatOptions = NSLayoutFormatOptions(rawValue: 0)) {
         
         self.identifier = identifier
@@ -69,12 +72,15 @@ public struct ConstraintOptions {
      The constant added to the multiplied attribute value on the right side of the constraint to yield the final modified attribute.
      */
     public let constant: CGFloat
-    
-    public init(identifier: String? = nil, itemIdentifier identifier1: String, attribute attr1: NSLayoutAttribute, relatedBy relation: NSLayoutRelation, toItemIdentifier identifier2: String?, attribute attr2: NSLayoutAttribute, multiplier: CGFloat, constant c: CGFloat) {
+	
+	/**
+	 Constructor
+	*/
+	public init(identifier: String? = nil, itemIdentifier identifier1: String, attribute attr1: NSLayoutAttribute, relatedBy relation: NSLayoutRelation, toItemIdentifier identifier2: String? = nil, toSuperview useSuperview: Bool = false, attribute attr2: NSLayoutAttribute, multiplier: CGFloat, constant c: CGFloat) {
         
         self.identifier = identifier
         self.identifier1 = identifier1
-        self.identifier2 = identifier2
+		self.identifier2 = (useSuperview) ? "superview" : identifier2
         self.attribute1 = attr1
         self.attribute2 = attr2
         self.relatedBy = relation

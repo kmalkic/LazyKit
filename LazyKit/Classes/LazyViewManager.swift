@@ -110,13 +110,13 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                         continue
                     }
                     
-                    var item2 = item1.superview
-                    
+					var item2: UIView?
+					
                     if let identifier2 = layoutConstraint.identifier2 {
                         
-                        item2 = element(identifier2)
+						item2 = (identifier2 == "superview") ? item1.superview : element(identifier2)
                     }
-                    
+
                     let constraint = NSLayoutConstraint(item: item1, attribute: layoutConstraint.attribute1, relatedBy: layoutConstraint.relatedBy, toItem: item2, attribute: layoutConstraint.attribute2, multiplier: layoutConstraint.multiplier, constant: layoutConstraint.constant)
                     
                     if let identifier = layoutConstraint.identifier {

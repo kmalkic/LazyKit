@@ -1,3 +1,9 @@
+## 1.1.3 (Feburary 10, 2016)
+
+Features:
+
+  - Bug fix for constraints using superview as item2
+
 ## 1.1.2 (Feburary 8, 2016)
 
 Features:

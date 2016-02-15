@@ -8,9 +8,9 @@
 
 import UIKit
 
-internal class LazyUIFactory {
+public class LazyUIFactory {
     
-    internal class func attributedString(textOptions: TextBaseOptions?, existingAttributes: [String: AnyObject]? = nil) -> NSAttributedString? {
+    public class func attributedString(textOptions: TextBaseOptions?, existingAttributes: [String: AnyObject]? = nil) -> NSAttributedString? {
         
         if let textOptions = textOptions {
             
@@ -30,7 +30,7 @@ internal class LazyUIFactory {
             paragraphStyle.headIndent = textOptions.headIndent ?? paragraphStyle.headIndent
             paragraphStyle.lineSpacing = textOptions.lineSpacing ?? paragraphStyle.lineSpacing
             paragraphStyle.lineBreakMode = textOptions.lineBreakMode ?? paragraphStyle.lineBreakMode
-
+            
             var attr: [String : AnyObject] = [NSParagraphStyleAttributeName: paragraphStyle]
             
             if let existingAttribute = existingAttributes?[NSFontAttributeName] as? UIFont {
@@ -62,7 +62,7 @@ internal class LazyUIFactory {
         return nil
     }
     
-    internal class func needAttributedString(textOptions: TextBaseOptions?) -> Bool {
+    public class func needAttributedString(textOptions: TextBaseOptions?) -> Bool {
         
         if let textOptions = textOptions {
             
@@ -74,7 +74,7 @@ internal class LazyUIFactory {
     
     //MARK: - Mapping base options
     
-    internal class func updateView(view: UIView, viewBaseOptions: ViewBaseOptions?) {
+    public class func updateView(view: UIView, viewBaseOptions: ViewBaseOptions?) {
         
         if let viewBaseOptions = viewBaseOptions {
             
@@ -85,12 +85,12 @@ internal class LazyUIFactory {
             view.layer.borderColor = viewBaseOptions.borderColor?.CGColor ?? view.layer.borderColor
             view.layer.cornerRadius = viewBaseOptions.cornerRadius ?? 0
             view.layer.masksToBounds = (view.layer.cornerRadius > 0)
-			view.userInteractionEnabled = viewBaseOptions.userInteractionEnabled ?? view.userInteractionEnabled
-			view.hidden = viewBaseOptions.hidden ?? view.hidden
+            view.userInteractionEnabled = viewBaseOptions.userInteractionEnabled ?? view.userInteractionEnabled
+            view.hidden = viewBaseOptions.hidden ?? view.hidden
         }
     }
     
-    internal class func updateLabel(label: UILabel, options: LabelOptions) {
+    public class func updateLabel(label: UILabel, options: LabelOptions) {
         
         updateView(label, viewBaseOptions: options.viewBaseOptions)
         
@@ -119,7 +119,7 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateButton(button: UIButton, options: ButtonOptions) {
+    public class func updateButton(button: UIButton, options: ButtonOptions) {
         
         updateView(button, viewBaseOptions: options.viewBaseOptions)
         
@@ -180,7 +180,7 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateImage(imageView: UIImageView, options: ImageOptions) {
+    public class func updateImage(imageView: UIImageView, options: ImageOptions) {
         
         updateView(imageView, viewBaseOptions: options.viewBaseOptions)
         
@@ -193,15 +193,15 @@ internal class LazyUIFactory {
             if let imageNamed = imageOptions.imageNamed, _ = imageOptions.tintColor {
                 
                 imageView.image = UIImage(named: imageNamed)?.imageWithRenderingMode(.AlwaysTemplate)
-            
+                
             } else if let imageNamed = imageOptions.imageNamed {
-            
+                
                 imageView.image = UIImage(named: imageNamed)
             }
         }
     }
     
-    internal class func updateTextField(textField: UITextField, options: TextFieldOptions) {
+    public class func updateTextField(textField: UITextField, options: TextFieldOptions) {
         
         updateView(textField, viewBaseOptions: options.viewBaseOptions)
         
@@ -254,7 +254,7 @@ internal class LazyUIFactory {
         }
     }
     
-    internal class func updateTextView(textView: UITextView, options: TextViewOptions) {
+    public class func updateTextView(textView: UITextView, options: TextViewOptions) {
         
         updateView(textView, viewBaseOptions: options.viewBaseOptions)
         
@@ -296,7 +296,7 @@ internal class LazyUIFactory {
     
     //MARK: - Factory
     
-    internal class func view(option: ViewOptions) -> UIView {
+    public class func view(option: ViewOptions) -> UIView {
         
         let view = option.baseOptions.classType.init(frame: .zero)
         
@@ -305,7 +305,7 @@ internal class LazyUIFactory {
         return view
     }
     
-    internal class func label(option: LabelOptions) -> UILabel {
+    public class func label(option: LabelOptions) -> UILabel {
         
         let label = option.baseOptions.classType.init(frame: .zero)
         
@@ -314,7 +314,7 @@ internal class LazyUIFactory {
         return label
     }
     
-    internal class func button(option: ButtonOptions) -> UIButton {
+    public class func button(option: ButtonOptions) -> UIButton {
         
         let button = option.baseOptions.classType.init(type: option.type)
         
@@ -323,7 +323,7 @@ internal class LazyUIFactory {
         return button
     }
     
-    internal class func image(option: ImageOptions) -> UIImageView {
+    public class func image(option: ImageOptions) -> UIImageView {
         
         let imageView = option.baseOptions.classType.init(frame: .zero)
         
@@ -332,7 +332,7 @@ internal class LazyUIFactory {
         return imageView
     }
     
-    internal class func textField(option: TextFieldOptions) -> UITextField {
+    public class func textField(option: TextFieldOptions) -> UITextField {
         
         let textField = option.baseOptions.classType.init(frame: .zero)
         
@@ -341,7 +341,7 @@ internal class LazyUIFactory {
         return textField
     }
     
-    internal class func textView(option: TextViewOptions) -> UITextView {
+    public class func textView(option: TextViewOptions) -> UITextView {
         
         let textView = option.baseOptions.classType.init(frame: .zero)
         
@@ -350,27 +350,27 @@ internal class LazyUIFactory {
         return textView
     }
     
-    internal class func tableView(option: TableViewOptions) -> UITableView {
+    public class func tableView(option: TableViewOptions) -> UITableView {
         
         let tableView = option.baseOptions.classType.init(frame: .zero, style: option.style)
         
         updateElement(tableView, elementOptions: option)
-		
-		tableView.separatorStyle = option.cellSeparatorStyle
-		
+        
+        tableView.separatorStyle = option.cellSeparatorStyle
+        
         return tableView
     }
-	
-	internal class func collectionView(option: CollectionViewOptions) -> UICollectionView {
-		
-		let collectionView = option.baseOptions.classType.init(frame: .zero, collectionViewLayout: option.collectionViewLayoutType.init())
-		
-		updateElement(collectionView, elementOptions: option)
-		
-		return collectionView
-	}
-	
-    internal class func createElement<T>(option: T) -> UIView? {
+    
+    public class func collectionView(option: CollectionViewOptions) -> UICollectionView {
+        
+        let collectionView = option.baseOptions.classType.init(frame: .zero, collectionViewLayout: option.collectionViewLayoutType.init())
+        
+        updateElement(collectionView, elementOptions: option)
+        
+        return collectionView
+    }
+    
+    public class func createElement<T>(option: T) -> UIView? {
         
         var v: UIView?
         
@@ -412,12 +412,12 @@ internal class LazyUIFactory {
                 
                 v = tableView(elementOptions)
                 break
-				
-			case let elementOptions as CollectionViewOptions:
-				
-				v = collectionView(elementOptions)
-				break
-				
+                
+            case let elementOptions as CollectionViewOptions:
+                
+                v = collectionView(elementOptions)
+                break
+                
             default:
                 break
             }
@@ -431,8 +431,8 @@ internal class LazyUIFactory {
         return v
     }
     
-    internal class func updateElement<U: UIView, T>(view: U, elementOptions: T) {
-
+    public class func updateElement<U: UIView, T>(view: U, elementOptions: T) {
+        
         if let elementOptions = elementOptions as? ElementOptions {
             
             updateView(view, viewBaseOptions: elementOptions.viewBaseOptions)

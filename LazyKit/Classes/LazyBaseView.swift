@@ -63,7 +63,7 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
         
         if canUpdate {
             
-            viewManager.updateStyles()
+            viewManager.reloadStyles()
             
         } else {
             

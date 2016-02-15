@@ -9,7 +9,7 @@
 import UIKit
 
 public class LazyViewManager<T: LazyViewConfigurations> {
-
+    
     private typealias ViewConfigurations = T
     
     private var storedElements = [String: UIView]()
@@ -20,28 +20,28 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      The UIView presenting the configurations, or nil if the view is deallocated.
      */
     public weak private(set) var view: UIView?
-	
-	deinit {
-		
-		for (_, subview) in storedElements {
-			
-			subview.removeFromSuperview()
-		}
-		
-		if let view = view {
-
-			for (_, contraints) in visualContraints {
-			
-				view.removeConstraints(contraints)
-			}
-			
-			for (_, contraint) in contraints {
-				
-				view.removeConstraint(contraint)
-			}
-		}
-	}
-	
+    
+    deinit {
+        
+        for (_, subview) in storedElements {
+            
+            subview.removeFromSuperview()
+        }
+        
+        if let view = view {
+            
+            for (_, contraints) in visualContraints {
+                
+                view.removeConstraints(contraints)
+            }
+            
+            for (_, contraint) in contraints {
+                
+                view.removeConstraint(contraint)
+            }
+        }
+    }
+    
     /**
      Constructor
      
@@ -55,6 +55,13 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     
     private func initialize() {
         
+        createViews()
+        setupVisualConstraints()
+        setupConstraints()
+    }
+    
+    private func createViews() {
+        
         if let view = view {
             
             if let elementsOptions = ViewConfigurations.elementsOptions() {
@@ -62,27 +69,40 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                 for elementOptions in elementsOptions {
                     
                     if let element = LazyUIFactory.createElement(elementOptions) {
-						
-						elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
-							
-							if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
-								
-								if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
-									
-									LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
-								}
-							}
-						})
-						
-						elementOptions.getStyleIdentifier({ (identifier) -> Void in
-							
-							self.storedElements[identifier] = element
-						})
-						
+                        
+                        elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
+                            
+                            if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
+                                
+                                if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
+                                    
+                                    LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+                                }
+                            }
+                        })
+                        
+                        elementOptions.getStyleIdentifier({ (identifier) -> Void in
+                            
+                            self.storedElements[identifier] = element
+                        })
+                        
                         view.addSubview(element)
                     }
                 }
             }
+        }
+    }
+    
+    private func setupVisualConstraints() {
+        
+        if let view = view {
+        
+            for (_, constraints) in visualContraints {
+            
+                view.removeConstraints(constraints)
+            }
+            
+            visualContraints.removeAll()
             
             if let visualFormatConstraintOptions = ViewConfigurations.visualFormatConstraintOptions() {
                 
@@ -100,6 +120,19 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                     view.addConstraints(constraints)
                 }
             }
+        }
+    }
+    
+    private func setupConstraints() {
+        
+        if let view = view {
+            
+            for (_, constraint) in contraints {
+                
+                view.removeConstraint(constraint)
+            }
+            
+            contraints.removeAll()
             
             if let layoutConstraints = ViewConfigurations.layoutConstraints() {
                 
@@ -110,13 +143,13 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                         continue
                     }
                     
-					var item2: UIView?
-					
+                    var item2: UIView?
+                    
                     if let identifier2 = layoutConstraint.identifier2 {
                         
-						item2 = (identifier2 == "superview") ? item1.superview : element(identifier2)
+                        item2 = (identifier2 == "superview") ? item1.superview : element(identifier2)
                     }
-
+                    
                     let constraint = NSLayoutConstraint(item: item1, attribute: layoutConstraint.attribute1, relatedBy: layoutConstraint.relatedBy, toItem: item2, attribute: layoutConstraint.attribute2, multiplier: layoutConstraint.multiplier, constant: layoutConstraint.constant)
                     
                     if let identifier = layoutConstraint.identifier {
@@ -129,9 +162,9 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             }
         }
     }
-	
-    internal func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
     
+    internal func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
+        
         var textBaseOptions: TextBaseOptions?
         var placeholderBaseOptions: TextBaseOptions?
         var viewBaseOptions: ViewBaseOptions?
@@ -142,7 +175,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             viewBaseOptions = ViewBaseOptions(backgroundColor: basicSet.backgroundColor?.color(), tintColor: basicSet.tintColor?.color())
             
             if let image = basicSet.image {
-            
+                
                 imageBaseOptions = ImageBaseOptions(imageNamed: image.imageName, contentMode: image.contentMode, tintColor: image.tintColor?.color())
             }
         }
@@ -150,7 +183,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         if let decorationSet = styleSet.decorationSet {
             
             if viewBaseOptions == nil {
-            
+                
                 viewBaseOptions = ViewBaseOptions()
             }
             
@@ -183,7 +216,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             var textOptionsForType: [LazyControlState: TextBaseOptions]?
             
             if textBaseOptions != nil {
-            
+                
                 textOptionsForType = [LazyControlState: TextBaseOptions]()
                 
                 textOptionsForType![.Normal] = textBaseOptions!
@@ -210,7 +243,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             return elementOptions
             
         case var elementOptions as ImageOptions:
-        
+            
             elementOptions.viewBaseOptions = elementOptions.viewBaseOptions + viewBaseOptions
             elementOptions.imageBaseOptions = elementOptions.imageBaseOptions + imageBaseOptions
             
@@ -231,61 +264,71 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         default:
             break
         }
-
+        
         return nil
     }
-	
-	//MARK: - Public
-	
-	/**
-	Reload all current views to initial setup
-	*/
-	public func updateStyles() {
-		
-		if let elementsOptions = ViewConfigurations.elementsOptions() {
-			
-			for elementOptions in elementsOptions {
-				
-				elementOptions.getStyleIdentifier({ (identifier) -> Void in
-					
-					guard let element = self.element(identifier) else {
-						
-						return
-					}
-					
-					LazyUIFactory.updateElement(element, elementOptions: elementOptions)
-					
-					elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
-						
-						if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
-							
-							if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
-								
-								LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
-							}
-						}
-					})
-				})
-			}
-		}
-	}
-	
+    
+    //MARK: - Public
+    
+    /**
+    Reload all views to initial setup
+    */
+    public func reloadAll() {
+        
+        reloadStyles()
+        setupVisualConstraints()
+        setupConstraints()
+    }
+    
+    /**
+    Reload all views styles
+    */
+    public func reloadStyles() {
+        
+        if let elementsOptions = ViewConfigurations.elementsOptions() {
+            
+            for elementOptions in elementsOptions {
+                
+                elementOptions.getStyleIdentifier({ (identifier) -> Void in
+                    
+                    guard let element = self.element(identifier) else {
+                        
+                        return
+                    }
+                    
+                    LazyUIFactory.updateElement(element, elementOptions: elementOptions)
+                    
+                    elementOptions.getStyleIdentifiers({ (styleId, styleClass) -> Void in
+                        
+                        if let styleSet = LazyStyleSheetManager.shared.stylingForView(element, styleId: styleId, styleClass: styleClass) {
+                            
+                            if let newElementOptions = self.convertStyleSetToBaseOptions(elementOptions, styleSet: styleSet) {
+                                
+                                LazyUIFactory.updateElement(element, elementOptions: newElementOptions)
+                            }
+                        }
+                    })
+                })
+            }
+        }
+    }
+    
     //MARK: - Getters
-	
+    
     /**
     Get an UI element for a given identifier.
-	
+    
     - parameter identifier: identifier of the element.
     - returns: The element if founded.
     */
     public func element<T: UIView>(identifier: String) -> T? {
-		
+        
         return storedElements[identifier] as? T
     }
-	
+    
     /**
      Get an UILabel for a given identifier.
-	
+     
      - parameter identifier: identifier of the label.
      - returns: The label if founded.
      */
@@ -364,9 +407,9 @@ public class LazyViewManager<T: LazyViewConfigurations> {
             
             return false
         }
-
+        
         LazyUIFactory.updateElement(element, elementOptions: elementOptions)
-                
+        
         return true
     }
     
@@ -375,24 +418,43 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      
      - parameter identifier: identifier of the element given.
      - parameter type: The type of the element you looking for.
+     - parameter block: The block that will return the element.
      */
     public func updateElement<T>(identifier: String, type: T.Type, block: (element: T) -> Void) {
         
         if let element = element(identifier) {
-
+            
             if element is T {
                 
                 block(element: element as! T)
-				
-			} else {
-			
-				print("element for identifier: " + identifier + " is not of type: \(T.self)")
-			}
-		
-		} else {
-		
-			print("no such element for identifier: " + identifier)
-		}
+                
+            } else {
+                
+                print("element for identifier: " + identifier + " is not of type: \(T.self)")
+            }
+            
+        } else {
+            
+            print("no such element for identifier: " + identifier)
+        }
+    }
+    
+    /**
+     Updates UI elements with closure, if elements are found with the given Type.
+     
+     - parameter identifier: identifier of the element given.
+     - parameter type: The type of the element you looking for.
+     - parameter block: The block that will return elements if found.
+     */
+    public func updateAllElements<T>(type: T.Type, block: (identifier: String, element: T) -> Void) {
+        
+        for (identifier, element) in storedElements {
+            
+            if let view = element as? T {
+                
+                block(identifier: identifier, element: view)
+            }
+        }
     }
     
     /**

@@ -53,7 +53,7 @@ public class LazyBaseTableViewCell<T: LazyViewConfigurations>: UITableViewCell {
         
         if canUpdate {
             
-            viewManager.updateStyles()
+            viewManager.reloadStyles()
             
         } else {
             

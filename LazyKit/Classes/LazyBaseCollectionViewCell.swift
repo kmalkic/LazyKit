@@ -53,7 +53,7 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
         
         if canUpdate {
             
-            viewManager.updateStyles()
+            viewManager.reloadStyles()
             
         } else {
             

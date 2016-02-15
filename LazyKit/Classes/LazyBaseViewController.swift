@@ -63,7 +63,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 		
 		if canUpdate {
 			
-			viewManager.updateStyles()
+			viewManager.reloadStyles()
             
         } else {
         

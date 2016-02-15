@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0AA600751C638B6F001DACB6 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA600741C638B6F001DACB6 /* NSDateExtensions.swift */; };
+		493AF5C61C7263EA0039577A /* LazyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AF5C51C7263EA0039577A /* LazyUtils.swift */; };
 		49C435DF1C4836090070728B /* LazyKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 49C435DE1C4836090070728B /* LazyKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436071C4836BA0070728B /* LazyBaseViewController.swift */; };
 		49C4360B1C4836BA0070728B /* LazyViewConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C436081C4836BA0070728B /* LazyViewConfigurations.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		0AA600741C638B6F001DACB6 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		493AF5C51C7263EA0039577A /* LazyUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyUtils.swift; sourceTree = "<group>"; };
 		49C435DB1C4836090070728B /* LazyKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LazyKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C435DE1C4836090070728B /* LazyKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyKit.h; sourceTree = "<group>"; };
 		49C435E01C4836090070728B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		49C436061C4836B00070728B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				493AF5C51C7263EA0039577A /* LazyUtils.swift */,
 				49C436241C4A6EC40070728B /* LazyViewManager.swift */,
 				49C436081C4836BA0070728B /* LazyViewConfigurations.swift */,
 				49C436091C4836BA0070728B /* LazyUIFactory.swift */,
@@ -313,6 +316,7 @@
 				49C436911C4C4E340070728B /* LazyColor.swift in Sources */,
 				49C4360C1C4836BA0070728B /* LazyUIFactory.swift in Sources */,
 				49C436AC1C4C4E340070728B /* LazyStyleSheetParser.swift in Sources */,
+				493AF5C61C7263EA0039577A /* LazyUtils.swift in Sources */,
 				49C4360A1C4836BA0070728B /* LazyBaseViewController.swift in Sources */,
 				49C436311C4C37E50070728B /* LazyBaseTableViewCell.swift in Sources */,
 				49C4362D1C4BD4B40070728B /* LazyBaseOptions.swift in Sources */,

@@ -1,3 +1,12 @@
+## 1.1.4 (Feburary 22, 2016)
+
+Features:
+
+  - Made LazyUIFactory public to build your own views.
+  - Added updateAllElements to the manager
+  - Small restructure
+  - Introducing LazyUtils for lazy stuff
+
 ## 1.1.3 (Feburary 10, 2016)
 
 Features:

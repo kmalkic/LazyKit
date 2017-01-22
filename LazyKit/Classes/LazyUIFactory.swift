@@ -18,11 +18,11 @@ open class LazyUIFactory {
             
             if let existingParagraphStyle = existingAttributes?[NSParagraphStyleAttributeName] as? NSParagraphStyle {
                 
-                paragraphStyle.alignment = existingParagraphStyle.alignment ?? paragraphStyle.alignment
-                paragraphStyle.paragraphSpacing = existingParagraphStyle.paragraphSpacing ?? paragraphStyle.paragraphSpacing
-                paragraphStyle.headIndent = existingParagraphStyle.headIndent ?? paragraphStyle.headIndent
-                paragraphStyle.lineSpacing = existingParagraphStyle.lineSpacing ?? paragraphStyle.lineSpacing
-                paragraphStyle.lineBreakMode = existingParagraphStyle.lineBreakMode ?? paragraphStyle.lineBreakMode
+                paragraphStyle.alignment = existingParagraphStyle.alignment 
+                paragraphStyle.paragraphSpacing = existingParagraphStyle.paragraphSpacing 
+                paragraphStyle.headIndent = existingParagraphStyle.headIndent 
+                paragraphStyle.lineSpacing = existingParagraphStyle.lineSpacing 
+                paragraphStyle.lineBreakMode = existingParagraphStyle.lineBreakMode 
             }
             
             paragraphStyle.alignment = textOptions.textAlignment ?? paragraphStyle.alignment

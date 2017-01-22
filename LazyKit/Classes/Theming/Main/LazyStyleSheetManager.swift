@@ -15,7 +15,7 @@ public let kUpdateStylesNotificationKey = "kUpdateStylesNotificationKey"
 
 internal func registerUpdateStylesNotification(_ object: NSObject) {
 	
-	NotificationCenter.default.addObserver(object, selector: "didReceiveUpdateNotification", name: NSNotification.Name(rawValue: kUpdateStylesNotificationKey), object: nil)
+	NotificationCenter.default.addObserver(object, selector: Selector(("didReceiveUpdateNotification")), name: NSNotification.Name(rawValue: kUpdateStylesNotificationKey), object: nil)
 }
 
 internal func unregisterUpdateStylesNotification(_ object: NSObject) {
@@ -237,7 +237,7 @@ open class LazyStyleSheetManager: NSObject {
         
         for url in urls {
             
-            styleSheet!.startParsingFileAtUrl(url, parserType: .css)
+            _ = styleSheet!.startParsingFileAtUrl(url, parserType: .css)
         }
         
         return (styleSheet!.styleSets.count > 0)

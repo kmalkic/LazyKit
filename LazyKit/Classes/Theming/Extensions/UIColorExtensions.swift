@@ -114,10 +114,9 @@ public extension UIColor {
             throw UIColorInputError.missingHashMarkAsPrefix
         }
         
-        guard let hexString: String = rgba.substring(from: rgba.characters.index(rgba.startIndex, offsetBy: 1)),
-            var   hexValue:  UInt32 = 0, Scanner(string: hexString).scanHexInt32(&hexValue) else {
-                throw UIColorInputError.unableToScanHexValue
-        }
+        let hexString: String = rgba.substring(from: rgba.characters.index(rgba.startIndex, offsetBy: 1))
+        var   hexValue:  UInt32 = 0
+        Scanner(string: hexString).scanHexInt32(&hexValue)
         
         guard hexString.characters.count  == 3
             || hexString.characters.count == 4

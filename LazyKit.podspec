@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'LazyKit'
-  s.version = '1.1.5'
+  s.version = '2.0'
   s.license = 'MIT'
   s.summary = 'Build complex UIKit views and style them using CSS very fast in Swift.'
   s.description  = <<-DESC 

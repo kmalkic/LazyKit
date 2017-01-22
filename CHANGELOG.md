@@ -1,4 +1,4 @@
-## 1.1.5 (January 22, 2017)
+## 2.0 (January 22, 2017)
 
 Features:
 

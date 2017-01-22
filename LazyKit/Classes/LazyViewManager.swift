@@ -8,18 +8,18 @@
 
 import UIKit
 
-public class LazyViewManager<T: LazyViewConfigurations> {
+open class LazyViewManager<T: LazyViewConfigurations> {
     
-    private typealias ViewConfigurations = T
+    fileprivate typealias ViewConfigurations = T
     
-    private var storedElements = [String: UIView]()
-    private var visualContraints = [String: [NSLayoutConstraint]]()
-    private var contraints = [String: NSLayoutConstraint]()
+    fileprivate var storedElements = [String: UIView]()
+    fileprivate var visualContraints = [String: [NSLayoutConstraint]]()
+    fileprivate var contraints = [String: NSLayoutConstraint]()
     
     /**
      The UIView presenting the configurations, or nil if the view is deallocated.
      */
-    public weak private(set) var view: UIView?
+    open weak fileprivate(set) var view: UIView?
     
     deinit {
         
@@ -53,14 +53,14 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         initialize()
     }
     
-    private func initialize() {
+    fileprivate func initialize() {
         
         createViews()
         setupVisualConstraints()
         setupConstraints()
     }
     
-    private func createViews() {
+    fileprivate func createViews() {
         
         if let view = view {
             
@@ -93,7 +93,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
-    private func setupVisualConstraints() {
+    fileprivate func setupVisualConstraints() {
         
         if let view = view {
         
@@ -110,7 +110,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
                 
                 for visualFormatConstraintOption in visualFormatConstraintOptions {
                     
-                    let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualFormatConstraintOption.string, options: visualFormatConstraintOption.options, metrics: metrics, views: storedElements)
+                    let constraints = NSLayoutConstraint.constraints(withVisualFormat: visualFormatConstraintOption.string, options: visualFormatConstraintOption.options, metrics: metrics, views: storedElements)
                     
                     if let identifier = visualFormatConstraintOption.identifier {
                         
@@ -123,7 +123,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
-    private func setupConstraints() {
+    fileprivate func setupConstraints() {
         
         if let view = view {
             
@@ -163,7 +163,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
         }
     }
     
-    internal func convertStyleSetToBaseOptions(options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
+    internal func convertStyleSetToBaseOptions(_ options: ElementOptions, styleSet: LazyStyleSet) -> ElementOptions? {
         
         var textBaseOptions: TextBaseOptions?
         var placeholderBaseOptions: TextBaseOptions?
@@ -273,7 +273,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     /**
     Reload all views to initial setup
     */
-    public func reloadAll() {
+    open func reloadAll() {
         
         reloadStyles()
         setupVisualConstraints()
@@ -283,7 +283,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     /**
     Reload all views styles
     */
-    public func reloadStyles() {
+    open func reloadStyles() {
         
         if let elementsOptions = ViewConfigurations.elementsOptions() {
             
@@ -321,7 +321,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     - parameter identifier: identifier of the element.
     - returns: The element if founded.
     */
-    public func element<T: UIView>(identifier: String) -> T? {
+    open func element<T: UIView>(_ identifier: String) -> T? {
         
         return storedElements[identifier] as? T
     }
@@ -332,7 +332,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the label.
      - returns: The label if founded.
      */
-    public func label<T: UILabel>(identifier: String) -> T? {
+    open func label<T: UILabel>(_ identifier: String) -> T? {
         
         return element(identifier) as? T
     }
@@ -343,7 +343,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the button.
      - returns: The button if founded.
      */
-    public func button<T: UIButton>(identifier: String) -> T? {
+    open func button<T: UIButton>(_ identifier: String) -> T? {
         
         return element(identifier) as? T
     }
@@ -354,7 +354,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the imageView.
      - returns: The imageView if founded.
      */
-    public func imageView<T: UIImageView>(identifier: String) -> T? {
+    open func imageView<T: UIImageView>(_ identifier: String) -> T? {
         
         return element(identifier) as? T
     }
@@ -365,7 +365,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the tableView.
      - returns: The tableView if founded.
      */
-    public func tableView<T: UITableView>(identifier: String) -> T? {
+    open func tableView<T: UITableView>(_ identifier: String) -> T? {
         
         return element(identifier) as? T
     }
@@ -376,7 +376,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the textField.
      - returns: The textField if founded.
      */
-    public func textField<T: UITextField>(identifier: String) -> T? {
+    open func textField<T: UITextField>(_ identifier: String) -> T? {
         
         return element(identifier) as? T
     }
@@ -387,7 +387,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the textView.
      - returns: The textView if founded.
      */
-    public func textView<T: UITextView>(identifier: String) -> T? {
+    open func textView<T: UITextView>(_ identifier: String) -> T? {
         
         return element(identifier) as? T
     }
@@ -401,7 +401,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
     - parameter elementOptions: Some options to be applied.
     - returns: If element was founded.
     */
-    public func updateElement<T: ElementOptions>(identifier: String, elementOptions: T) -> Bool {
+    open func updateElement<T: ElementOptions>(_ identifier: String, elementOptions: T) -> Bool {
         
         guard let element = storedElements[identifier] else {
             
@@ -420,13 +420,13 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter type: The type of the element you looking for.
      - parameter block: The block that will return the element.
      */
-    public func updateElement<T>(identifier: String, type: T.Type, block: (element: T) -> Void) {
+    open func updateElement<T>(_ identifier: String, type: T.Type, block: (_ element: T) -> Void) {
         
         if let element = element(identifier) {
             
             if element is T {
                 
-                block(element: element as! T)
+                block(element as! T)
                 
             } else {
                 
@@ -446,13 +446,13 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter type: The type of the element you looking for.
      - parameter block: The block that will return elements if found.
      */
-    public func updateAllElements<T>(type: T.Type, block: (identifier: String, element: T) -> Void) {
+    open func updateAllElements<T>(_ type: T.Type, block: (_ identifier: String, _ element: T) -> Void) {
         
         for (identifier, element) in storedElements {
             
             if let view = element as? T {
                 
-                block(identifier: identifier, element: view)
+                block(identifier, view)
             }
         }
     }
@@ -463,7 +463,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the given set of constraints.
      - returns: The constraints if any.
      */
-    public func layoutConstraints(identifier: String) -> [NSLayoutConstraint]? {
+    open func layoutConstraints(_ identifier: String) -> [NSLayoutConstraint]? {
         
         return visualContraints[identifier]
     }
@@ -474,7 +474,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the given constraint.
      - returns: The constraint if any.
      */
-    public func layoutConstraint(identifier: String) -> NSLayoutConstraint? {
+    open func layoutConstraint(_ identifier: String) -> NSLayoutConstraint? {
         
         return contraints[identifier]
     }
@@ -485,7 +485,7 @@ public class LazyViewManager<T: LazyViewConfigurations> {
      - parameter identifier: identifier of the given constraint. (Won't work with constraints created using visual format constraints!)
      - returns: If constraint was founded.
      */
-    public func changeConstantOfLayoutConstaint(identifier: String, constant: CGFloat) -> Bool {
+    open func changeConstantOfLayoutConstaint(_ identifier: String, constant: CGFloat) -> Bool {
         
         guard let layoutConstraint = contraints[identifier] else {
             

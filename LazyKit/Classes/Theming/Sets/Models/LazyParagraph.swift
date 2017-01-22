@@ -20,33 +20,33 @@ internal class LazyParagraph {
     
     var lineBreakMode: LazyLineBreakMode?
     
-    func convertWordWrap(wordWrap: String) -> NSLineBreakMode {
+    func convertWordWrap(_ wordWrap: String) -> NSLineBreakMode {
         
         switch wordWrap {
 			
         case "word-wrapping":
-            return .ByWordWrapping
+            return .byWordWrapping
 			
         case "char-wrapping":
-            return .ByCharWrapping
+            return .byCharWrapping
 			
         case "clipping":
-            return .ByClipping
+            return .byClipping
 			
         case "truncating-head":
-            return .ByTruncatingHead
+            return .byTruncatingHead
 			
         case "truncating-tail":
-            return .ByTruncatingTail
+            return .byTruncatingTail
 			
         case "truncating-middle":
-            return .ByTruncatingMiddle
+            return .byTruncatingMiddle
 			
         default:
             break
         }
 		
-        return .ByTruncatingTail
+        return .byTruncatingTail
     }
     
     func paragraphStyle() -> NSParagraphStyle! {
@@ -74,7 +74,7 @@ internal class LazyParagraph {
             
         } else {
             
-            paragraphStyle.alignment = .Left
+            paragraphStyle.alignment = .left
         }
         
         if let value = lineBreakMode {
@@ -83,7 +83,7 @@ internal class LazyParagraph {
             
         } else {
             
-            paragraphStyle.lineBreakMode = .ByTruncatingTail
+            paragraphStyle.lineBreakMode = .byTruncatingTail
         }
         
         return paragraphStyle

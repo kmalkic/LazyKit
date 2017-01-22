@@ -28,7 +28,7 @@ struct MyCssConfigurations: LazyViewConfigurations, LazyViewConfigurationsOption
                 styleId: "button"),
             
             ViewOptions(identifier: "line",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor())),
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGray)),
             
             ImageOptions(identifier: "photo",
                 styleId: "photo",
@@ -37,11 +37,11 @@ struct MyCssConfigurations: LazyViewConfigurations, LazyViewConfigurationsOption
             TextFieldOptions(identifier: "textfield",
                 placeholderText: "placeholder",
                 styleId: "textfield",
-                textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .NumbersAndPunctuation, keyboardAppearance: .Dark, returnKeyType: .Done)),
+                textInputOptions: TextInputBaseOptions(autocapitalizationType: .sentences, autocorrectionType: .no, spellCheckingType: .no, keyboardType: .numbersAndPunctuation, keyboardAppearance: .dark, returnKeyType: .done)),
             
             TextViewOptions(identifier: "textview",
                 styleId: "textview",
-                textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .EmailAddress, keyboardAppearance: .Dark, returnKeyType: .Done)
+                textInputOptions: TextInputBaseOptions(autocapitalizationType: .sentences, autocorrectionType: .no, spellCheckingType: .no, keyboardType: .emailAddress, keyboardAppearance: .dark, returnKeyType: .done)
             )
         ]
     }
@@ -55,7 +55,7 @@ struct MyCssConfigurations: LazyViewConfigurations, LazyViewConfigurationsOption
             VisualFormatConstraintOptions(string: "H:|-40-[line]-40-|"),
             VisualFormatConstraintOptions(string: "H:|-[textview]-|"),
             VisualFormatConstraintOptions(string: "H:|-buttonLeft-[button]-buttonRight-|"),
-            VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]-[textfield]", options: .AlignAllLeft),
+            VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]-[textfield]", options: .alignAllLeft),
             VisualFormatConstraintOptions(string: "V:|-top-[photo(==photoH)]"),
             VisualFormatConstraintOptions(string: "V:[line(==1)]-[textview(==200)]-200-[button(==buttonH)]-8-|")
         ]
@@ -63,13 +63,13 @@ struct MyCssConfigurations: LazyViewConfigurations, LazyViewConfigurationsOption
     
     static func visualFormatMetrics() -> [String: AnyObject]? {
         
-        return ["top" : 30, "buttonH" : 44, "buttonLeft" : 100, "buttonRight" : 100, "photoW" : 100, "photoH" : 60]
+        return ["top" : 30 as AnyObject, "buttonH" : 44 as AnyObject, "buttonLeft" : 100 as AnyObject, "buttonRight" : 100 as AnyObject, "photoW" : 100 as AnyObject, "photoH" : 60 as AnyObject]
     }
     
     static func layoutConstraints() -> [ConstraintOptions]? {
         
         return [
-            ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .Height, relatedBy: .Equal, toItemIdentifier: nil, attribute: .Height, multiplier: 1, constant: 40)
+            ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .height, relatedBy: .equal, toItemIdentifier: nil, attribute: .height, multiplier: 1, constant: 40)
         ]
     }
 	

@@ -9,7 +9,7 @@
 import UIKit
 
 ///Generic subclass of UICollectionViewCell
-public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollectionViewCell {
+open class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollectionViewCell {
     
     public typealias ViewConfigurations = T
     
@@ -21,7 +21,7 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
     /**
      The view manager used on this collection view cell instance.
      */
-    public private(set) var viewManager: LazyViewManager<T>!
+    open fileprivate(set) var viewManager: LazyViewManager<T>!
     
     /**
      Constructor
@@ -32,8 +32,12 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
         
         setup()
     }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-	private func setup() {
+	fileprivate func setup() {
 		
 		viewManager = LazyViewManager(view: contentView)
 		
@@ -66,7 +70,7 @@ public class LazyBaseCollectionViewCell<T: LazyViewConfigurations>: UICollection
 	/**
 	Called after the view has been updated from the view configurations. Would be called also after kUpdateStylesNotificationKey was posted
 	*/
-	public func viewDidUpdate() {
+	open func viewDidUpdate() {
 		
 		
 	}

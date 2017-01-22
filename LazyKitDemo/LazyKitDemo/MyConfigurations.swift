@@ -16,40 +16,40 @@ struct MyConfigurations: LazyViewConfigurations {
         return [
             LabelOptions(identifier: "title",
                 classType: CustomLabel.self,
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .blueColor()),
-                textOptions: TextBaseOptions(text: "hello", font: .systemFontOfSize(20), textAlignment: .Center)
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .blue),
+                textOptions: TextBaseOptions(text: "hello", font: .systemFont(ofSize: 20), textAlignment: .center)
             ),
             
             LabelOptions(identifier: "subtitle",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .greenColor()),
-                textOptions: TextBaseOptions(text: "hey", textAlignment: .Center)
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .green),
+                textOptions: TextBaseOptions(text: "hey", textAlignment: .center)
             ),
             
             ButtonOptions(identifier: "button",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .redColor()),
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .red),
                 textOptionsForType: [.Normal: TextBaseOptions(text: "button"), .Highlighted: TextBaseOptions(text: "highlighted")]
             ),
             
             ViewOptions(identifier: "line",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor())
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGray)
             ),
             
             ImageOptions(identifier: "photo",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor()),
-                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .ScaleAspectFill)
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGray),
+                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .scaleAspectFill)
             ),
             
             TextFieldOptions(identifier: "textfield",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: UIColor.orangeColor()),
-                textOptions: TextBaseOptions(font: .systemFontOfSize(16), textAlignment: .Center),
-                placeholderOptions: TextBaseOptions(text: "placeholder", font: .systemFontOfSize(16), textColor: .redColor(), textAlignment: .Center),
-                textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .NumbersAndPunctuation, keyboardAppearance: .Dark, returnKeyType: .Done, enablesReturnKeyAutomatically: true, secureTextEntry: false)
+                viewBaseOptions: ViewBaseOptions(backgroundColor: UIColor.orange),
+                textOptions: TextBaseOptions(font: .systemFont(ofSize: 16), textAlignment: .center),
+                placeholderOptions: TextBaseOptions(text: "placeholder", font: .systemFont(ofSize: 16), textColor: .red, textAlignment: .center),
+                textInputOptions: TextInputBaseOptions(autocapitalizationType: .sentences, autocorrectionType: .no, spellCheckingType: .no, keyboardType: .numbersAndPunctuation, keyboardAppearance: .dark, returnKeyType: .done, enablesReturnKeyAutomatically: true, secureTextEntry: false)
             ),
             
             TextViewOptions(identifier: "textview",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: UIColor.cyanColor()),
-                textOptions: TextBaseOptions(text: "TextView", font: .systemFontOfSize(14), textAlignment: .Left),
-                textInputOptions: TextInputBaseOptions(autocapitalizationType: .Sentences, autocorrectionType: .No, spellCheckingType: .No, keyboardType: .EmailAddress, keyboardAppearance: .Dark, returnKeyType: .Done, enablesReturnKeyAutomatically: true, secureTextEntry: false)
+                viewBaseOptions: ViewBaseOptions(backgroundColor: UIColor.cyan),
+                textOptions: TextBaseOptions(text: "TextView", font: .systemFont(ofSize: 14), textAlignment: .left),
+                textInputOptions: TextInputBaseOptions(autocapitalizationType: .sentences, autocorrectionType: .no, spellCheckingType: .no, keyboardType: .emailAddress, keyboardAppearance: .dark, returnKeyType: .done, enablesReturnKeyAutomatically: true, secureTextEntry: false)
             )
         ]
     }
@@ -63,7 +63,7 @@ struct MyConfigurations: LazyViewConfigurations {
             VisualFormatConstraintOptions(string: "H:|-40-[line]-40-|"),
             VisualFormatConstraintOptions(string: "H:|-[textview]-|"),
             VisualFormatConstraintOptions(string: "H:|-buttonLeft-[button]-buttonRight-|"),
-            VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]-[textfield]", options: .AlignAllLeft),
+            VisualFormatConstraintOptions(string: "V:|-top-[title]-[subtitle]-[textfield]", options: .alignAllLeft),
             VisualFormatConstraintOptions(string: "V:|-top-[photo(==photoH)]"),
             VisualFormatConstraintOptions(string: "V:[line(==1)]-[textview(==200)]-200-[button(==buttonH)]-8-|")
         ]
@@ -71,13 +71,13 @@ struct MyConfigurations: LazyViewConfigurations {
     
     static func visualFormatMetrics() -> [String: AnyObject]? {
         
-        return ["top" : 30, "buttonH" : 44, "buttonLeft" : 100, "buttonRight" : 100, "photoW" : 100, "photoH" : 60]
+        return ["top" : 30 as AnyObject, "buttonH" : 44 as AnyObject, "buttonLeft" : 100 as AnyObject, "buttonRight" : 100 as AnyObject, "photoW" : 100 as AnyObject, "photoH" : 60 as AnyObject]
     }
     
     static func layoutConstraints() -> [ConstraintOptions]? {
         
         return [
-            ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .Height, relatedBy: .Equal, toItemIdentifier: nil, attribute: .Height, multiplier: 1, constant: 40)
+            ConstraintOptions(identifier: "titleHeight", itemIdentifier: "title", attribute: .height, relatedBy: .equal, toItemIdentifier: nil, attribute: .height, multiplier: 1, constant: 40)
         ]
     }
 }

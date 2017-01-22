@@ -44,7 +44,7 @@ internal class LazyTextSet {
         
     }
     
-    private func fetchFont() -> LazyFont! {
+    fileprivate func fetchFont() -> LazyFont! {
 		
         if fontObj == nil {
 			
@@ -54,7 +54,7 @@ internal class LazyTextSet {
         return fontObj!
     }
     
-    private func fetchParagraph() -> LazyParagraph! {
+    fileprivate func fetchParagraph() -> LazyParagraph! {
 		
         if paragraph == nil {
 			
@@ -64,7 +64,7 @@ internal class LazyTextSet {
         return paragraph!
     }
     
-    private func fetchTextStroke() -> LazyTextStroke! {
+    fileprivate func fetchTextStroke() -> LazyTextStroke! {
 		
         if textStroke == nil {
 			
@@ -74,7 +74,7 @@ internal class LazyTextSet {
         return textStroke!
     }
     
-    private func fetchTextDecoration() -> LazyTextDecoration! {
+    fileprivate func fetchTextDecoration() -> LazyTextDecoration! {
 		
         if textDecoration == nil {
 			
@@ -115,7 +115,7 @@ internal class LazyTextSet {
 		
         if textStroke?.width != nil {
 			
-            textAttributes[NSStrokeWidthAttributeName] = (textStroke!.width!.value)
+            textAttributes[NSStrokeWidthAttributeName] = (textStroke!.width!.value as AnyObject?)
         }
 		
         if textStroke?.color != nil {
@@ -125,7 +125,7 @@ internal class LazyTextSet {
 		
         if textDecoration?.underline == true {
 			
-            textAttributes[NSUnderlineStyleAttributeName] = (1)
+            textAttributes[NSUnderlineStyleAttributeName] = (1 as AnyObject?)
 			
             if textDecoration?.color != nil {
 				
@@ -135,7 +135,7 @@ internal class LazyTextSet {
 		
         if textDecoration?.strikethrough == true {
 			
-            textAttributes[NSStrikethroughStyleAttributeName] = (1)
+            textAttributes[NSStrikethroughStyleAttributeName] = (1 as AnyObject?)
 			
             if textDecoration?.color != nil {
 				
@@ -152,7 +152,7 @@ internal class LazyTextSet {
         
         for property in content {
             
-            let components = property.componentsSeparatedByString(":")
+            let components = property.components(separatedBy: ":")
             
             if components.count != 2 {
                 print("Invalid property should be 'key: value'\n")
@@ -161,8 +161,8 @@ internal class LazyTextSet {
                 return nil
             }
             
-            let key = components[0].stringByReplacingOccurrencesOfString(" ", withString: "")
-            let rawValue = components[1].stringByTrimmingCharactersInSet(.whitespaceCharacterSet()).stringByReplacingOccurrencesOfString(";", withString: "")
+            let key = components[0].replacingOccurrences(of: " ", with: "")
+            let rawValue = components[1].trimmingCharacters(in: .whitespaces).replacingOccurrences(of: ";", with: "")
             
 			var value = rawValue
 			

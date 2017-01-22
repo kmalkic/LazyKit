@@ -13,22 +13,22 @@ public let kLazyDefaultCollectionName = "Default"
 /// Notifies observers that an update session will start.
 public let kUpdateStylesNotificationKey = "kUpdateStylesNotificationKey"
 
-internal func registerUpdateStylesNotification(object: NSObject) {
+internal func registerUpdateStylesNotification(_ object: NSObject) {
 	
-	NSNotificationCenter.defaultCenter().addObserver(object, selector: "didReceiveUpdateNotification", name: kUpdateStylesNotificationKey, object: nil)
+	NotificationCenter.default.addObserver(object, selector: "didReceiveUpdateNotification", name: NSNotification.Name(rawValue: kUpdateStylesNotificationKey), object: nil)
 }
 
-internal func unregisterUpdateStylesNotification(object: NSObject) {
+internal func unregisterUpdateStylesNotification(_ object: NSObject) {
 	
-	NSNotificationCenter.defaultCenter().removeObserver(object, name: kUpdateStylesNotificationKey, object: nil)
+	NotificationCenter.default.removeObserver(object, name: NSNotification.Name(rawValue: kUpdateStylesNotificationKey), object: nil)
 }
 
 /// Style manager that handle collection of styles.
-public class LazyStyleSheetManager: NSObject {
-   
+open class LazyStyleSheetManager: NSObject {
+       
     internal var styleCollections = [String: LazyStyleSheet]()
 
-    internal var styleCollectionsUrl = [String: [NSURL]]()
+    internal var styleCollectionsUrl = [String: [URL]]()
     
     internal var styleCollectionsNames = [String]()
     
@@ -50,7 +50,7 @@ public class LazyStyleSheetManager: NSObject {
     
         You can call postUpdateStylesNotification() manually to trigger the same update.
     */
-    public var currentCollectionName = kLazyDefaultCollectionName {
+    open var currentCollectionName = kLazyDefaultCollectionName {
         
         didSet {
             
@@ -65,21 +65,7 @@ public class LazyStyleSheetManager: NSObject {
     
         - returns: The manager instance. It is created on the first call.
     */
-    public class var shared: LazyStyleSheetManager {
-        
-        struct Static {
-            
-            static var instance: LazyStyleSheetManager!
-            static var token: dispatch_once_t = 0
-        }
-        
-        dispatch_once(&Static.token) {
-            
-            Static.instance = LazyStyleSheetManager()
-        }
-        
-        return Static.instance!
-    }
+    open static let shared = LazyStyleSheetManager()
     
     override init() {
 
@@ -88,7 +74,7 @@ public class LazyStyleSheetManager: NSObject {
     
     //MARK: - internal
     
-    internal func stylingForView(view: UIView, styleId: String? = nil, styleClass: String? = nil) -> LazyStyleSet? {
+    internal func stylingForView(_ view: UIView, styleId: String? = nil, styleClass: String? = nil) -> LazyStyleSet? {
         
         if let styleSheet = styleCollections[currentCollectionName] {
             
@@ -103,19 +89,19 @@ public class LazyStyleSheetManager: NSObject {
     
     //MARK: - private
     
-    private func keyText(key: String) -> String {
+    fileprivate func keyText(_ key: String) -> String {
         return "  '" + key + "' "
     }
     
-    private func usageText() -> String {
+    fileprivate func usageText() -> String {
         return "\n     Usage: "
     }
     
-    private func patternsText() -> String {
+    fileprivate func patternsText() -> String {
         return "\n     Patterns: "
     }
     
-    private func setUrlToRefreshCollectionFile(collectionName: String, urls:[NSURL]) {
+    fileprivate func setUrlToRefreshCollectionFile(_ collectionName: String, urls:[URL]) {
         
         if urls.count == 0 {
             
@@ -125,7 +111,7 @@ public class LazyStyleSheetManager: NSObject {
         styleCollectionsUrl[collectionName]! = urls
     }
     
-    private func appendUrlToRefreshCollectionFile(collectionName: String, urls:[NSURL]) {
+    fileprivate func appendUrlToRefreshCollectionFile(_ collectionName: String, urls:[URL]) {
         
         if urls.count == 0 {
             
@@ -134,7 +120,7 @@ public class LazyStyleSheetManager: NSObject {
         
         if styleCollectionsUrl[collectionName] == nil {
             
-            styleCollectionsUrl[collectionName] = [NSURL]()
+            styleCollectionsUrl[collectionName] = [URL]()
         }
         
         styleCollectionsUrl[collectionName]! += urls
@@ -145,9 +131,9 @@ public class LazyStyleSheetManager: NSObject {
     /**
         Call postUpdateStylesNotification() manually to trigger all the views to update their styles.
     */
-    public func postUpdateStylesNotification() {
+    open func postUpdateStylesNotification() {
         
-        NSNotificationCenter.defaultCenter().postNotificationName(kUpdateStylesNotificationKey, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kUpdateStylesNotificationKey), object: nil)
     }
     
     /**
@@ -156,7 +142,7 @@ public class LazyStyleSheetManager: NSObject {
     
         - parameter swapping: defines if the manager can handle swapping the current collection with another collection styles.
     */
-    public func enableThemeSwapping(swapping: Bool) {
+    open func enableThemeSwapping(_ swapping: Bool) {
         
         enableThemeSwapping = swapping
     }
@@ -167,7 +153,7 @@ public class LazyStyleSheetManager: NSObject {
      
      - parameter url: the url of the file.
      */
-    public func setDefaultStylesFromFileAtUrl(url: NSURL?) -> Bool {
+    open func setDefaultStylesFromFileAtUrl(_ url: URL?) -> Bool {
         
         return setStylesFromFileAtUrl(url, collectionName: kLazyDefaultCollectionName)
     }
@@ -177,7 +163,7 @@ public class LazyStyleSheetManager: NSObject {
      
      - parameter urls: set of urls of all files required.
      */
-    public func setDefaultStylesFromFileAtUrls(urls: [NSURL]) -> Bool {
+    open func setDefaultStylesFromFileAtUrls(_ urls: [URL]) -> Bool {
     
         return setStylesFromFileAtUrls(urls, collectionName: kLazyDefaultCollectionName)
     }
@@ -190,7 +176,7 @@ public class LazyStyleSheetManager: NSObject {
      - parameter url: the url of the file.
      - parameter collectionName: should specify an unique collection name.
      */
-    public func setStylesFromFileAtUrl(url: NSURL?, collectionName: String) -> Bool {
+    open func setStylesFromFileAtUrl(_ url: URL?, collectionName: String) -> Bool {
         
         if url == nil {
             
@@ -208,16 +194,16 @@ public class LazyStyleSheetManager: NSObject {
      - parameter urls: set of urls of all files required.
      - parameter collectionName: should specify an unique collection name.
      */
-    public func setStylesFromFileAtUrls(urls: [NSURL], collectionName: String) -> Bool {
+    open func setStylesFromFileAtUrls(_ urls: [URL], collectionName: String) -> Bool {
         
         let styleSheet:LazyStyleSheet? = styleCollections[collectionName]
         
         if styleSheet != nil {
             
-            styleCollections.removeValueForKey(collectionName)
+            styleCollections.removeValue(forKey: collectionName)
         }
         
-        styleCollectionsUrl[collectionName] = [NSURL]()
+        styleCollectionsUrl[collectionName] = [URL]()
         
         return appendStylesFromFileAtUrls(urls, collectionName: collectionName)
     }
@@ -228,7 +214,7 @@ public class LazyStyleSheetManager: NSObject {
      - parameter urls: set of urls of all files required.
      - parameter collectionName: should specify an unique collection name.
      */
-    public func appendStylesFromFileAtUrls(urls: [NSURL], collectionName: String) -> Bool {
+    open func appendStylesFromFileAtUrls(_ urls: [URL], collectionName: String) -> Bool {
         
         if urls.count == 0 {
             
@@ -251,7 +237,7 @@ public class LazyStyleSheetManager: NSObject {
         
         for url in urls {
             
-            styleSheet!.startParsingFileAtUrl(url, parserType: .CSS)
+            styleSheet!.startParsingFileAtUrl(url, parserType: .css)
         }
         
         return (styleSheet!.styleSets.count > 0)
@@ -260,7 +246,7 @@ public class LazyStyleSheetManager: NSObject {
     /**
      Function to display some CSS available keys and usages.
      */
-    public func help() {
+    open func help() {
         
         var helpText = "****************************** HELP ******************************\n"
         helpText +=    "******************** Available keys and usages *******************\n\n"

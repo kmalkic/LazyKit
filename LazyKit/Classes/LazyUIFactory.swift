@@ -8,9 +8,9 @@
 
 import UIKit
 
-public class LazyUIFactory {
+open class LazyUIFactory {
     
-    public class func attributedString(textOptions: TextBaseOptions?, existingAttributes: [String: AnyObject]? = nil) -> NSAttributedString? {
+    open class func attributedString(_ textOptions: TextBaseOptions?, existingAttributes: [String: AnyObject]? = nil) -> NSAttributedString? {
         
         if let textOptions = textOptions {
             
@@ -62,7 +62,7 @@ public class LazyUIFactory {
         return nil
     }
     
-    public class func needAttributedString(textOptions: TextBaseOptions?) -> Bool {
+    open class func needAttributedString(_ textOptions: TextBaseOptions?) -> Bool {
         
         if let textOptions = textOptions {
             
@@ -74,7 +74,7 @@ public class LazyUIFactory {
     
     //MARK: - Mapping base options
     
-    public class func updateView(view: UIView, viewBaseOptions: ViewBaseOptions?) {
+    open class func updateView(_ view: UIView, viewBaseOptions: ViewBaseOptions?) {
         
         if let viewBaseOptions = viewBaseOptions {
             
@@ -82,15 +82,15 @@ public class LazyUIFactory {
             view.tintColor = viewBaseOptions.tintColor ?? view.tintColor
             view.alpha = viewBaseOptions.alpha ?? 1
             view.layer.borderWidth = viewBaseOptions.borderWidth ?? 0
-            view.layer.borderColor = viewBaseOptions.borderColor?.CGColor ?? view.layer.borderColor
+            view.layer.borderColor = viewBaseOptions.borderColor?.cgColor ?? view.layer.borderColor
             view.layer.cornerRadius = viewBaseOptions.cornerRadius ?? 0
             view.layer.masksToBounds = (view.layer.cornerRadius > 0)
-            view.userInteractionEnabled = viewBaseOptions.userInteractionEnabled ?? view.userInteractionEnabled
-            view.hidden = viewBaseOptions.hidden ?? view.hidden
+            view.isUserInteractionEnabled = viewBaseOptions.userInteractionEnabled ?? view.isUserInteractionEnabled
+            view.isHidden = viewBaseOptions.hidden ?? view.isHidden
         }
     }
     
-    public class func updateLabel(label: UILabel, options: LabelOptions) {
+    open class func updateLabel(_ label: UILabel, options: LabelOptions) {
         
         updateView(label, viewBaseOptions: options.viewBaseOptions)
         
@@ -102,7 +102,7 @@ public class LazyUIFactory {
                 
                 if let attributedText = label.attributedText {
                     
-                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                    existingAttributes = attributedText.attributes(at: 0, effectiveRange: nil) as [String : AnyObject]?
                 }
                 
                 label.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
@@ -119,11 +119,11 @@ public class LazyUIFactory {
         }
     }
     
-    public class func updateButton(button: UIButton, options: ButtonOptions) {
+    open class func updateButton(_ button: UIButton, options: ButtonOptions) {
         
         updateView(button, viewBaseOptions: options.viewBaseOptions)
         
-        if let textOptions = options.textOptionsForType?[.Normal], titleLabel = button.titleLabel {
+        if let textOptions = options.textOptionsForType?[.Normal], let titleLabel = button.titleLabel {
             
             if needAttributedString(textOptions) {
                 
@@ -131,7 +131,7 @@ public class LazyUIFactory {
                 
                 if let attributedText = titleLabel.attributedText {
                     
-                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                    existingAttributes = attributedText.attributes(at: 0, effectiveRange: nil) as [String : AnyObject]?
                 }
                 
                 titleLabel.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
@@ -151,12 +151,12 @@ public class LazyUIFactory {
             
             for (state, textOptions) in textOptionsForType {
                 
-                button.setTitle(textOptions.text ?? button.titleForState(state.toUiControlState), forState: state.toUiControlState)
-                button.setTitleColor(textOptions.textColor ?? button.titleColorForState(state.toUiControlState), forState: state.toUiControlState)
+                button.setTitle(textOptions.text ?? button.title(for: state.toUiControlState), for: state.toUiControlState)
+                button.setTitleColor(textOptions.textColor ?? button.titleColor(for: state.toUiControlState), for: state.toUiControlState)
             }
         }
         
-        if let imageOptions = options.imageOptionsForType?[.Normal], imageView = button.imageView {
+        if let imageOptions = options.imageOptionsForType?[.Normal], let imageView = button.imageView {
             
             imageView.clipsToBounds = true
             button.contentMode = imageOptions.contentMode ?? imageView.contentMode
@@ -168,19 +168,19 @@ public class LazyUIFactory {
             
             for (state, imageOptions) in imageOptionsForType {
                 
-                if let imageNamed = imageOptions.imageNamed, _ = imageOptions.tintColor {
+                if let imageNamed = imageOptions.imageNamed, let _ = imageOptions.tintColor {
                     
-                    button.setImage(UIImage(named: imageNamed)?.imageWithRenderingMode(.AlwaysTemplate), forState: state.toUiControlState)
+                    button.setImage(UIImage(named: imageNamed)?.withRenderingMode(.alwaysTemplate), for: state.toUiControlState)
                     
                 } else if let imageNamed = imageOptions.imageNamed {
                     
-                    button.setImage(UIImage(named: imageNamed), forState: state.toUiControlState)
+                    button.setImage(UIImage(named: imageNamed), for: state.toUiControlState)
                 }
             }
         }
     }
     
-    public class func updateImage(imageView: UIImageView, options: ImageOptions) {
+    open class func updateImage(_ imageView: UIImageView, options: ImageOptions) {
         
         updateView(imageView, viewBaseOptions: options.viewBaseOptions)
         
@@ -190,9 +190,9 @@ public class LazyUIFactory {
             imageView.contentMode = imageOptions.contentMode ?? imageView.contentMode
             imageView.tintColor = imageOptions.tintColor ?? imageView.tintColor
             
-            if let imageNamed = imageOptions.imageNamed, _ = imageOptions.tintColor {
+            if let imageNamed = imageOptions.imageNamed, let _ = imageOptions.tintColor {
                 
-                imageView.image = UIImage(named: imageNamed)?.imageWithRenderingMode(.AlwaysTemplate)
+                imageView.image = UIImage(named: imageNamed)?.withRenderingMode(.alwaysTemplate)
                 
             } else if let imageNamed = imageOptions.imageNamed {
                 
@@ -201,7 +201,7 @@ public class LazyUIFactory {
         }
     }
     
-    public class func updateTextField(textField: UITextField, options: TextFieldOptions) {
+    open class func updateTextField(_ textField: UITextField, options: TextFieldOptions) {
         
         updateView(textField, viewBaseOptions: options.viewBaseOptions)
         
@@ -213,7 +213,7 @@ public class LazyUIFactory {
                 
                 if let attributedText = textField.attributedText {
                     
-                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                    existingAttributes = attributedText.attributes(at: 0, effectiveRange: nil) as [String : AnyObject]?
                 }
                 
                 textField.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
@@ -235,7 +235,7 @@ public class LazyUIFactory {
             
             if let attributedPlaceholder = textField.attributedPlaceholder {
                 
-                existingAttributes = attributedPlaceholder.attributesAtIndex(0, effectiveRange: nil)
+                existingAttributes = attributedPlaceholder.attributes(at: 0, effectiveRange: nil) as [String : AnyObject]?
             }
             
             textField.attributedPlaceholder = attributedString(textOptions, existingAttributes: existingAttributes)
@@ -250,11 +250,11 @@ public class LazyUIFactory {
             textField.keyboardAppearance = textInputOptions.keyboardAppearance ?? textField.keyboardAppearance
             textField.returnKeyType = textInputOptions.returnKeyType ?? textField.returnKeyType
             textField.enablesReturnKeyAutomatically = textInputOptions.enablesReturnKeyAutomatically ?? textField.enablesReturnKeyAutomatically
-            textField.secureTextEntry = textInputOptions.secureTextEntry ?? textField.secureTextEntry
+            textField.isSecureTextEntry = textInputOptions.secureTextEntry ?? textField.isSecureTextEntry
         }
     }
     
-    public class func updateTextView(textView: UITextView, options: TextViewOptions) {
+    open class func updateTextView(_ textView: UITextView, options: TextViewOptions) {
         
         updateView(textView, viewBaseOptions: options.viewBaseOptions)
         
@@ -266,7 +266,7 @@ public class LazyUIFactory {
                 
                 if let attributedText = textView.attributedText {
                     
-                    existingAttributes = attributedText.attributesAtIndex(0, effectiveRange: nil)
+                    existingAttributes = attributedText.attributes(at: 0, effectiveRange: nil) as [String : AnyObject]?
                 }
                 
                 textView.attributedText = attributedString(textOptions, existingAttributes: existingAttributes)
@@ -290,13 +290,13 @@ public class LazyUIFactory {
             textView.keyboardAppearance = textInputOptions.keyboardAppearance ?? textView.keyboardAppearance
             textView.returnKeyType = textInputOptions.returnKeyType ?? textView.returnKeyType
             textView.enablesReturnKeyAutomatically = textInputOptions.enablesReturnKeyAutomatically ?? textView.enablesReturnKeyAutomatically
-            textView.secureTextEntry = textInputOptions.secureTextEntry ?? textView.secureTextEntry
+            textView.isSecureTextEntry = textInputOptions.secureTextEntry ?? textView.isSecureTextEntry
         }
     }
     
     //MARK: - Factory
     
-    public class func view(option: ViewOptions) -> UIView {
+    open class func view(_ option: ViewOptions) -> UIView {
         
         let view = option.baseOptions.classType.init(frame: .zero)
         
@@ -305,7 +305,7 @@ public class LazyUIFactory {
         return view
     }
     
-    public class func label(option: LabelOptions) -> UILabel {
+    open class func label(_ option: LabelOptions) -> UILabel {
         
         let label = option.baseOptions.classType.init(frame: .zero)
         
@@ -314,7 +314,7 @@ public class LazyUIFactory {
         return label
     }
     
-    public class func button(option: ButtonOptions) -> UIButton {
+    open class func button(_ option: ButtonOptions) -> UIButton {
         
         let button = option.baseOptions.classType.init(type: option.type)
         
@@ -323,7 +323,7 @@ public class LazyUIFactory {
         return button
     }
     
-    public class func image(option: ImageOptions) -> UIImageView {
+    open class func image(_ option: ImageOptions) -> UIImageView {
         
         let imageView = option.baseOptions.classType.init(frame: .zero)
         
@@ -332,7 +332,7 @@ public class LazyUIFactory {
         return imageView
     }
     
-    public class func textField(option: TextFieldOptions) -> UITextField {
+    open class func textField(_ option: TextFieldOptions) -> UITextField {
         
         let textField = option.baseOptions.classType.init(frame: .zero)
         
@@ -341,7 +341,7 @@ public class LazyUIFactory {
         return textField
     }
     
-    public class func textView(option: TextViewOptions) -> UITextView {
+    open class func textView(_ option: TextViewOptions) -> UITextView {
         
         let textView = option.baseOptions.classType.init(frame: .zero)
         
@@ -350,7 +350,7 @@ public class LazyUIFactory {
         return textView
     }
     
-    public class func tableView(option: TableViewOptions) -> UITableView {
+    open class func tableView(_ option: TableViewOptions) -> UITableView {
         
         let tableView = option.baseOptions.classType.init(frame: .zero, style: option.style)
         
@@ -361,7 +361,7 @@ public class LazyUIFactory {
         return tableView
     }
     
-    public class func collectionView(option: CollectionViewOptions) -> UICollectionView {
+    open class func collectionView(_ option: CollectionViewOptions) -> UICollectionView {
         
         let collectionView = option.baseOptions.classType.init(frame: .zero, collectionViewLayout: option.collectionViewLayoutType.init())
         
@@ -370,7 +370,7 @@ public class LazyUIFactory {
         return collectionView
     }
     
-    public class func createElement<T>(option: T) -> UIView? {
+    open class func createElement<T>(_ option: T) -> UIView? {
         
         var v: UIView?
         
@@ -431,7 +431,7 @@ public class LazyUIFactory {
         return v
     }
     
-    public class func updateElement<U: UIView, T>(view: U, elementOptions: T) {
+    open class func updateElement<U: UIView, T>(_ view: U, elementOptions: T) {
         
         if let elementOptions = elementOptions as? ElementOptions {
             

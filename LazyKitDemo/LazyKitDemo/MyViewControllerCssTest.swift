@@ -15,7 +15,7 @@ class MyViewControllerCssTest: LazyBaseViewController <MyCssConfigurations> {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .white
     }
 	
 	override func viewDidUpdate() {
@@ -29,7 +29,7 @@ class MyViewControllerCssTest: LazyBaseViewController <MyCssConfigurations> {
 		
 		viewManager.updateElement("button", type: UIButton.self) { (element) -> Void in
 			
-			element.addTarget(self, action: "swapTheme", forControlEvents: .TouchUpInside)
+			element.addTarget(self, action: #selector(MyViewControllerCssTest.swapTheme), for: .touchUpInside)
 		}
 	}
 	

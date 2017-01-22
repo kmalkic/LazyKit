@@ -18,7 +18,7 @@ internal class LazyImage {
 				
 				if self.tintColor != nil {
 					
-					return newImage.imageWithRenderingMode(.AlwaysTemplate)
+					return newImage.withRenderingMode(.alwaysTemplate)
 				}
 				
 				return newImage
@@ -34,33 +34,33 @@ internal class LazyImage {
     
     var contentMode: LazyViewContentMode?
     
-    func setupContentModeWithString(string: String) {
+    func setupContentModeWithString(_ string: String) {
 		
 		switch string {
 		
 		case "scaleToFit":
-			contentMode = .ScaleAspectFit
+			contentMode = .scaleAspectFit
 			
 		case "scaleToFill":
-			contentMode = .ScaleAspectFill
+			contentMode = .scaleAspectFill
 			
 		case "center":
-			contentMode = .Center
+			contentMode = .center
 			
 		case "top":
-			contentMode = .Top
+			contentMode = .top
 			
 		case "left":
-			contentMode = .Left
+			contentMode = .left
 			
 		case "bottom":
-			contentMode = .Bottom
+			contentMode = .bottom
 		
 		case "right":
-			contentMode = .Right
+			contentMode = .right
 			
 		default:
-			contentMode = .ScaleAspectFill
+			contentMode = .scaleAspectFill
 		}
     }
 }

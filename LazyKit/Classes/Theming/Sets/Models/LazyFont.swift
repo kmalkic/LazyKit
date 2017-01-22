@@ -14,17 +14,17 @@ internal class LazyFont {
     
     var fontSize: LazyMeasure?
     
-    func parseFontNames(string:String) -> String {
+    func parseFontNames(_ string:String) -> String {
 		
-        let cleanString = string.stringByReplacingOccurrencesOfString("\"", withString: "").stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
-        let components = cleanString.componentsSeparatedByString(",")
+        let cleanString = string.replacingOccurrences(of: "\"", with: "").trimmingCharacters(in: .whitespaces)
+        let components = cleanString.components(separatedBy: ",")
 		
-        return components[0].stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
+        return components[0].trimmingCharacters(in: .whitespaces)
     }
     
     func font() -> UIFont! {
 		
-        if let fontName = fontName, fontSize = fontSize?.value {
+        if let fontName = fontName, let fontSize = fontSize?.value {
 			
             return UIFont(name: fontName, size: fontSize)
 			
@@ -34,10 +34,10 @@ internal class LazyFont {
 			
         } else if let fontSize = fontSize?.value {
 			
-            return UIFont.systemFontOfSize(fontSize)
+            return UIFont.systemFont(ofSize: fontSize)
         }
 		
-        return UIFont.systemFontOfSize(12)
+        return UIFont.systemFont(ofSize: 12)
     }
 
 }

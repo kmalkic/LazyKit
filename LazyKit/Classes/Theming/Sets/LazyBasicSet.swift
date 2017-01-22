@@ -28,7 +28,7 @@ internal class LazyBasicSet {
         
     }
     
-    private func fetchImage() -> LazyImage! {
+    fileprivate func fetchImage() -> LazyImage! {
 		
         if image == nil {
 			
@@ -38,17 +38,17 @@ internal class LazyBasicSet {
         return image!
     }
     
-    private func setImageContentMode(contentMode contentMode: String) {
+    fileprivate func setImageContentMode(contentMode: String) {
 		
         let tmpImage = fetchImage()
-        tmpImage.setupContentModeWithString(contentMode)
+        tmpImage?.setupContentModeWithString(contentMode)
     }
     
     init?(content: [String]!, variables: [String: String]?) {
         
         for property in content {
             
-            let components = property.componentsSeparatedByString(":")
+            let components = property.components(separatedBy: ":")
             if components.count != 2 {
                 print("Invalid property should be 'key: value'\n")
                 print(components)
@@ -56,8 +56,8 @@ internal class LazyBasicSet {
                 return nil
             }
             
-            let key = components[0].stringByReplacingOccurrencesOfString(" ", withString: "")
-            let rawValue = components[1].stringByTrimmingCharactersInSet(.whitespaceCharacterSet()).stringByReplacingOccurrencesOfString(";", withString: "")
+            let key = components[0].replacingOccurrences(of: " ", with: "")
+            let rawValue = components[1].trimmingCharacters(in: .whitespaces).replacingOccurrences(of: ";", with: "")
             
 			var value = rawValue
 			
@@ -69,25 +69,25 @@ internal class LazyBasicSet {
             switch key {
             
             case kBackgroundKey, kBackgroundColorKey:
-                if value.rangeOfString("rgb(") != nil || value.rangeOfString("rgba(") != nil || value.rangeOfString("#") != nil {
+                if value.range(of: "rgb(") != nil || value.range(of: "rgba(") != nil || value.range(of: "#") != nil {
 					
                     backgroundColor = LazyColor(anyString: value)
                 }
                 
             case kTintColorKey:
-                if value.rangeOfString("rgb(") != nil || value.rangeOfString("rgba(") != nil || value.rangeOfString("#") != nil {
+                if value.range(of: "rgb(") != nil || value.range(of: "rgba(") != nil || value.range(of: "#") != nil {
 					
                     tintColor = LazyColor(anyString: value)
                 }
                 
             case kBarTintColorKey:
-                if value.rangeOfString("rgb(") != nil || value.rangeOfString("rgba(") != nil || value.rangeOfString("#") != nil {
+                if value.range(of: "rgb(") != nil || value.range(of: "rgba(") != nil || value.range(of: "#") != nil {
 					
                     barTintColor = LazyColor(anyString: value)
                 }
                 
             case kBackgroundImageKey:
-                if value.rangeOfString("url(") != nil {
+                if value.range(of: "url(") != nil {
 					
                     //TODO
 					
@@ -100,7 +100,7 @@ internal class LazyBasicSet {
                 setImageContentMode(contentMode: value)
                 
             case kBackgroundImageTintColorKey:
-                if value.rangeOfString("rgb(") != nil || value.rangeOfString("rgba(") != nil || value.rangeOfString("#") != nil {
+                if value.range(of: "rgb(") != nil || value.range(of: "rgba(") != nil || value.range(of: "#") != nil {
 					
                     fetchImage().tintColor = LazyColor(anyString: value)
                 }

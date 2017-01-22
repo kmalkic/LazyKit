@@ -9,14 +9,14 @@
 import UIKit
 
 ///Generic subclass of UIViewController
-public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController {
+open class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController {
     
     public typealias ViewConfigurations = T
     
     /**
      The view manager used on this view controller instance.
      */
-    public private(set) var viewManager: LazyViewManager<T>!
+    open fileprivate(set) var viewManager: LazyViewManager<T>!
     
     deinit {
         
@@ -30,20 +30,24 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
         
         super.init(nibName: nil, bundle: nil)
     }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         
         super.viewDidLoad()
         
         if let _ = view as? LazyBaseView<T> {
         
-            NSException(name: "Multiple use of LazyViewConfigurations", reason: "self.view cannot be also using a LazyViewConfigurations", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Multiple use of LazyViewConfigurations"), reason: "self.view cannot be also using a LazyViewConfigurations", userInfo: nil).raise()
         }
         
         setup()
     }
     
-	private func setup() {
+	fileprivate func setup() {
 		
 		viewManager = LazyViewManager(view: view)
 		
@@ -76,7 +80,7 @@ public class LazyBaseViewController<T: LazyViewConfigurations>: UIViewController
 	/**
 	Called after the view has been updated from the view configurations. Would be called also after kUpdateStylesNotificationKey was posted
 	*/
-	public func viewDidUpdate() {
+	open func viewDidUpdate() {
 		
 		
 	}

@@ -24,11 +24,11 @@ internal class LazyStyleSet : NSObject {
     
     init(elementName: String!, content: [String]!, variables: [String: String]?) {
         
-        let separatedPatterns = elementName.componentsSeparatedByString(",")
+        let separatedPatterns = elementName.components(separatedBy: ",")
                 
         for (pattern) in separatedPatterns {
             
-            patterns.append(pattern.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()))
+            patterns.append(pattern.trimmingCharacters(in: CharacterSet.whitespaces))
         }
         
         basicSet        = LazyBasicSet(content: content, variables: variables)

@@ -20,20 +20,20 @@ internal class LazyTextAlignment {
     
     init(string: String) {
         if string == "left" {
-            alignment = .Left
-            contentHorizontalAlignment = .Left
+            alignment = .left
+            contentHorizontalAlignment = .left
             
         } else if string == "right" {
-            alignment = .Right
-            contentHorizontalAlignment = .Right
+            alignment = .right
+            contentHorizontalAlignment = .right
             
         } else if string == "center" {
-            alignment = .Center
-            contentHorizontalAlignment = .Center
+            alignment = .center
+            contentHorizontalAlignment = .center
             
         } else if string == "justify" {
-            alignment = .Justified
-            contentHorizontalAlignment = .Fill
+            alignment = .justified
+            contentHorizontalAlignment = .fill
             
         }
     }

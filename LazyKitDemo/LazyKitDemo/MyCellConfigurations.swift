@@ -15,16 +15,16 @@ struct MyCellConfigurations: LazyViewConfigurations {
         
         return [
             LabelOptions(identifier: "title",
-                textOptions: TextBaseOptions(text: "title", font: .systemFontOfSize(16), textAlignment: .Left)
+                textOptions: TextBaseOptions(text: "title", font: .systemFont(ofSize: 16), textAlignment: .left)
             ),
             
             LabelOptions(identifier: "subtitle",
-                textOptions: TextBaseOptions(text: "subtitle", font: .systemFontOfSize(12), textAlignment: .Left)
+                textOptions: TextBaseOptions(text: "subtitle", font: .systemFont(ofSize: 12), textAlignment: .left)
             ),
             
             ImageOptions(identifier: "photo",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGrayColor()),
-                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .ScaleAspectFill)
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .lightGray),
+                imageBaseOptions: ImageBaseOptions(imageNamed: "image", contentMode: .scaleAspectFill)
             )
         ]
     }
@@ -34,14 +34,14 @@ struct MyCellConfigurations: LazyViewConfigurations {
         return [
             VisualFormatConstraintOptions(string: "H:|[photo(==photoW)]-[title]-|"),
             VisualFormatConstraintOptions(string: "H:[subtitle(==title)]"),
-            VisualFormatConstraintOptions(string: "V:|[title][subtitle]|", options: .AlignAllLeft),
+            VisualFormatConstraintOptions(string: "V:|[title][subtitle]|", options: .alignAllLeft),
             VisualFormatConstraintOptions(string: "V:|[photo]|")
         ]
     }
     
     static func visualFormatMetrics() -> [String: AnyObject]? {
         
-        return ["photoW" : 80]
+        return ["photoW" : 80 as AnyObject]
     }
     
     static func layoutConstraints() -> [ConstraintOptions]? {

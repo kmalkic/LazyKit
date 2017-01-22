@@ -14,7 +14,7 @@ internal class LazyTextDecoration {
     var strikethrough: LazyBool?
     var color: LazyColor?
     
-	func setup(string: String) {
+	func setup(_ string: String) {
 		
 		switch string {
 		

@@ -20,12 +20,12 @@ class MyViewControllerTest1: LazyBaseViewController <MyConfigurations> {
 		
 		super.viewDidLoad()
 		
-		view.backgroundColor = .whiteColor()
+		view.backgroundColor = .white
 
 		
 		//Example of ways to update an element:
 		
-        viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
+        _ = viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
 		
 		viewManager.updateElement("title", type: UILabel.self) { (element) -> Void in
 			
@@ -47,10 +47,10 @@ class MyViewControllerTest1: LazyBaseViewController <MyConfigurations> {
 		
 		
 		//Others
-        viewManager.updateElement("button", elementOptions: ButtonOptions(textOptionsForType: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")]))
+        _ = viewManager.updateElement("button", elementOptions: ButtonOptions(textOptionsForType: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")]))
         
-        viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
+        _ = viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
         
-        viewManager.updateElement("textfield", elementOptions: TextFieldOptions(textOptions: TextBaseOptions(text: "Done", textColor: .greenColor()), placeholderOptions: TextBaseOptions(text: "new placeholder")))
+        _ = viewManager.updateElement("textfield", elementOptions: TextFieldOptions(textOptions: TextBaseOptions(text: "Done", textColor: .green), placeholderOptions: TextBaseOptions(text: "new placeholder")))
     }
 }

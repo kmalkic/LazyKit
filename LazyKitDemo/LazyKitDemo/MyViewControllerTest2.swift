@@ -20,7 +20,7 @@ class MyViewControllerTest2: UIViewController {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .white
     }
 }
 
@@ -30,10 +30,14 @@ class MyView: LazyBaseView <MyConfigurations> {
         
         super.init()
         
-        viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
+        _ = viewManager.updateElement("title", elementOptions: LabelOptions(textOptions: TextBaseOptions(text: "Bonjour")))
         
-        viewManager.updateElement("button", elementOptions: ButtonOptions(textOptionsForType: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")]))
+        _ = viewManager.updateElement("button", elementOptions: ButtonOptions(textOptionsForType: [.Normal: TextBaseOptions(text: "Done"), .Highlighted: TextBaseOptions(text: "Highlighted")]))
                 
-        viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
+        _ = viewManager.changeConstantOfLayoutConstaint("titleHeight", constant: 60)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

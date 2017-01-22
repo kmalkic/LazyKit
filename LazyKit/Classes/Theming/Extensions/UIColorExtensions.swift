@@ -11,23 +11,23 @@ import UIKit
 internal extension UIColor {
  
     internal func red() -> CGFloat {
-        let components = CGColorGetComponents(self.CGColor)
-        return components[0]
+        let components = self.cgColor.components
+        return components![0]
     }
     
     internal func blue() -> CGFloat {
-        let components = CGColorGetComponents(self.CGColor)
-        return components[2]
+        let components = self.cgColor.components
+        return components![2]
     }
     
     internal func green() -> CGFloat {
-        let components = CGColorGetComponents(self.CGColor)
-        return components[1]
+        let components = self.cgColor.components
+        return components![1]
     }
     
     internal func alpha() -> CGFloat {
-        let components = CGColorGetComponents(self.CGColor)
-        return components[3]
+        let components = self.cgColor.components
+        return components![3]
     }
     
     internal class func random() -> UIColor {
@@ -40,10 +40,10 @@ internal extension UIColor {
  UnableToScanHexValue:      "Scan hex error"
  MismatchedHexStringLength: "Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8"
  */
-internal enum UIColorInputError : ErrorType {
-    case MissingHashMarkAsPrefix,
-    UnableToScanHexValue,
-    MismatchedHexStringLength
+internal enum UIColorInputError : Error {
+    case missingHashMarkAsPrefix,
+    unableToScanHexValue,
+    mismatchedHexStringLength
 }
 
 public extension UIColor {
@@ -111,20 +111,19 @@ public extension UIColor {
      */
     public convenience init(rgba_throws rgba: String) throws {
         guard rgba.hasPrefix("#") else {
-            throw UIColorInputError.MissingHashMarkAsPrefix
+            throw UIColorInputError.missingHashMarkAsPrefix
         }
         
-        guard let hexString: String = rgba.substringFromIndex(rgba.startIndex.advancedBy(1)),
-            var   hexValue:  UInt32 = 0
-            where NSScanner(string: hexString).scanHexInt(&hexValue) else {
-                throw UIColorInputError.UnableToScanHexValue
+        guard let hexString: String = rgba.substring(from: rgba.characters.index(rgba.startIndex, offsetBy: 1)),
+            var   hexValue:  UInt32 = 0, Scanner(string: hexString).scanHexInt32(&hexValue) else {
+                throw UIColorInputError.unableToScanHexValue
         }
         
         guard hexString.characters.count  == 3
             || hexString.characters.count == 4
             || hexString.characters.count == 6
             || hexString.characters.count == 8 else {
-                throw UIColorInputError.MismatchedHexStringLength
+                throw UIColorInputError.mismatchedHexStringLength
         }
         
         switch (hexString.characters.count) {
@@ -144,11 +143,11 @@ public extension UIColor {
      
      - parameter rgba: String value.
      */
-    public convenience init(rgba: String, defaultColor: UIColor = UIColor.clearColor()) {
+    public convenience init(rgba: String, defaultColor: UIColor = UIColor.clear) {
         guard let color = try? UIColor(rgba_throws: rgba) else {
-            self.init(CGColor: defaultColor.CGColor)
+            self.init(cgColor: defaultColor.cgColor)
             return
         }
-        self.init(CGColor: color.CGColor)
+        self.init(cgColor: color.cgColor)
     }
 }

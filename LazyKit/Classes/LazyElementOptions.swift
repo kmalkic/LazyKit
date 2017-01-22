@@ -22,13 +22,13 @@ public protocol ElementOptions {
      
      - parameter block: A block that returns the styleId and styleClass
      */
-	func getStyleIdentifiers(block: (styleId: String?, styleClass: String?) -> Void)
+	func getStyleIdentifiers(_ block: (_ styleId: String?, _ styleClass: String?) -> Void)
     /**
      Get the ui identifier 
      
      - parameter block: A block that returns the identifier
      */
-	func getStyleIdentifier(block: (identifier: String) -> Void)
+	func getStyleIdentifier(_ block: (_ identifier: String) -> Void)
 }
 
 public extension ElementOptions {
@@ -38,18 +38,18 @@ public extension ElementOptions {
 	
 	- parameter block: A block that returns the styleId and styleClass
 	*/
-	public func getStyleIdentifiers(block: (styleId: String?, styleClass: String?) -> Void) {
+	public func getStyleIdentifiers(_ block: (_ styleId: String?, _ styleClass: String?) -> Void) {
 		
 		switch self {
 			
-		case let elementOptions as LabelOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
-		case let elementOptions as ButtonOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
-		case let elementOptions as TextFieldOptions:		block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
-		case let elementOptions as TextViewOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
-		case let elementOptions as ImageOptions:			block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
-		case let elementOptions as TableViewOptions:		block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
-		case let elementOptions as CollectionViewOptions:	block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
-		case let elementOptions as ViewOptions:				block(styleId: elementOptions.baseOptions.styleId, styleClass: elementOptions.baseOptions.styleClass)
+		case let elementOptions as LabelOptions:			block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
+		case let elementOptions as ButtonOptions:			block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
+		case let elementOptions as TextFieldOptions:		block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
+		case let elementOptions as TextViewOptions:			block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
+		case let elementOptions as ImageOptions:			block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
+		case let elementOptions as TableViewOptions:		block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
+		case let elementOptions as CollectionViewOptions:	block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
+		case let elementOptions as ViewOptions:				block(elementOptions.baseOptions.styleId, elementOptions.baseOptions.styleClass)
 			
 		default: break
 		}
@@ -60,7 +60,7 @@ public extension ElementOptions {
 	
 	- parameter block: A block that returns the identifier
 	*/
-	public func getStyleIdentifier(block: (identifier: String) -> Void) {
+	public func getStyleIdentifier(_ block: (_ identifier: String) -> Void) {
 		
 		var identifier: String?
 		
@@ -78,7 +78,7 @@ public extension ElementOptions {
 		default: break
 		}
 		
-		if identifier != nil { block(identifier: identifier!) }
+		if identifier != nil { block(identifier!) }
 	}
 }
 
@@ -109,7 +109,7 @@ public struct BaseOptions<T> {
     /**
      Constructor
      */
-	public init(identifier: String? = nil, classType: ElementType.Type = ElementType.self, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: ElementType.Type = ElementType.self, styleId: String? = nil, styleClass: String? = nil) {
 		
 		self.identifier = identifier
 		self.classType = classType
@@ -144,9 +144,9 @@ public struct ViewOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UIView.Type = UIView.self, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: UIView.Type = UIView.self, styleId: String? = nil, styleClass: String? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 	}
 }
 
@@ -181,9 +181,9 @@ public struct LabelOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UILabel.Type = UILabel.self, text: String? = nil, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: UILabel.Type = UILabel.self, text: String? = nil, styleId: String? = nil, styleClass: String? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 		self.textOptions = TextBaseOptions(text: text)
 	}
 }
@@ -217,7 +217,7 @@ public struct ButtonOptions: ElementOptions {
     /**
      Options Constructor
      */
-	public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [LazyControlState: TextBaseOptions]? = nil, imageOptionsForType: [LazyControlState: ImageBaseOptions]? = nil) {
+	public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .custom, viewBaseOptions: ViewBaseOptions? = nil, textOptionsForType: [LazyControlState: TextBaseOptions]? = nil, imageOptionsForType: [LazyControlState: ImageBaseOptions]? = nil) {
 		
 		self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
 		self.viewBaseOptions = viewBaseOptions
@@ -229,9 +229,9 @@ public struct ButtonOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .Custom, texts: [LazyControlState: String]? = nil, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: UIButton.Type = UIButton.self, type: UIButtonType = .custom, texts: [LazyControlState: String]? = nil, styleId: String? = nil, styleClass: String? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 		
 		if let texts = texts {
 			
@@ -280,9 +280,9 @@ public struct ImageOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UIImageView.Type = UIImageView.self, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: UIImageView.Type = UIImageView.self, styleId: String? = nil, styleClass: String? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 	}
 }
 
@@ -332,9 +332,9 @@ public struct TextFieldOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UITextField.Type = UITextField.self, borderStyle: UITextBorderStyle? = nil, text: String? = nil, placeholderText: String? = nil, styleClass: String? = nil, styleId: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+	public init(identifier: String? = nil, classType: UITextField.Type = UITextField.self, borderStyle: UITextBorderStyle? = nil, text: String? = nil, placeholderText: String? = nil, styleId: String? = nil, styleClass: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 		self.borderStyle = borderStyle
 		self.textOptions = TextBaseOptions(text: text)
 		self.placeholderOptions = TextBaseOptions(text: placeholderText)
@@ -378,9 +378,9 @@ public struct TextViewOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UITextView.Type = UITextView.self, text: String? = nil, styleClass: String? = nil, styleId: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
+	public init(identifier: String? = nil, classType: UITextView.Type = UITextView.self, text: String? = nil, styleId: String? = nil, styleClass: String? = nil, textInputOptions: TextInputBaseOptions? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 		self.textOptions = TextBaseOptions(text: text)
 		self.textInputOptions = textInputOptions
 	}
@@ -402,16 +402,16 @@ public struct TableViewOptions: ElementOptions {
     /**
      The style of the table view.
      */
-	public var style: UITableViewStyle = .Plain
+	public var style: UITableViewStyle = .plain
 	/**
 	The style for cells used as separators.
 	*/
-	public var cellSeparatorStyle: UITableViewCellSeparatorStyle = .SingleLine
+	public var cellSeparatorStyle: UITableViewCellSeparatorStyle = .singleLine
 	
     /**
      Options Constructor
      */
-	public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .Plain, cellSeparatorStyle: UITableViewCellSeparatorStyle = .SingleLine, viewBaseOptions: ViewBaseOptions? = nil) {
+	public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .plain, cellSeparatorStyle: UITableViewCellSeparatorStyle = .singleLine, viewBaseOptions: ViewBaseOptions? = nil) {
 		
 		self.baseOptions = BaseOptions(identifier: identifier, classType: classType)
 		self.viewBaseOptions = viewBaseOptions
@@ -422,9 +422,9 @@ public struct TableViewOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .Plain, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: UITableView.Type = UITableView.self, style: UITableViewStyle = .plain, styleId: String? = nil, styleClass: String? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 		self.style = style
 	}
 }
@@ -460,9 +460,9 @@ public struct CollectionViewOptions: ElementOptions {
     /**
      CSS Constructor
      */
-	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, styleClass: String? = nil, styleId: String? = nil) {
+	public init(identifier: String? = nil, classType: UICollectionView.Type = UICollectionView.self, collectionViewLayoutType: UICollectionViewLayout.Type = UICollectionViewLayout.self, styleId: String? = nil, styleClass: String? = nil) {
 		
-		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleClass: styleClass, styleId: styleId)
+		self.baseOptions = BaseOptions(identifier: identifier, classType: classType, styleId: styleId, styleClass: styleClass)
 		self.collectionViewLayoutType = collectionViewLayoutType
 	}
 }

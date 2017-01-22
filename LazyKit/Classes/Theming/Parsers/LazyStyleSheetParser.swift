@@ -10,18 +10,18 @@ internal protocol LazyStyleSheetParser {
     
     weak var delegate:LazyStyleSheetParserDelegate? { get set }
     
-    func parseSource(sourcePath:String?, delegate:LazyStyleSheetParserDelegate?)
+    func parseSource(_ sourcePath:String?, delegate:LazyStyleSheetParserDelegate?)
     
-    func parseData(fileData:NSData?, delegate:LazyStyleSheetParserDelegate?)
+    func parseData(_ fileData:Data?, delegate:LazyStyleSheetParserDelegate?)
     
-    func parseContentString(contentString:String?, delegate:LazyStyleSheetParserDelegate?)
+    func parseContentString(_ contentString:String?, delegate:LazyStyleSheetParserDelegate?)
     
 }
 
 internal protocol LazyStyleSheetParserDelegate : NSObjectProtocol {
     
-    func didFinishParsing(parser: LazyStyleSheetParser, styleSets: Array<LazyStyleSet>!)
+    func didFinishParsing(_ parser: LazyStyleSheetParser, styleSets: Array<LazyStyleSet>!)
     
-    func didFailParsing(parser: LazyStyleSheetParser, error: NSError)
+    func didFailParsing(_ parser: LazyStyleSheetParser, error: NSError)
     
 }

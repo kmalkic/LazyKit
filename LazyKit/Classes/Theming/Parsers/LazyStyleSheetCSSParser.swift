@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal func matchesForRegexInText(regex: String!, text: String?) -> [String]? {
+internal func matchesForRegexInText(_ regex: String!, text: String?) -> [String]? {
 	
 	guard let text = text else {
 	
@@ -16,10 +16,10 @@ internal func matchesForRegexInText(regex: String!, text: String?) -> [String]? 
 	}
 	
     do {
-        let regex = try NSRegularExpression(pattern: regex, options: .CaseInsensitive)
+        let regex = try NSRegularExpression(pattern: regex, options: .caseInsensitive)
         let nsString = text as NSString
-        let results = regex.matchesInString(text, options: .ReportCompletion, range: NSMakeRange(0, nsString.length))
-        return results.map({ nsString.substringWithRange($0.range) })
+        let results = regex.matches(in: text, options: .reportCompletion, range: NSMakeRange(0, nsString.length))
+        return results.map({ nsString.substring(with: $0.range) })
         
     } catch {
         
@@ -31,12 +31,12 @@ internal class LazyStyleSheetCSSParser: LazyStyleSheetParser {
     
     weak var delegate:LazyStyleSheetParserDelegate?
     
-    func parseSource(sourcePath:String?, delegate:LazyStyleSheetParserDelegate?) {
+    func parseSource(_ sourcePath:String?, delegate:LazyStyleSheetParserDelegate?) {
         
         parseContentString(sourcePath, delegate: delegate)
     }
 
-    func parseData(fileData:NSData?, delegate:LazyStyleSheetParserDelegate?) {
+    func parseData(_ fileData:Data?, delegate:LazyStyleSheetParserDelegate?) {
         
         guard let fileData = fileData else {
             
@@ -44,12 +44,12 @@ internal class LazyStyleSheetCSSParser: LazyStyleSheetParser {
             return
         }
         
-        let contentString = NSString(data: fileData,encoding: NSUTF8StringEncoding) as! String
+        let contentString = NSString(data: fileData,encoding: String.Encoding.utf8.rawValue) as! String
                 
         parseContentString(contentString, delegate: delegate)
     }
     
-    func parseContentString(contentString:String?, delegate:LazyStyleSheetParserDelegate?) {
+    func parseContentString(_ contentString:String?, delegate:LazyStyleSheetParserDelegate?) {
         
         self.delegate = delegate
         
@@ -59,7 +59,7 @@ internal class LazyStyleSheetCSSParser: LazyStyleSheetParser {
             return
         }
         
-        guard let styleSets = parseContent(contentString) else {
+        guard let styleSets = parseContent(contentString as NSString?) else {
             
             delegate?.didFailParsing(self, error: NSError(domain: "Parsing error", code: 0, userInfo: ["reason" : "Something when wrong while parsing the source."]))
             return
@@ -68,17 +68,17 @@ internal class LazyStyleSheetCSSParser: LazyStyleSheetParser {
         delegate?.didFinishParsing(self, styleSets: styleSets)
     }
     
-    private func cleanElementName(string:String?) -> String? {
+    fileprivate func cleanElementName(_ string:String?) -> String? {
         
-        return string?.stringByReplacingOccurrencesOfString("{", withString: "").stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
+        return string?.replacingOccurrences(of: "{", with: "").trimmingCharacters(in: .whitespaces)
     }
     
-    private func cleanProperty(string:String?) -> String? {
+    fileprivate func cleanProperty(_ string:String?) -> String? {
         
-        return string?.stringByReplacingOccurrencesOfString(":", withString: "").stringByReplacingOccurrencesOfString(";", withString: "").stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
+        return string?.replacingOccurrences(of: ":", with: "").replacingOccurrences(of: ";", with: "").trimmingCharacters(in: .whitespaces)
     }
     
-    private func parseContent(content: NSString?) -> Array<LazyStyleSet>? {
+    fileprivate func parseContent(_ content: NSString?) -> Array<LazyStyleSet>? {
         
         let contentString = content as! String
         
@@ -94,14 +94,14 @@ internal class LazyStyleSheetCSSParser: LazyStyleSheetParser {
                 variableValue = cleanProperty(variableValue)
                 variableName = cleanProperty(variableName)
                 
-                if let variableName = variableName, variableValue = variableValue {
+                if let variableName = variableName, let variableValue = variableValue {
                     
                     variablesDict[variableName] = variableValue
                 }
             }
         }
         
-        let newContentString = contentString.stringByReplacingOccurrencesOfString("\n", withString: "")
+        let newContentString = contentString.replacingOccurrences(of: "\n", with: "")
         
         var styleSets = [LazyStyleSet]();
         

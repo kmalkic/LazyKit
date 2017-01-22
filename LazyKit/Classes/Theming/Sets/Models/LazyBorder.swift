@@ -7,12 +7,36 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 internal enum LazyBorderSide: Int {
-    case Top
-    case Left
-    case Bottom
-    case Right
+    case top
+    case left
+    case bottom
+    case right
 }
 
 let kBorderWidthRegex = "([0-9px]+)"
@@ -63,7 +87,7 @@ internal class LazyBorder: LazyMeasure {
 		color = LazyColor(anyString: colorString)
     }
 	
-    func setupColor(colorString: String?) {
+    func setupColor(_ colorString: String?) {
 		
         color = LazyColor(anyString: colorString)
     }
@@ -89,7 +113,7 @@ internal class LazyBorders {
 	
     //MARK: - Borders
 	
-    func setupBorder(key: String, value: String) {
+    func setupBorder(_ key: String, value: String) {
 		
 		let regexes = [
 			"^\(kBorderWidthRegex)$",
@@ -101,7 +125,7 @@ internal class LazyBorders {
 		threatBorders(regexes, value: value)
     }
     
-    func setupBorderWidth(key:String, value:String) {
+    func setupBorderWidth(_ key:String, value:String) {
 		
 		let regexes = [
 			"^\(kBorderWidthRegex)$",
@@ -112,7 +136,7 @@ internal class LazyBorders {
 		threatBorders(regexes, value: value)
     }
     
-    func setupBorderColor(key:String, value:String) {
+    func setupBorderColor(_ key:String, value:String) {
         
 		let regexes = [
 			"^\(kBorderColorRegex)$"
@@ -121,7 +145,7 @@ internal class LazyBorders {
 		threatBorders(regexes, value: value)
     }
     
-	private func threatBorders(regexes:[String], value:String) {
+	fileprivate func threatBorders(_ regexes:[String], value:String) {
 		
 		for regex in regexes {
 			
@@ -136,7 +160,7 @@ internal class LazyBorders {
 		}
 	}
 	
-	private func merge(left left:LazyBorder?, right:LazyBorder) -> LazyBorder {
+	fileprivate func merge(left:LazyBorder?, right:LazyBorder) -> LazyBorder {
 		
 		let object = LazyBorder()
 		object.color = right.color ?? left?.color
@@ -155,7 +179,7 @@ internal class LazyBorders {
         
 		var values = [LazyMeasure](); if let top = top { values.append(top) }; if let left = left { values.append(left) }; if let bottom = bottom { values.append(bottom) }; if let right = right { values.append(right) };
         
-        let result = values.sort { (a, b) -> Bool in
+        let result = values.sorted { (a, b) -> Bool in
             
             return (a.value > b.value)
         }
@@ -170,7 +194,7 @@ internal class LazyBorders {
     
     //MARK: - Radius
 	
-    func setupBorderRadius(key:String, value:String) {
+    func setupBorderRadius(_ key:String, value:String) {
 		
 		let regexes = [
 			"^\(kBorderWidthRegex)$",
@@ -180,7 +204,7 @@ internal class LazyBorders {
 		threatBordersRadius(regexes, value: value)
     }
 	
-	private func threatBordersRadius(regexes:[String], value:String) {
+	fileprivate func threatBordersRadius(_ regexes:[String], value:String) {
 		
 		for regex in regexes {
 			
@@ -197,7 +221,7 @@ internal class LazyBorders {
 		assignRectCorners()
 	}
 	
-    private func assignRectCorners() {
+    fileprivate func assignRectCorners() {
 		
         rectCorner = nil
         
@@ -205,11 +229,11 @@ internal class LazyBorders {
 			
 			if let rectCorner = rectCorner {
 				
-				self.rectCorner = [rectCorner, .TopLeft]
+				self.rectCorner = [rectCorner, .topLeft]
 				
 			} else {
 				
-				rectCorner = .TopLeft
+				rectCorner = .topLeft
 			}
 		}
 		
@@ -217,11 +241,11 @@ internal class LazyBorders {
 			
 			if let rectCorner = rectCorner {
 				
-				self.rectCorner = [rectCorner, .TopRight]
+				self.rectCorner = [rectCorner, .topRight]
 				
 			} else {
 				
-				rectCorner = .TopRight
+				rectCorner = .topRight
 			}
 		}
 		
@@ -229,11 +253,11 @@ internal class LazyBorders {
 			
             if let rectCorner = rectCorner {
 				
-				self.rectCorner = [rectCorner, .BottomRight]
+				self.rectCorner = [rectCorner, .bottomRight]
 				
 			} else {
 				
-				rectCorner = .BottomRight
+				rectCorner = .bottomRight
 			}
         }
         
@@ -241,11 +265,11 @@ internal class LazyBorders {
 			
 			if let rectCorner = rectCorner {
 				
-				self.rectCorner = [rectCorner, .BottomLeft]
+				self.rectCorner = [rectCorner, .bottomLeft]
 				
 			} else {
 				
-				rectCorner = .BottomLeft
+				rectCorner = .bottomLeft
 			}
 		}
     }
@@ -264,7 +288,7 @@ internal class LazyBorders {
 		
 		var values = [LazyMeasure](); if let measure = cornerRadiusBottomLeft { values.append(measure) }; if let measure = cornerRadiusBottomRight { values.append(measure) }; if let measure = cornerRadiusTopRight { values.append(measure) }; if let measure = cornerRadiusTopLeft { values.append(measure) };
 		
-		let result = values.sort { (a, b) -> Bool in
+		let result = values.sorted { (a, b) -> Bool in
 			
 			return (a.value > b.value)
 		}
@@ -279,11 +303,11 @@ internal class LazyBorders {
 	
 	//MARK: Utils
 	
-	private func stringBorderEdgesFromMatches(matches:[String]?) -> LazyStringBorderEdges? {
+	fileprivate func stringBorderEdgesFromMatches(_ matches:[String]?) -> LazyStringBorderEdges? {
 		
 		if let matches = matches {
 			
-			if let components = matches.first?.componentsSeparatedByString(" ") {
+			if let components = matches.first?.components(separatedBy: " ") {
 				
 				if matchesForRegexInText(kBorderColorRegex, text: components.last) != nil {
 					
@@ -328,11 +352,11 @@ internal class LazyBorders {
 		return nil
 	}
 	
-	private func stringBorderRadiusEdgesFromMatches(matches:[String]?) -> LazyStringBorderRadiusEdges? {
+	fileprivate func stringBorderRadiusEdgesFromMatches(_ matches:[String]?) -> LazyStringBorderRadiusEdges? {
 		
 		if let matches = matches {
 			
-			if let components = matches.first?.componentsSeparatedByString(" ") {
+			if let components = matches.first?.components(separatedBy: " ") {
 				
 				if matchesForRegexInText(kBorderWidthRegex, text: components.last) != nil {
 					

@@ -53,11 +53,11 @@ internal class LazyEdges {
 		}
     }
 	
-    private func stringEdgesFromMatches(matches:[String]?) -> LazyStringEdges? {
+    fileprivate func stringEdgesFromMatches(_ matches:[String]?) -> LazyStringEdges? {
         
         if let matches = matches {
 			
-			if let components = matches.first?.componentsSeparatedByString(" ") {
+			if let components = matches.first?.components(separatedBy: " ") {
 			
 				switch components.count {
 				

@@ -9,9 +9,9 @@
 import UIKit
 
 ///This is because UIControleState was not Hashable, and making "extension LazyControlState : Hashable {" caused an invalid linkage type error while compiling in release
-public struct LazyControlState : OptionSetType {
+public struct LazyControlState : OptionSet {
     
-    private var value: UInt = 0
+    fileprivate var value: UInt = 0
     
     init(_ value: UInt) { self.value = value }
     /** 
@@ -52,13 +52,13 @@ public struct LazyControlState : OptionSetType {
         switch self.value {
             
         case 0:
-            return .Normal
+            return UIControlState()
         case 1 << 0:
-            return .Highlighted
+            return .highlighted
         case 1 << 1:
-            return .Disabled
+            return .disabled
         case 1 << 2:
-            return .Selected
+            return .selected
         default:
             break
         }

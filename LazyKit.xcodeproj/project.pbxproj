@@ -254,6 +254,7 @@
 					49C435DA1C4836090070728B = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 586B4BE6BL;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -436,6 +437,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kevinmalkic.LazyKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -457,6 +459,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kevinmalkic.LazyKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

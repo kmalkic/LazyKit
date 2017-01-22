@@ -9,14 +9,14 @@
 import UIKit
 
 ///Generic subclass of UIView
-public class LazyBaseView<T: LazyViewConfigurations>: UIView {
+open class LazyBaseView<T: LazyViewConfigurations>: UIView {
     
     public typealias ViewConfigurations = T
     
     /**
      The view manager used on this view instance.
      */
-    public private(set) var viewManager: LazyViewManager<T>!
+    open fileprivate(set) var viewManager: LazyViewManager<T>!
     
     deinit {
         
@@ -42,8 +42,12 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
         
         setup()
     }
+
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-	private func setup() {
+	fileprivate func setup() {
 		
 		viewManager = LazyViewManager(view: self)
 		
@@ -76,7 +80,7 @@ public class LazyBaseView<T: LazyViewConfigurations>: UIView {
 	/**
 	Called after the view has been updated from the view configurations. Would be called also after kUpdateStylesNotificationKey was posted
 	*/
-	public func viewDidUpdate() {
+	open func viewDidUpdate() {
 		
 		
 	}

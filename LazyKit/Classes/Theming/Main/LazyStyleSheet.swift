@@ -11,8 +11,8 @@ import UIKit
 
 internal enum LazyStyleSheetParserType : Int {
     
-    case JSON
-    case CSS
+    case json
+    case css
 }
 
 internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
@@ -21,13 +21,13 @@ internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
     
     var bodyStyle: LazyStyleSet?
     
-    func startParsingFileAtUrl(url: NSURL, parserType: LazyStyleSheetParserType) -> Bool {
+    func startParsingFileAtUrl(_ url: URL, parserType: LazyStyleSheetParserType) -> Bool {
         
         let parser: LazyStyleSheetParser?
         
         switch parserType {
             
-        case .CSS:
+        case .css:
             parser = LazyStyleSheetCSSParser()
             
         default:
@@ -39,16 +39,16 @@ internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
             return false
         }
         
-        parser!.parseData(NSData(contentsOfURL: url), delegate: self)
+        parser!.parseData(try? Data(contentsOf: url), delegate: self)
         
         return true
     }
     
-    func styleThatMatchView(view: UIView, styleId: String?, styleClass: String?) -> LazyStyleSet? {
+    func styleThatMatchView(_ view: UIView, styleId: String?, styleClass: String?) -> LazyStyleSet? {
         
         var newStyleSet: LazyStyleSet? = bodyStyle ?? LazyStyleSet()
         
-        let possibilities = possibilityPatterns(view.dynamicType, styleClass: styleClass, styleId: styleId)
+        let possibilities = possibilityPatterns(type(of: view), styleClass: styleClass, styleId: styleId)
         
         let styleSetsTmp = styleSets
         
@@ -64,7 +64,7 @@ internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
         return newStyleSet
     }
     
-    func possibilityPatterns(klass:AnyClass, styleClass: String?, styleId: String?) -> [String] {
+    func possibilityPatterns(_ klass:AnyClass, styleClass: String?, styleId: String?) -> [String] {
         
         var possibilities = [String]()
         
@@ -74,7 +74,7 @@ internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
         
         if styleClass != nil {
             
-            let klasses = styleClass!.componentsSeparatedByString(" ")
+            let klasses = styleClass!.components(separatedBy: " ")
             
             for klass in klasses {
                 
@@ -103,7 +103,7 @@ internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
         return possibilities
     }
     
-    func testPatterns(patterns patterns: [String], possibilities: [String]) -> Bool {
+    func testPatterns(patterns: [String], possibilities: [String]) -> Bool {
     
         for pattern in patterns {
             
@@ -118,7 +118,7 @@ internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
     
     //MARK - LazyStyleSheetParserDelegate
     
-    func didFinishParsing(parser: LazyStyleSheetParser, styleSets: [LazyStyleSet]!) {
+    func didFinishParsing(_ parser: LazyStyleSheetParser, styleSets: [LazyStyleSet]!) {
         
         self.styleSets += styleSets
         
@@ -145,7 +145,7 @@ internal class LazyStyleSheet: NSObject, LazyStyleSheetParserDelegate {
         }
     }
     
-    func didFailParsing(parser: LazyStyleSheetParser, error: NSError) {
+    func didFailParsing(_ parser: LazyStyleSheetParser, error: NSError) {
         
     }
 }

@@ -8,9 +8,9 @@
 
 import UIKit
 
-internal func count(string: String) -> Int {
+internal func count(_ string: String) -> Int {
 
-    return string.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+    return string.lengthOfBytes(using: String.Encoding.utf8)
 }
 
 internal struct LazyColor {
@@ -31,15 +31,15 @@ internal struct LazyColor {
 			return nil
 		}
 		
-        if anyString.rangeOfString("rgba(") != nil {
+        if anyString.range(of: "rgba(") != nil {
 			
             self.init(rgbaString:anyString)
 			
-        } else if anyString.rangeOfString("rgb(") != nil {
+        } else if anyString.range(of: "rgb(") != nil {
 			
             self.init(rgbString:anyString)
 			
-        } else if anyString.rangeOfString("#") != nil {
+        } else if anyString.range(of: "#") != nil {
 			
             self.init(hexString:anyString)
 			
@@ -51,13 +51,13 @@ internal struct LazyColor {
     
     init(hexString: String) {
     
-        var colorString = hexString.stringByReplacingOccurrencesOfString("#", withString:"").stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
+        var colorString = hexString.replacingOccurrences(of: "#", with:"").trimmingCharacters(in: .whitespaces)
         
-        let range:NSRange = (colorString as NSString).rangeOfString(" ")
+        let range:NSRange = (colorString as NSString).range(of: " ")
         
         if range.location != NSNotFound {
             
-            colorString = (colorString as NSString).substringToIndex(range.location)
+            colorString = (colorString as NSString).substring(to: range.location)
         }
         
         switch count(colorString) {
@@ -96,9 +96,9 @@ internal struct LazyColor {
     
     init(rgbString: String) {
         
-        let colorString = rgbString.stringByReplacingOccurrencesOfString("rgb(", withString:"").stringByReplacingOccurrencesOfString(")", withString:"").stringByReplacingOccurrencesOfString(" ", withString:"")
+        let colorString = rgbString.replacingOccurrences(of: "rgb(", with:"").replacingOccurrences(of: ")", with:"").replacingOccurrences(of: " ", with:"")
         
-        let components = colorString.componentsSeparatedByString(",") as Array<String>
+        let components = colorString.components(separatedBy: ",") as Array<String>
         
         if components.count != 3 {
 //            var error: NSError?
@@ -116,9 +116,9 @@ internal struct LazyColor {
     
     init(rgbaString: String) {
 		
-        let colorString = rgbaString.stringByReplacingOccurrencesOfString("rgba(", withString:"").stringByReplacingOccurrencesOfString(")", withString:"").stringByReplacingOccurrencesOfString(" ", withString:"")
+        let colorString = rgbaString.replacingOccurrences(of: "rgba(", with:"").replacingOccurrences(of: ")", with:"").replacingOccurrences(of: " ", with:"")
         
-        let components = colorString.componentsSeparatedByString(",") as Array<String>
+        let components = colorString.components(separatedBy: ",") as Array<String>
         
         if components.count != 4 {
 			
@@ -135,13 +135,13 @@ internal struct LazyColor {
         }
     }
 
-    private func colorComponentFrom(string: String, start: Int, length: Int) -> Float {
+    fileprivate func colorComponentFrom(_ string: String, start: Int, length: Int) -> Float {
         
         let newString = string as NSString
-        let substring = newString.substringWithRange(NSMakeRange(start, length))
+        let substring = newString.substring(with: NSMakeRange(start, length))
         let fullHex = (length == 2) ? substring : String(format:"%@%@",substring,substring)
         var hexComponent: UInt32 = 0
-        NSScanner(string: fullHex).scanHexInt(&hexComponent)
+        Scanner(string: fullHex).scanHexInt32(&hexComponent)
         return Float(hexComponent) / 255.0
     }
     

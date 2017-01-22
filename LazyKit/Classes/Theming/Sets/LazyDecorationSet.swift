@@ -36,7 +36,7 @@ internal class LazyDecorationSet {
         
         for property in content {
             
-            let components = property.componentsSeparatedByString(":")
+            let components = property.components(separatedBy: ":")
 			
             if components.count != 2 {
 				
@@ -46,8 +46,8 @@ internal class LazyDecorationSet {
                 return nil
             }
             
-            let key = components[0].stringByReplacingOccurrencesOfString(" ", withString: "")
-            let rawValue = components[1].stringByTrimmingCharactersInSet(.whitespaceCharacterSet()).stringByReplacingOccurrencesOfString(";", withString: "")
+            let key = components[0].replacingOccurrences(of: " ", with: "")
+            let rawValue = components[1].trimmingCharacters(in: .whitespaces).replacingOccurrences(of: ";", with: "")
             
             var value = rawValue
             

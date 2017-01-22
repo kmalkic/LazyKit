@@ -24,11 +24,11 @@
 * The block of code to execute.
 * The result of passing NULL in this parameter is undefined.
 */
-public func lazy_main_dispatch_after(when: NSTimeInterval, _ block: dispatch_block_t) {
+public func lazy_main_dispatch_after(_ when: TimeInterval, _ block: @escaping ()->()) {
 
-    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(when * NSTimeInterval(NSEC_PER_SEC)))
+    let delayTime = DispatchTime.now() + Double(Int64(when * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
     
-    dispatch_after(delayTime, dispatch_get_main_queue(), block)
+    DispatchQueue.main.asyncAfter(deadline: delayTime, execute: block)
 }
 
 /*!
@@ -53,7 +53,7 @@ public func lazy_main_dispatch_after(when: NSTimeInterval, _ block: dispatch_blo
 * Block_copy() and Block_release() on behalf of callers.
 * The result of passing NULL in this parameter is undefined.
 */
-public func lazy_main_dispatch_async(block: dispatch_block_t) {
+public func lazy_main_dispatch_async(_ block: @escaping ()->()) {
 
-    dispatch_async(dispatch_get_main_queue(), block)
+    DispatchQueue.main.async(execute: block)
 }

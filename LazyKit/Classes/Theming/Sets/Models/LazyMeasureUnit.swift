@@ -32,28 +32,28 @@ internal class LazyMeasure {
         setup(string)
     }
     
-    func setup(string: String?) {
+    func setup(_ string: String?) {
         
         value = valueFromString(string)
         unit = unitFromString(string)
     }
     
-    func unitFromString(string: String?) -> MeasureUnit? {
+    func unitFromString(_ string: String?) -> MeasureUnit? {
 		
 		guard let string = string else {
 		
 			return nil
 		}
 		
-        if string.containsString(MeasureUnit.Pixel.rawValue) {
+        if string.contains(MeasureUnit.Pixel.rawValue) {
 			
             return .Pixel
 			
-        } else if string.containsString(MeasureUnit.Point.rawValue) {
+        } else if string.contains(MeasureUnit.Point.rawValue) {
 			
             return .Point
 			
-        } else if string.containsString(MeasureUnit.Percent.rawValue) {
+        } else if string.contains(MeasureUnit.Percent.rawValue) {
 			
             return .Percent
 			
@@ -65,14 +65,14 @@ internal class LazyMeasure {
         return .Default
     }
     
-    func valueFromString(string: String?) -> LazyFloat? {
+    func valueFromString(_ string: String?) -> LazyFloat? {
 		
 		guard let string = string else {
 			
 			return nil
 		}
 		
-        let convertString = string.stringByReplacingOccurrencesOfString(" ", withString:"") as NSString
+        let convertString = string.replacingOccurrences(of: " ", with:"") as NSString
 		
         var range: NSRange
 		
@@ -80,11 +80,11 @@ internal class LazyMeasure {
         
         for unit in units {
             
-            range = convertString.rangeOfString(unit.rawValue)
+            range = convertString.range(of: unit.rawValue)
             
             if range.location != NSNotFound {
 				
-				let value = (convertString.substringToIndex(range.location) as NSString).floatValue
+				let value = (convertString.substring(to: range.location) as NSString).floatValue
                 
                 return LazyFloat(value)
             }

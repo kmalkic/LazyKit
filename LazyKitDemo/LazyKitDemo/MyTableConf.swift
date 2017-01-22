@@ -15,7 +15,7 @@ struct MyTableConfigurations: LazyViewConfigurations {
         
         return [
             TableViewOptions(identifier: "tableView",
-                viewBaseOptions: ViewBaseOptions(backgroundColor: .whiteColor())
+                viewBaseOptions: ViewBaseOptions(backgroundColor: .white)
             )
         ]
     }
